@@ -3,6 +3,9 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
 body {
@@ -10,6 +13,11 @@ body {
     background-color: #0f1014;
     color: #fff;
     line-height: 1.6;
+    overflow-x: hidden; /* Yatay taşmayı önle */
+}
+
+html {
+    overflow-x: hidden; /* HTML seviyesinde de yatay taşmayı önle */
 }
 
 a {
@@ -30,6 +38,14 @@ img {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+#homepage {
+    width: 100%;
+    overflow: hidden;
 }
 
 /* Header */
@@ -225,16 +241,20 @@ nav ul li a:hover, nav ul li a.active {
     visibility: hidden;
     transition: all 0.4s ease;
     backdrop-filter: blur(5px);
+    display: none; /* Başlangıçta tamamen gizli */
 }
 
 .menu-backdrop.active {
     opacity: 1;
     visibility: visible;
+    display: block; /* Aktif olduğunda görünür */
 }
 
 /* Hero Slider */
 .hero-slider {
     margin-bottom: 50px;
+    width: 100%;
+    overflow: hidden;
 }
 
 .slider-container {
@@ -451,8 +471,10 @@ nav ul li a:hover, nav ul li a.active {
 /* Movie Slider */
 .movie-slider, .series-slider {
     position: relative;
-    margin: 0 -20px;
+    margin: 0;
     padding: 0 20px;
+    width: 100%;
+    overflow: hidden; /* Slider içeriğinin taşmasını önle */
 }
 
 .slider-content {
@@ -464,6 +486,7 @@ nav ul li a:hover, nav ul li a.active {
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
     cursor: grab;
+    width: 100%;
 }
 
 .slider-content::-webkit-scrollbar {
@@ -531,6 +554,8 @@ nav ul li a:hover, nav ul li a.active {
     flex-shrink: 0;
     height: auto;
     margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .movie-card.appear {
@@ -550,6 +575,12 @@ nav ul li a:hover, nav ul li a.active {
     aspect-ratio: 2/3;
     height: 240px;
     max-height: 240px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1; /* Flex ile alan kullanımını optimize eder */
+    background-color: #0a0a0f; /* Arka plan resim yüklenene kadar görünür */
 }
 
 .movie-poster img {
@@ -557,6 +588,21 @@ nav ul li a:hover, nav ul li a.active {
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
+    display: block; /* Resmin tam yerleşmesini sağlar */
+    min-width: 100%; /* Tam genişlik */
+    min-height: 100%; /* Tam yükseklik */
+}
+
+/* Resimlerin yüklenmesini beklerken gösterilecek stil */
+.movie-poster::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #161821 0%, #0a0a0f 100%);
+    z-index: -1;
 }
 
 .movie-overlay {
@@ -872,6 +918,9 @@ footer::before {
 .footer-bottom p {
     color: #aaa;
     font-size: 14px;
+    user-select: text; /* Footer'daki telif hakkı bilgisinin seçilmesine izin ver */
+    -webkit-user-select: text;
+    -ms-user-select: text;
 }
 
 /* Responsive Styles */
@@ -879,7 +928,7 @@ footer::before {
     nav {
         position: fixed;
         top: 0;
-        right: -100%;
+        right: -300px;
         width: 250px;
         height: 100vh;
         background-color: #161821;
@@ -887,10 +936,14 @@ footer::before {
         padding: 70px 20px 20px;
         box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
         transition: right 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        visibility: hidden;
+        opacity: 0;
     }
 
     nav.open {
         right: 0;
+        visibility: visible;
+        opacity: 1;
     }
     
     nav ul {
@@ -919,15 +972,24 @@ footer::before {
 
     header .container {
         justify-content: space-between;
+        flex-wrap: wrap;
     }
 
     .slider-container {
         height: 400px;
+        width: 100%;
     }
     
     .movie-poster {
         height: 220px;
         max-height: 220px;
+        width: 100%;
+    }
+    
+    /* Taşan içeriklere sınırlama getir */
+    .section-header, .category-grid, .footer-content {
+        width: 100%;
+        box-sizing: border-box;
     }
 }
 
@@ -964,6 +1026,7 @@ footer::before {
     .movie-poster {
         height: 200px;
         max-height: 200px;
+        width: 100%;
     }
 }
 
@@ -987,6 +1050,7 @@ footer::before {
     .movie-poster {
         height: 180px;
         max-height: 180px;
+        width: 100%;
     }
 
     .footer-content {
@@ -1039,4 +1103,30 @@ footer::before {
 
 .movie-card:hover {
     animation: pulse 2s infinite;
+}
+
+/* Mobil gezinti için dokunma optimizasyonları */
+.movie-card, .category-item, .btn, 
+.slider-controls button, .dot, 
+.hamburger-menu, nav ul li a, 
+.social-icons a, .search-box button {
+    -webkit-tap-highlight-color: transparent; /* Safari ve mobil tarayıcılarda dokunma vurgusunu engeller */
+    cursor: pointer; /* Daha iyi tıklama deneyimi */
+}
+
+/* Mobil dokunma davranışları iyileştirmeleri */
+a, button, .movie-card, .category-item, .hamburger-menu {
+    touch-action: manipulation; /* Daha hızlı dokunma yanıtı */
+}
+
+/* Arama alanında metin seçimine izin verme */
+.search-box input {
+    user-select: text;
+    -webkit-user-select: text;
+    -ms-user-select: text;
+}
+
+/* Mobil scrolling iyileştirmeleri */
+.slider-content {
+    -webkit-overflow-scrolling: touch; /* iOS için daha akıcı kaydırma */
 } 

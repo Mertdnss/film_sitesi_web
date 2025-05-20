@@ -95,19 +95,54 @@ document.addEventListener('DOMContentLoaded', function() {
         const sensitivity = 1.2; // Scroll sensitivity
         const cardWidth = sliderContent.querySelector('.movie-card').offsetWidth + 20; // card width + gap
         
+        // Check if slider is at the end
+        function checkSliderEnd() {
+            if (sliderContent.scrollWidth - sliderContent.scrollLeft <= sliderContent.clientWidth + 10) {
+                // Eğer slider sona ulaştıysa başa dön
+                sliderContent.scrollTo({
+                    left: 0,
+                    behavior: 'smooth'
+                });
+                return true;
+            }
+            return false;
+        }
+        
+        // Check if slider is at the beginning
+        function checkSliderStart() {
+            if (sliderContent.scrollLeft <= 10) {
+                // Eğer slider başındaysa ve geri gitmeye çalışılıyorsa sona git
+                sliderContent.scrollTo({
+                    left: sliderContent.scrollWidth - sliderContent.clientWidth,
+                    behavior: 'smooth'
+                });
+                return true;
+            }
+            return false;
+        }
+        
         // Click events for buttons
         nextButton.addEventListener('click', () => {
-            sliderContent.scrollBy({
-                left: cardWidth * 3,
-                behavior: 'smooth'
-            });
+            if (!checkSliderEnd()) {
+                sliderContent.scrollBy({
+                    left: cardWidth * 3,
+                    behavior: 'smooth'
+                });
+            }
         });
         
         prevButton.addEventListener('click', () => {
-            sliderContent.scrollBy({
-                left: -cardWidth * 3,
-                behavior: 'smooth'
-            });
+            if (!checkSliderStart()) {
+                sliderContent.scrollBy({
+                    left: -cardWidth * 3,
+                    behavior: 'smooth'
+                });
+            }
+        });
+        
+        // Scroll event to auto-loop
+        sliderContent.addEventListener('scroll', () => {
+            checkSliderEnd();
         });
         
         // Mouse events for drag scrolling
@@ -158,32 +193,47 @@ document.addEventListener('DOMContentLoaded', function() {
         // Transform hamburger to X
         const bars = this.querySelectorAll('.bar');
         bars.forEach(bar => bar.classList.toggle('animate'));
+        
+        // Menü açıkken body'nin scroll'unu engelle
+        if (nav.classList.contains('open')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
     });
 
     // Close mobile menu when clicking outside
     if (backdrop) {
         backdrop.addEventListener('click', function() {
-            nav.classList.remove('open');
-            hamburgerMenu.classList.remove('active');
-            this.classList.remove('active');
-            
-            const bars = hamburgerMenu.querySelectorAll('.bar');
-            bars.forEach(bar => bar.classList.remove('animate'));
+            closeMenu();
         });
+    }
+    
+    // Kapatma fonksiyonu
+    function closeMenu() {
+        nav.classList.remove('open');
+        hamburgerMenu.classList.remove('active');
+        if (backdrop) {
+            backdrop.classList.remove('active');
+        }
+        
+        const bars = hamburgerMenu.querySelectorAll('.bar');
+        bars.forEach(bar => bar.classList.remove('animate'));
+        
+        document.body.style.overflow = '';
     }
 
     // Handle window resize for responsive menu
     window.addEventListener('resize', function() {
         if (window.innerWidth > 992) {
-            nav.classList.remove('open');
-            hamburgerMenu.classList.remove('active');
-            
-            if (backdrop) {
-                backdrop.classList.remove('active');
-            }
-            
-            const bars = hamburgerMenu.querySelectorAll('.bar');
-            bars.forEach(bar => bar.classList.remove('animate'));
+            closeMenu();
+        }
+    });
+
+    // ESC tuşuna basınca menüyü kapat
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && nav.classList.contains('open')) {
+            closeMenu();
         }
     });
 
