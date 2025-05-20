@@ -487,6 +487,8 @@ nav ul li a:hover, nav ul li a.active {
     -ms-overflow-style: none; /* IE and Edge */
     cursor: grab;
     width: 100%;
+    -webkit-overflow-scrolling: touch; /* iOS için daha akıcı kaydırma */
+    scroll-snap-type: x mandatory; /* Kaydırma sonrası içeriği hizalamak için */
 }
 
 .slider-content::-webkit-scrollbar {
@@ -495,6 +497,7 @@ nav ul li a:hover, nav ul li a.active {
 
 .slider-content.grabbing {
     cursor: grabbing;
+    scroll-behavior: auto; /* Sürüklerken akıcı kaydırmayı devre dışı bırak */
 }
 
 .slider-controls {
@@ -556,6 +559,7 @@ nav ul li a:hover, nav ul li a.active {
     margin-bottom: 0;
     display: flex;
     flex-direction: column;
+    scroll-snap-align: start; /* Kartların kaydırma sonrası hizalanması için */
 }
 
 .movie-card.appear {

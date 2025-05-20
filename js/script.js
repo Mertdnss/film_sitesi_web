@@ -92,65 +92,102 @@ document.addEventListener('DOMContentLoaded', function() {
         let isDown = false;
         let startX;
         let scrollLeft;
+        let startY;
+        let lastScrollPosition = 0;
+        let isAnimating = false; // Animasyon durumunu takip etmek için
         const sensitivity = 1.2; // Scroll sensitivity
         const cardWidth = sliderContent.querySelector('.movie-card').offsetWidth + 20; // card width + gap
         
-        // Check if slider is at the end
-        function checkSliderEnd() {
-            if (sliderContent.scrollWidth - sliderContent.scrollLeft <= sliderContent.clientWidth + 10) {
-                // Eğer slider sona ulaştıysa başa dön
-                sliderContent.scrollTo({
-                    left: 0,
-                    behavior: 'smooth'
-                });
-                return true;
-            }
-            return false;
+        // Check if slider is at the end - Manual kontrol için
+        function isAtEnd() {
+            return sliderContent.scrollWidth - sliderContent.scrollLeft <= sliderContent.clientWidth + 50;
         }
         
-        // Check if slider is at the beginning
-        function checkSliderStart() {
-            if (sliderContent.scrollLeft <= 10) {
-                // Eğer slider başındaysa ve geri gitmeye çalışılıyorsa sona git
-                sliderContent.scrollTo({
-                    left: sliderContent.scrollWidth - sliderContent.clientWidth,
-                    behavior: 'smooth'
-                });
-                return true;
-            }
-            return false;
+        // Check if slider is at the beginning - Manual kontrol için
+        function isAtStart() {
+            return sliderContent.scrollLeft <= 50;
+        }
+        
+        // Başa git
+        function goToStart() {
+            if (isAnimating) return; // Animasyon devam ediyorsa işlem yapma
+            
+            isAnimating = true;
+            sliderContent.scrollTo({
+                left: 0,
+                behavior: 'smooth'
+            });
+            
+            // Animasyon bittikten sonra bayrağı sıfırla
+            setTimeout(() => {
+                isAnimating = false;
+            }, 500);
+        }
+        
+        // Sona git
+        function goToEnd() {
+            if (isAnimating) return; // Animasyon devam ediyorsa işlem yapma
+            
+            isAnimating = true;
+            sliderContent.scrollTo({
+                left: sliderContent.scrollWidth - sliderContent.clientWidth,
+                behavior: 'smooth'
+            });
+            
+            // Animasyon bittikten sonra bayrağı sıfırla
+            setTimeout(() => {
+                isAnimating = false;
+            }, 500);
         }
         
         // Click events for buttons
         nextButton.addEventListener('click', () => {
-            if (!checkSliderEnd()) {
+            if (isAnimating) return; // Animasyon devam ediyorsa işlem yapma
+            
+            if (isAtEnd()) {
+                goToStart();
+            } else {
+                isAnimating = true;
                 sliderContent.scrollBy({
                     left: cardWidth * 3,
                     behavior: 'smooth'
                 });
+                
+                // Animasyon bittikten sonra bayrağı sıfırla
+                setTimeout(() => {
+                    isAnimating = false;
+                }, 500);
             }
         });
         
         prevButton.addEventListener('click', () => {
-            if (!checkSliderStart()) {
+            if (isAnimating) return; // Animasyon devam ediyorsa işlem yapma
+            
+            if (isAtStart()) {
+                goToEnd();
+            } else {
+                isAnimating = true;
                 sliderContent.scrollBy({
                     left: -cardWidth * 3,
                     behavior: 'smooth'
                 });
+                
+                // Animasyon bittikten sonra bayrağı sıfırla
+                setTimeout(() => {
+                    isAnimating = false;
+                }, 500);
             }
-        });
-        
-        // Scroll event to auto-loop
-        sliderContent.addEventListener('scroll', () => {
-            checkSliderEnd();
         });
         
         // Mouse events for drag scrolling
         sliderContent.addEventListener('mousedown', (e) => {
+            if (isAnimating) return; // Animasyon devam ediyorsa işlem yapma
+            
             isDown = true;
             sliderContent.classList.add('grabbing');
             startX = e.pageX - slider.offsetLeft;
             scrollLeft = sliderContent.scrollLeft;
+            lastScrollPosition = scrollLeft;
         });
         
         sliderContent.addEventListener('mouseleave', () => {
@@ -158,18 +195,72 @@ document.addEventListener('DOMContentLoaded', function() {
             sliderContent.classList.remove('grabbing');
         });
         
-        sliderContent.addEventListener('mouseup', () => {
+        sliderContent.addEventListener('mouseup', (e) => {
             isDown = false;
             sliderContent.classList.remove('grabbing');
+            
+            // Kaydırma sona yakınsa ve fare bırakıldıysa, başa dön
+            if (isAtEnd() && scrollLeft !== sliderContent.scrollLeft) {
+                goToStart();
+            }
+            // Kaydırma başa yakınsa ve fare bırakıldıysa, sona git
+            else if (isAtStart() && scrollLeft !== sliderContent.scrollLeft) {
+                goToEnd();
+            }
         });
         
         sliderContent.addEventListener('mousemove', (e) => {
             if (!isDown) return;
+            if (isAnimating) return; // Animasyon devam ediyorsa işlem yapma
+            
             e.preventDefault();
             const x = e.pageX - slider.offsetLeft;
             const walk = (x - startX) * sensitivity;
             sliderContent.scrollLeft = scrollLeft - walk;
         });
+        
+        // Mobil dokunmatik olayları
+        sliderContent.addEventListener('touchstart', (e) => {
+            if (isAnimating) return; // Animasyon devam ediyorsa işlem yapma
+            
+            isDown = true;
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            scrollLeft = sliderContent.scrollLeft;
+            lastScrollPosition = scrollLeft;
+        }, { passive: true });
+        
+        sliderContent.addEventListener('touchend', (e) => {
+            isDown = false;
+            
+            // Kaydırma sona yakınsa ve dokunma bitti, başa dön
+            if (isAtEnd() && scrollLeft !== sliderContent.scrollLeft) {
+                goToStart();
+            }
+            // Kaydırma başa yakınsa ve dokunma bitti, sona git
+            else if (isAtStart() && scrollLeft !== sliderContent.scrollLeft) {
+                goToEnd();
+            }
+        });
+        
+        sliderContent.addEventListener('touchmove', (e) => {
+            if (!isDown) return;
+            if (isAnimating) return; // Animasyon devam ediyorsa işlem yapma
+            
+            const x = e.touches[0].clientX;
+            const y = e.touches[0].clientY;
+            
+            // Dikey kaydırmadan daha çok yatay kaydırma varsa sayfanın kaymasını engelle
+            const xDiff = Math.abs(x - startX);
+            const yDiff = Math.abs(y - startY);
+            
+            if (xDiff > yDiff) {
+                e.preventDefault();
+            }
+            
+            const walk = (startX - x) * sensitivity;
+            sliderContent.scrollLeft = scrollLeft + walk;
+        }, { passive: false });
     };
     
     // Initialize both sliders
