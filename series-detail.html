@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dizi Detayı - Film Dünyası</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <h1>Film<span>Dünyası</span></h1>
+                </a>
+            </div>
+            <div class="search-box">
+                <input type="text" placeholder="Film veya dizi ara...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Anasayfa</a></li>
+                    <li><a href="category.html">Filmler</a></li>
+                    <li><a href="series-detail.html" class="active">Diziler</a></li>
+                    <li><a href="category.html">Türler</a></li>
+                    <li><a href="search-results.html">İletişim</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu Backdrop -->
+    <div class="menu-backdrop"></div>
+
+    <!-- Dizi Detay Ana İçerik Bölümü -->
+    <div id="series-detail">
+        <!-- Dizi Banner Section -->
+        <section class="movie-banner">
+            <div class="banner-overlay"></div>
+            <div class="banner-image" style="background-image: url('https://images.unsplash.com/photo-1513106580091-1d82408b8cd6?q=80&w=1920&auto=format')"></div>
+            <div class="container">
+                <div class="movie-banner-content">
+                    <div class="movie-poster">
+                        <img src="https://images.unsplash.com/photo-1513106580091-1d82408b8cd6?q=80&w=400&h=600&auto=format" alt="Stranger Things">
+                        <span class="movie-quality">HD</span>
+                        <span class="movie-year">2016-2024</span>
+                    </div>
+                    <div class="movie-info">
+                        <h1>Stranger Things</h1>
+                        
+                        <!-- Meta bilgisi kısmı -->
+                        <div class="movie-meta-wrapper">
+                            <div class="meta-item rating">
+                                <i class="fas fa-star"></i>
+                                <span>9.2</span>
+                            </div>
+                            <div class="meta-item seasons">
+                                <i class="fas fa-layer-group"></i>
+                                <span>5 Sezon</span>
+                            </div>
+                            <div class="meta-item year">
+                                <i class="far fa-calendar-alt"></i>
+                                <span>2016-2024</span>
+                            </div>
+                        </div>
+                        
+                        <div class="series-genres">
+                            <a href="category.html">Bilim Kurgu</a>
+                            <a href="category.html">Post-Apokaliptik</a>
+                            <a href="category.html">Aksiyon</a>
+                            <a href="category.html">Drama</a>
+                        </div>
+                        <div class="series-actions">
+                            <a href="#" class="btn btn-primary"><i class="fas fa-play"></i> Şimdi İzle</a>
+                            <a href="#trailer-section" class="btn btn-secondary"><i class="fas fa-film"></i> Fragmanı İzle</a>
+                            <a href="#" class="btn btn-outline"><i class="fas fa-bookmark"></i> Listeme Ekle</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dizi Detay Content Section -->
+        <section class="movie-content">
+            <div class="container">
+                <div class="movie-content-grid">
+                    <div class="movie-main-content">
+                        <!-- Dizi Açıklaması -->
+                        <div class="movie-description">
+                            <h2>Dizi Hakkında</h2>
+                            <p>1980'lerin başında geçen dizi, küçük bir kasaba olan Hawkins'te bir çocuğun gizemli bir şekilde ortadan kaybolmasını ve bunun ardından gelişen doğaüstü olayları konu alıyor. Will adlı çocuğun kaybolmasından sonra, en yakın arkadaşları Mike, Dustin ve Lucas onu aramaya başlarlar.</p>
+                            
+                            <p>Çocuklar arama sırasında, gizemli güçlere sahip olan ve "Eleven" adını verdikleri küçük bir kız ile karşılaşırlar. Kasabada bir dizi tuhaf olayın yaşanmasıyla birlikte, Will'in annesi Joyce ve kasabanın şerifi Hopper da olayları araştırmaya başlar. Kısa süre içinde, hükümetin yürüttüğü gizli deneyler, alternatif boyutlar ve dehşet verici yaratıklar içeren karanlık bir komployu ortaya çıkarırlar.</p>
+                        </div>
+
+                        <!-- Dizi Detay Bilgileri -->
+                        <div class="movie-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Yaratıcılar:</span>
+                                <span class="detail-value">Matt Duffer, Ross Duffer</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Oyuncular:</span>
+                                <span class="detail-value">Millie Bobby Brown, Finn Wolfhard, Noah Schnapp, Caleb McLaughlin, Gaten Matarazzo, Winona Ryder, David Harbour, Natalia Dyer, Charlie Heaton, Joe Keery</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Yapım Yılı:</span>
+                                <span class="detail-value">2016-2024</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Ülke:</span>
+                                <span class="detail-value">ABD</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Dil:</span>
+                                <span class="detail-value">İngilizce</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Sezon Sayısı:</span>
+                                <span class="detail-value">5</span>
+                            </div>
+                        </div>
+
+                        <!-- Sezonlar ve Bölümler -->
+                        <div class="series-seasons">
+                            <h2>Sezonlar ve Bölümler</h2>
+                            
+                            <!-- Sezon Seçimi -->
+                            <div class="season-tabs">
+                                <button class="season-tab active" data-season="1">Sezon 1</button>
+                                <button class="season-tab" data-season="2">Sezon 2</button>
+                                <button class="season-tab" data-season="3">Sezon 3</button>
+                                <button class="season-tab" data-season="4">Sezon 4</button>
+                                <button class="season-tab" data-season="5">Sezon 5</button>
+                            </div>
+                            
+                            <!-- Sezon 1 Bölümleri -->
+                            <div class="season-content active" id="season-1">
+                                <div class="episode-list">
+                                    <!-- Bölüm 1 -->
+                                    <div class="episode-item">
+                                        <div class="episode-number">1</div>
+                                        <div class="episode-thumbnail">
+                                            <img src="https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?q=80&w=150&h=100&auto=format" alt="Bölüm 1">
+                                            <div class="play-overlay">
+                                                <a href="#" class="play-btn-small"><i class="fas fa-play"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="episode-info">
+                                            <h3>Kayboluş</h3>
+                                            <div class="episode-meta">
+                                                <span class="episode-duration"><i class="far fa-clock"></i> 48 dk</span>
+                                                <span class="episode-date">15 Temmuz 2016</span>
+                                            </div>
+                                            <p class="episode-desc">Will Byers, Dungeons & Dragons oynadıktan sonra eve dönerken, bir şey tarafından yakalanır ve ortadan kaybolur. Will'in annesi Joyce ve kasabanın şerifi Hopper aramaya başlar.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Bölüm 2 -->
+                                    <div class="episode-item">
+                                        <div class="episode-number">2</div>
+                                        <div class="episode-thumbnail">
+                                            <img src="https://images.unsplash.com/photo-1541480601022-2308c0f02487?q=80&w=150&h=100&auto=format" alt="Bölüm 2">
+                                            <div class="play-overlay">
+                                                <a href="#" class="play-btn-small"><i class="fas fa-play"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="episode-info">
+                                            <h3>Weirdo Cadısı</h3>
+                                            <div class="episode-meta">
+                                                <span class="episode-duration"><i class="far fa-clock"></i> 55 dk</span>
+                                                <span class="episode-date">15 Temmuz 2016</span>
+                                            </div>
+                                            <p class="episode-desc">Mike, Dustin ve Lucas okula giderken, gariplikler görmeye başlarlar. Joyce eve gelen garip telefon ile dehşete düşer. Hopper Will'i aramaya devam eder.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Bölüm 3 -->
+                                    <div class="episode-item">
+                                        <div class="episode-number">3</div>
+                                        <div class="episode-thumbnail">
+                                            <img src="https://images.unsplash.com/photo-1517142089942-ba376ce32a2e?q=80&w=150&h=100&auto=format" alt="Bölüm 3">
+                                            <div class="play-overlay">
+                                                <a href="#" class="play-btn-small"><i class="fas fa-play"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="episode-info">
+                                            <h3>Burun Kanaması</h3>
+                                            <div class="episode-meta">
+                                                <span class="episode-duration"><i class="far fa-clock"></i> 51 dk</span>
+                                                <span class="episode-date">15 Temmuz 2016</span>
+                                            </div>
+                                            <p class="episode-desc">Hopper ve iki devlet memuru, şehrin kenarındaki bir laboratuvara girer. Nancy, Barbara'nın kaybolmasını fark eder. Joyce evinde garip elektrik olayları yaşar.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="load-more">
+                                        <button class="btn btn-outline">Daha Fazla Bölüm Göster</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Diğer Sezonlar -->
+                            <div class="season-content" id="season-2">
+                                <div class="season-info">
+                                    <p>Sezon 2 bilgileri yakında eklenecek.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="season-content" id="season-3">
+                                <div class="season-info">
+                                    <p>Sezon 3 bilgileri yakında eklenecek.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="season-content" id="season-4">
+                                <div class="season-info">
+                                    <p>Sezon 4 bilgileri yakında eklenecek.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="season-content" id="season-5">
+                                <div class="season-info">
+                                    <p>Sezon 5 bilgileri yakında eklenecek.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dizi Fragmanı -->
+                        <div id="trailer-section" class="movie-trailer">
+                            <h2>Dizi Fragmanı</h2>
+                            <div class="trailer-container">
+                                <iframe width="100%" height="500" src="https://www.youtube.com/embed/b9EkMc79ZSU" title="Stranger Things Fragmanı" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        </div>
+
+                        <!-- Yorumlar Bölümü -->
+                        <div class="movie-comments">
+                            <h2>Yorumlar (36)</h2>
+                            
+                            <!-- Yorum Formu -->
+                            <div class="comment-form">
+                                <h3>Yorum Yap</h3>
+                                <form action="#" method="post">
+                                    <div class="form-group">
+                                        <textarea name="comment" placeholder="Yorumunuzu buraya yazın..." required></textarea>
+                                    </div>
+                                    <div class="form-group rating-select">
+                                        <label>Puanınız:</label>
+                                        <div class="rating">
+                                            <i class="far fa-star" data-rating="1"></i>
+                                            <i class="far fa-star" data-rating="2"></i>
+                                            <i class="far fa-star" data-rating="3"></i>
+                                            <i class="far fa-star" data-rating="4"></i>
+                                            <i class="far fa-star" data-rating="5"></i>
+                                        </div>
+                                        <input type="hidden" name="rating" value="0">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Yorum Gönder</button>
+                                </form>
+                            </div>
+                            
+                            <!-- Yorum Listesi -->
+                            <div class="comments-list">
+                                <!-- Yorum 1 -->
+                                <div class="comment">
+                                    <div class="comment-avatar">
+                                        <img src="https://i.pravatar.cc/60?img=5" alt="Kullanıcı">
+                                    </div>
+                                    <div class="comment-content">
+                                        <div class="comment-header">
+                                            <h4>Ayşe Demir</h4>
+                                            <div class="comment-rating">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <span>5.0</span>
+                                            </div>
+                                            <span class="comment-date">1 gün önce</span>
+                                        </div>
+                                        <p>Kesinlikle şimdiye kadar izlediğim en iyi bilim kurgu/korku dizilerinden biri. 80'lerin nostaljik atmosferini çok iyi yansıtıyor ve karakterler harika yazılmış. Her sezon hikâye daha da karmaşıklaşıyor ama heyecanını hiç kaybetmiyor.</p>
+                                        <div class="comment-actions">
+                                            <a href="#"><i class="far fa-thumbs-up"></i> Beğen (22)</a>
+                                            <a href="#"><i class="far fa-comment"></i> Yanıtla</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Yorum 2 -->
+                                <div class="comment">
+                                    <div class="comment-avatar">
+                                        <img src="https://i.pravatar.cc/60?img=8" alt="Kullanıcı">
+                                    </div>
+                                    <div class="comment-content">
+                                        <div class="comment-header">
+                                            <h4>Emre Yılmaz</h4>
+                                            <div class="comment-rating">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <span>4.0</span>
+                                            </div>
+                                            <span class="comment-date">1 hafta önce</span>
+                                        </div>
+                                        <p>İlk sezonlar gerçekten çok iyiydi, özellikle sürükleyici hikâye ve müzikler harika. Son sezonlarda biraz kalite düşüklüğü olduğunu düşünüyorum ama hala izlemeye değer. Eleven karakteri özellikle müthiş gelişim gösterdi.</p>
+                                        <div class="comment-actions">
+                                            <a href="#"><i class="far fa-thumbs-up"></i> Beğen (13)</a>
+                                            <a href="#"><i class="far fa-comment"></i> Yanıtla</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Yorum 3 -->
+                                <div class="comment">
+                                    <div class="comment-avatar">
+                                        <img src="https://i.pravatar.cc/60?img=10" alt="Kullanıcı">
+                                    </div>
+                                    <div class="comment-content">
+                                        <div class="comment-header">
+                                            <h4>Mert Aksoy</h4>
+                                            <div class="comment-rating">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                                <span>4.5</span>
+                                            </div>
+                                            <span class="comment-date">2 hafta önce</span>
+                                        </div>
+                                        <p>Oyunculuklar muhteşem, özellikle çocuk oyuncular yaşlarına göre inanılmaz performans sergiliyorlar. Görsel efektler ve atmosfer çok başarılı. Her sezon finali izleyiciyi bir sonraki sezon için sabırsızlandırıyor.</p>
+                                        <div class="comment-actions">
+                                            <a href="#"><i class="far fa-thumbs-up"></i> Beğen (9)</a>
+                                            <a href="#"><i class="far fa-comment"></i> Yanıtla</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="load-more">
+                                    <button class="btn btn-outline">Daha Fazla Yorum Yükle</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="movie-sidebar">
+                        <!-- Benzer Diziler -->
+                        <div class="similar-movies">
+                            <h3>Benzer Diziler</h3>
+                            <div class="movie-card-vertical">
+                                <a href="#">
+                                    <div class="card-poster">
+                                        <img src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=200&h=300&auto=format" alt="The OA">
+                                        <span class="movie-quality">HD</span>
+                                    </div>
+                                    <div class="card-info">
+                                        <h4>The OA</h4>
+                                        <span class="card-rating"><i class="fas fa-star"></i> 8.2</span>
+                                        <span class="card-year">2016-2019</span>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="movie-card-vertical">
+                                <a href="#">
+                                    <div class="card-poster">
+                                        <img src="https://images.unsplash.com/photo-1541480601022-2308c0f02487?q=80&w=200&h=300&auto=format" alt="Dark">
+                                        <span class="movie-quality">HD</span>
+                                    </div>
+                                    <div class="card-info">
+                                        <h4>Dark</h4>
+                                        <span class="card-rating"><i class="fas fa-star"></i> 8.7</span>
+                                        <span class="card-year">2017-2020</span>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="movie-card-vertical">
+                                <a href="#">
+                                    <div class="card-poster">
+                                        <img src="https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=200&h=300&auto=format" alt="Black Mirror">
+                                        <span class="movie-quality">HD</span>
+                                    </div>
+                                    <div class="card-info">
+                                        <h4>Black Mirror</h4>
+                                        <span class="card-rating"><i class="fas fa-star"></i> 8.8</span>
+                                        <span class="card-year">2011-2023</span>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="movie-card-vertical">
+                                <a href="#">
+                                    <div class="card-poster">
+                                        <img src="https://images.unsplash.com/photo-1520034475321-cbe63696469a?q=80&w=200&h=300&auto=format" alt="Fallout">
+                                        <span class="movie-quality">HD</span>
+                                    </div>
+                                    <div class="card-info">
+                                        <h4>Fallout</h4>
+                                        <span class="card-rating"><i class="fas fa-star"></i> 8.5</span>
+                                        <span class="card-year">2024</span>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="movie-card-vertical">
+                                <a href="#">
+                                    <div class="card-poster">
+                                        <img src="https://images.unsplash.com/photo-1616530940355-351fabd9524b?q=80&w=200&h=300&auto=format" alt="Wednesday">
+                                        <span class="movie-quality">HD</span>
+                                    </div>
+                                    <div class="card-info">
+                                        <h4>Wednesday</h4>
+                                        <span class="card-rating"><i class="fas fa-star"></i> 8.1</span>
+                                        <span class="card-year">2022</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Popüler Diziler -->
+                        <div class="popular-movies">
+                            <h3>En Çok İzlenen Diziler</h3>
+                            <div class="popular-list">
+                                <div class="popular-item">
+                                    <div class="popular-rank">1</div>
+                                    <div class="popular-poster">
+                                        <img src="https://images.unsplash.com/photo-1616530940355-351fabd9524b?q=80&w=80&h=120&auto=format" alt="Wednesday">
+                                    </div>
+                                    <div class="popular-info">
+                                        <h4>Wednesday</h4>
+                                        <div class="popular-meta">
+                                            <span><i class="fas fa-star"></i> 8.1</span>
+                                            <span>2022</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="popular-item">
+                                    <div class="popular-rank">2</div>
+                                    <div class="popular-poster">
+                                        <img src="https://images.unsplash.com/photo-1541480601022-2308c0f02487?q=80&w=80&h=120&auto=format" alt="Dark">
+                                    </div>
+                                    <div class="popular-info">
+                                        <h4>Dark</h4>
+                                        <div class="popular-meta">
+                                            <span><i class="fas fa-star"></i> 8.7</span>
+                                            <span>2017-2020</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="popular-item">
+                                    <div class="popular-rank">3</div>
+                                    <div class="popular-poster">
+                                        <img src="https://images.unsplash.com/photo-1520034475321-cbe63696469a?q=80&w=80&h=120&auto=format" alt="Fallout">
+                                    </div>
+                                    <div class="popular-info">
+                                        <h4>Fallout</h4>
+                                        <div class="popular-meta">
+                                            <span><i class="fas fa-star"></i> 8.5</span>
+                                            <span>2024</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="popular-item">
+                                    <div class="popular-rank">4</div>
+                                    <div class="popular-poster">
+                                        <img src="https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=80&h=120&auto=format" alt="Black Mirror">
+                                    </div>
+                                    <div class="popular-info">
+                                        <h4>Black Mirror</h4>
+                                        <div class="popular-meta">
+                                            <span><i class="fas fa-star"></i> 8.8</span>
+                                            <span>2011-2023</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="popular-item">
+                                    <div class="popular-rank">5</div>
+                                    <div class="popular-poster">
+                                        <img src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=80&h=120&auto=format" alt="The Witcher">
+                                    </div>
+                                    <div class="popular-info">
+                                        <h4>The Witcher</h4>
+                                        <div class="popular-meta">
+                                            <span><i class="fas fa-star"></i> 8.2</span>
+                                            <span>2019</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Film<span>Dünyası</span></h2>
+                    <p>En yeni ve popüler filmleri izlemek için doğru adrestesiniz.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Hızlı Linkler</h3>
+                    <ul>
+                        <li><a href="index.html">Anasayfa</a></li>
+                        <li><a href="#">Filmler</a></li>
+                        <li><a href="#">Diziler</a></li>
+                        <li><a href="#">Türler</a></li>
+                        <li><a href="#">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Türler</h3>
+                    <ul>
+                        <li><a href="#">Aksiyon</a></li>
+                        <li><a href="#">Komedi</a></li>
+                        <li><a href="#">Drama</a></li>
+                        <li><a href="#">Bilim Kurgu</a></li>
+                        <li><a href="#">Korku</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Bülten</h3>
+                    <p>En yeni filmler ve özel teklifler için abone olun.</p>
+                    <form action="#" method="POST">
+                        <input type="email" placeholder="E-posta adresiniz" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Film Dünyası. Tüm hakları saklıdır.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Gizlilik Politikası</a>
+                    <a href="#">Kullanım Şartları</a>
+                    <a href="#">KVKK</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html> 

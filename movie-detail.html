@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Film Detayı - Film Dünyası</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <h1>Film<span>Dünyası</span></h1>
+                </a>
+            </div>
+            <div class="search-box">
+                <input type="text" placeholder="Film veya dizi ara...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Anasayfa</a></li>
+                    <li><a href="category.html" class="active">Filmler</a></li>
+                    <li><a href="series-detail.html">Diziler</a></li>
+                    <li><a href="category.html">Türler</a></li>
+                    <li><a href="search-results.html">İletişim</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu Backdrop -->
+    <div class="menu-backdrop"></div>
+
+    <!-- Film Detay Ana İçerik Bölümü -->
+    <div id="movie-detail">
+        <!-- Film Banner Section -->
+        <section class="movie-banner">
+            <div class="banner-overlay"></div>
+            <div class="banner-image" style="background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1920&auto=format')"></div>
+            <div class="container">
+                <div class="movie-banner-content">
+                    <div class="movie-poster">
+                        <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=400&h=600&auto=format" alt="Dune: Çöl Gezegeni 2">
+                        <span class="movie-quality">HD</span>
+                        <span class="movie-year">2024</span>
+                    </div>
+                    <div class="movie-info">
+                        <h1>Dune: Çöl Gezegeni 2</h1>
+                        <div class="movie-meta">
+                            <span class="movie-rating"><i class="fas fa-star"></i> 8.7</span>
+                            <span class="movie-duration"><i class="far fa-clock"></i> 166 dk</span>
+                            <span class="movie-quality">HD</span>
+                            <span class="movie-year">2024</span>
+                        </div>
+                        <div class="movie-genres">
+                            <a href="category.html">Bilim Kurgu</a>
+                            <a href="category.html">Aksiyon</a>
+                            <a href="category.html">Macera</a>
+                            <a href="category.html">Drama</a>
+                        </div>
+                        <div class="movie-actions">
+                            <a href="#trailer-section" class="btn btn-primary"><i class="fas fa-play"></i> Şimdi İzle</a>
+                            <a href="#trailer-section" class="btn btn-secondary"><i class="fas fa-film"></i> Fragmanı İzle</a>
+                            <a href="#" class="btn btn-outline"><i class="fas fa-bookmark"></i> Listeme Ekle</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Film Detay Content Section -->
+        <section class="movie-content">
+            <div class="container">
+                <div class="movie-content-grid">
+                    <div class="movie-main-content">
+                        <!-- Film Açıklaması -->
+                        <div class="movie-description">
+                            <h2>Film Hakkında</h2>
+                            <p>Denis Villeneuve'ün yönettiği "Dune: Çöl Gezegeni 2", Frank Herbert'ın çığır açan romanının ikinci bölümünü perdeye taşıyor. Film, Paul Atreides'in mitik yolculuğunu sürdürdüğü efsanevi hikâyeyi anlatıyor.</p>
+                            
+                            <p>Paul, sevgili annesini kaybettikten sonra, Chani ve Fremen savaşçılarıyla birleşerek, imparatorluğa ve onun kötü Harkonnen ailesine karşı intikam savaşı başlatmak için yola çıkıyor. Şu anda iki dünya arasında seçim yapmakla karşı karşıya kalan Paul, evrenin kaderi tehlikede iken, sevdiklerinin geleceğini ve tüm yaşamı korumak için mücadele ediyor.</p>
+                        </div>
+
+                        <!-- Film Detay Bilgileri -->
+                        <div class="movie-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Yönetmen:</span>
+                                <span class="detail-value">Denis Villeneuve</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Oyuncular:</span>
+                                <span class="detail-value">Timothée Chalamet, Zendaya, Rebecca Ferguson, Javier Bardem, Josh Brolin, Austin Butler, Florence Pugh, Dave Bautista</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Yapım Yılı:</span>
+                                <span class="detail-value">2024</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Ülke:</span>
+                                <span class="detail-value">ABD</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Dil:</span>
+                                <span class="detail-value">İngilizce</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Süre:</span>
+                                <span class="detail-value">166 dakika</span>
+                            </div>
+                        </div>
+
+                        <!-- Film Fragmanı -->
+                        <div id="trailer-section" class="movie-trailer">
+                            <h2>Film Fragmanı</h2>
+                            <div class="trailer-container">
+                                <iframe width="100%" height="500" src="https://www.youtube.com/embed/T3st_kKaNdA" title="Dune: Çöl Gezegeni 2 Fragmanı" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        </div>
+
+                        <!-- Yorumlar Bölümü -->
+                        <div class="movie-comments">
+                            <h2>Yorumlar (24)</h2>
+                            
+                            <!-- Yorum Formu -->
+                            <div class="comment-form">
+                                <h3>Yorum Yap</h3>
+                                <form action="#" method="post">
+                                    <div class="form-group">
+                                        <textarea name="comment" placeholder="Yorumunuzu buraya yazın..." required></textarea>
+                                    </div>
+                                    <div class="form-group rating-select">
+                                        <label>Puanınız:</label>
+                                        <div class="rating">
+                                            <i class="far fa-star" data-rating="1"></i>
+                                            <i class="far fa-star" data-rating="2"></i>
+                                            <i class="far fa-star" data-rating="3"></i>
+                                            <i class="far fa-star" data-rating="4"></i>
+                                            <i class="far fa-star" data-rating="5"></i>
+                                        </div>
+                                        <input type="hidden" name="rating" value="0">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Yorum Gönder</button>
+                                </form>
+                            </div>
+                            
+                            <!-- Yorum Listesi -->
+                            <div class="comments-list">
+                                <!-- Yorum 1 -->
+                                <div class="comment">
+                                    <div class="comment-avatar">
+                                        <img src="https://i.pravatar.cc/60?img=1" alt="Kullanıcı">
+                                    </div>
+                                    <div class="comment-content">
+                                        <div class="comment-header">
+                                            <h4>Ahmet Yılmaz</h4>
+                                            <div class="comment-rating">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <span>5.0</span>
+                                            </div>
+                                            <span class="comment-date">3 gün önce</span>
+                                        </div>
+                                        <p>İlk filmi çok beğenmiştim, bu da en az onun kadar başarılı olmuş. Görsel efektler ve hikaye akışı mükemmel.</p>
+                                        <div class="comment-actions">
+                                            <a href="#"><i class="far fa-thumbs-up"></i> Beğen (15)</a>
+                                            <a href="#"><i class="far fa-comment"></i> Yanıtla</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Yorum 2 -->
+                                <div class="comment">
+                                    <div class="comment-avatar">
+                                        <img src="https://i.pravatar.cc/60?img=2" alt="Kullanıcı">
+                                    </div>
+                                    <div class="comment-content">
+                                        <div class="comment-header">
+                                            <h4>Zeynep Kaya</h4>
+                                            <div class="comment-rating">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <span>4.0</span>
+                                            </div>
+                                            <span class="comment-date">1 hafta önce</span>
+                                        </div>
+                                        <p>Timothée Chalamet'nin performansı çok etkileyiciydi. Görsel efektler ve müzikler de oldukça başarılı. Hikâye biraz karmaşık olsa da keyifle izledim.</p>
+                                        <div class="comment-actions">
+                                            <a href="#"><i class="far fa-thumbs-up"></i> Beğen (8)</a>
+                                            <a href="#"><i class="far fa-comment"></i> Yanıtla</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Yorum 3 -->
+                                <div class="comment">
+                                    <div class="comment-avatar">
+                                        <img src="https://i.pravatar.cc/60?img=3" alt="Kullanıcı">
+                                    </div>
+                                    <div class="comment-content">
+                                        <div class="comment-header">
+                                            <h4>Mehmet Öztürk</h4>
+                                            <div class="comment-rating">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <span>3.0</span>
+                                            </div>
+                                            <span class="comment-date">2 hafta önce</span>
+                                        </div>
+                                        <p>İlk filme göre biraz daha yavaş ilerliyor ve bazı sahneler gereksiz uzun. Ama genel olarak fena değil, serinin hayranları için izlenmesi gereken bir film.</p>
+                                        <div class="comment-actions">
+                                            <a href="#"><i class="far fa-thumbs-up"></i> Beğen (3)</a>
+                                            <a href="#"><i class="far fa-comment"></i> Yanıtla</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="load-more">
+                                    <button class="btn btn-outline">Daha Fazla Yorum Yükle</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="movie-sidebar">
+                        <!-- Benzer Filmler -->
+                        <div class="similar-movies">
+                            <h3>Benzer Filmler</h3>
+                            <div class="movie-card-vertical">
+                                <a href="#">
+                                    <div class="card-poster">
+                                        <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=200&h=300&auto=format" alt="Interstellar">
+                                        <span class="movie-quality">HD</span>
+                                    </div>
+                                    <div class="card-info">
+                                        <h4>Interstellar</h4>
+                                        <span class="card-rating"><i class="fas fa-star"></i> 8.7</span>
+                                        <span class="card-year">2014</span>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="movie-card-vertical">
+                                <a href="#">
+                                    <div class="card-poster">
+                                        <img src="https://images.unsplash.com/photo-1579546929662-711aa81148cf?q=80&w=200&h=300&auto=format" alt="Avatar">
+                                        <span class="movie-quality">HD</span>
+                                    </div>
+                                    <div class="card-info">
+                                        <h4>Avatar: Suyun Yolu</h4>
+                                        <span class="card-rating"><i class="fas fa-star"></i> 8.1</span>
+                                        <span class="card-year">2022</span>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="movie-card-vertical">
+                                <a href="#">
+                                    <div class="card-poster">
+                                        <img src="https://images.unsplash.com/photo-1503174971373-b1f69850bded?q=80&w=200&h=300&auto=format" alt="Godzilla x Kong">
+                                        <span class="movie-quality">HD</span>
+                                    </div>
+                                    <div class="card-info">
+                                        <h4>Godzilla x Kong</h4>
+                                        <span class="card-rating"><i class="fas fa-star"></i> 7.5</span>
+                                        <span class="card-year">2024</span>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="movie-card-vertical">
+                                <a href="#">
+                                    <div class="card-poster">
+                                        <img src="https://images.unsplash.com/photo-1597910037310-7dd8ddb93e24?q=80&w=200&h=300&auto=format" alt="Oppenheimer">
+                                        <span class="movie-quality">HD</span>
+                                    </div>
+                                    <div class="card-info">
+                                        <h4>Oppenheimer</h4>
+                                        <span class="card-rating"><i class="fas fa-star"></i> 8.6</span>
+                                        <span class="card-year">2023</span>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="movie-card-vertical">
+                                <a href="#">
+                                    <div class="card-poster">
+                                        <img src="https://images.unsplash.com/photo-1624024191024-cb9da1b54714?q=80&w=200&h=300&auto=format" alt="Blade Runner 2049">
+                                        <span class="movie-quality">HD</span>
+                                    </div>
+                                    <div class="card-info">
+                                        <h4>Blade Runner 2049</h4>
+                                        <span class="card-rating"><i class="fas fa-star"></i> 8.3</span>
+                                        <span class="card-year">2017</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Popüler Filmler -->
+                        <div class="popular-movies">
+                            <h3>En Çok İzlenenler</h3>
+                            <div class="popular-list">
+                                <div class="popular-item">
+                                    <div class="popular-rank">1</div>
+                                    <div class="popular-poster">
+                                        <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?q=80&w=80&h=120&auto=format" alt="Deadpool & Wolverine">
+                                    </div>
+                                    <div class="popular-info">
+                                        <h4>Deadpool & Wolverine</h4>
+                                        <div class="popular-meta">
+                                            <span><i class="fas fa-star"></i> 8.5</span>
+                                            <span>2024</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="popular-item">
+                                    <div class="popular-rank">2</div>
+                                    <div class="popular-poster">
+                                        <img src="https://images.unsplash.com/photo-1597910037310-7dd8ddb93e24?q=80&w=80&h=120&auto=format" alt="Oppenheimer">
+                                    </div>
+                                    <div class="popular-info">
+                                        <h4>Oppenheimer</h4>
+                                        <div class="popular-meta">
+                                            <span><i class="fas fa-star"></i> 8.6</span>
+                                            <span>2023</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="popular-item">
+                                    <div class="popular-rank">3</div>
+                                    <div class="popular-poster">
+                                        <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=80&h=120&auto=format" alt="Interstellar">
+                                    </div>
+                                    <div class="popular-info">
+                                        <h4>Interstellar</h4>
+                                        <div class="popular-meta">
+                                            <span><i class="fas fa-star"></i> 8.7</span>
+                                            <span>2014</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="popular-item">
+                                    <div class="popular-rank">4</div>
+                                    <div class="popular-poster">
+                                        <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=80&h=120&auto=format" alt="Barbie">
+                                    </div>
+                                    <div class="popular-info">
+                                        <h4>Barbie</h4>
+                                        <div class="popular-meta">
+                                            <span><i class="fas fa-star"></i> 7.8</span>
+                                            <span>2023</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="popular-item">
+                                    <div class="popular-rank">5</div>
+                                    <div class="popular-poster">
+                                        <img src="https://images.unsplash.com/photo-1579546929662-711aa81148cf?q=80&w=80&h=120&auto=format" alt="Avatar">
+                                    </div>
+                                    <div class="popular-info">
+                                        <h4>Avatar: Suyun Yolu</h4>
+                                        <div class="popular-meta">
+                                            <span><i class="fas fa-star"></i> 8.1</span>
+                                            <span>2022</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Film<span>Dünyası</span></h2>
+                    <p>En yeni ve popüler filmleri izlemek için doğru adrestesiniz.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Hızlı Linkler</h3>
+                    <ul>
+                        <li><a href="index.html">Anasayfa</a></li>
+                        <li><a href="#">Filmler</a></li>
+                        <li><a href="#">Diziler</a></li>
+                        <li><a href="#">Türler</a></li>
+                        <li><a href="#">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Türler</h3>
+                    <ul>
+                        <li><a href="#">Aksiyon</a></li>
+                        <li><a href="#">Komedi</a></li>
+                        <li><a href="#">Drama</a></li>
+                        <li><a href="#">Bilim Kurgu</a></li>
+                        <li><a href="#">Korku</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Bülten</h3>
+                    <p>En yeni filmler ve özel teklifler için abone olun.</p>
+                    <form action="#" method="POST">
+                        <input type="email" placeholder="E-posta adresiniz" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Film Dünyası. Tüm hakları saklıdır.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Gizlilik Politikası</a>
+                    <a href="#">Kullanım Şartları</a>
+                    <a href="#">KVKK</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html> 

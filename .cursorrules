@@ -1,3 +1,11 @@
 1-bana her zaman türkçe cevap ver 
 2-işletim sistemim windows 11 buna göre cmd komutlarını çalıştırırken dikkat et
 3-sitedeki bütün stillendirmeleri tek bir dosyada toplayacağız diğer sayfalarda dahil ama çakışma sorunu yaşayabiliriz bu yüzden buna önlem amak içn her sayfanın ana kapsayıcısı ve stilelndirmelerine id eklemelisin
+4-bu sitenin backendi php ile yazılacak kodları olsaı xss veya sql injection gibi saldırıları engelleyecek şekilde yaz
+5-bir sayfa yaptığın zaman o sayfanın diğer sayfalarla ilişkisini kontrol et eğer bi linklendirme yapılması gerekiyrosa bu linklendirmeyi kullanıcıya sormadan yap 
+6-proje üzerinde işlem yaparken ana dizinde bulunan @TODO.md dosyasını referans al
+7-bir tasarım yaparken bu tasarımda diğer sayfalara benzeyen bir yapı varsa (örnek menü , footer) bu tasarımın diğer sayfalardaki halini doğrudan kullan hiçbri farklılık olmasın
+8-eğer istersen tasarımı yaparken bootstrap ve tailwind-css den yararlanabilirsin (opsiyonel)
+9-tasarımı olumlu etkileyeceğini düşündüğün bütün kütüphaneleri kullanabilirsin
+10-olası hatalrı önceden öngererek buna göre önlemler al 
+11-tasarım yaparken responsive yapının doğru bir şeklide çalıştığına dikkat et

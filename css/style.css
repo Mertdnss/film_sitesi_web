@@ -585,6 +585,7 @@ nav ul li a:hover, nav ul li a.active {
     justify-content: center;
     flex: 1; /* Flex ile alan kullanımını optimize eder */
     background-color: #0a0a0f; /* Arka plan resim yüklenene kadar görünür */
+    box-sizing: border-box;
 }
 
 .movie-poster img {
@@ -621,6 +622,7 @@ nav ul li a:hover, nav ul li a.active {
     align-items: center;
     opacity: 0;
     transition: opacity 0.3s ease;
+    box-sizing: border-box;
 }
 
 .play-btn {
@@ -634,22 +636,27 @@ nav ul li a:hover, nav ul li a.active {
     align-items: center;
     font-size: 16px;
     transition: all 0.3s ease;
-    transform: scale(0);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: 10;
+    margin: 0; /* Ek kenar boşluklarını kaldır */
+    box-sizing: border-box;
 }
 
 .movie-card:hover .play-btn {
-    transform: scale(1);
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .play-btn:hover {
     background-color: #e50914;
-    transform: scale(1.1) !important;
+    transform: translate(-50%, -50%) scale(1.1) !important;
     box-shadow: 0 0 15px rgba(229, 9, 20, 0.7);
 }
 
 .movie-quality, .movie-rating {
     position: absolute;
-    padding: 3px 6px;
     border-radius: 3px;
     font-size: 12px;
     font-weight: 700;
@@ -660,7 +667,19 @@ nav ul li a:hover, nav ul li a.active {
 .movie-quality {
     top: 10px;
     left: 10px;
-    background-color: #e50914;
+    background-color: rgba(229, 9, 20, 0.7);
+    font-size: 8px;
+    padding: 2px;
+    min-width: 18px;
+    min-height: 18px;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    border-radius: 2px;
 }
 
 .movie-rating {
@@ -1076,6 +1095,19 @@ footer::before {
     .movie-year, .movie-duration, .movie-season {
         font-size: 11px;
     }
+
+    .play-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+    }
+}
+
+/* Mobil cihazlarda özel düzeltme - film kartları için play butonlarının ortalanması */
+@media screen and (max-width: 768px) {
+    .movie-card:hover .play-btn {
+        transform: translate(-50%, -50%) scale(1);
+    }
 }
 
 /* Animation for elements entrance */
@@ -1133,4 +1165,2115 @@ a, button, .movie-card, .category-item, .hamburger-menu {
 /* Mobil scrolling iyileştirmeleri */
 .slider-content {
     -webkit-overflow-scrolling: touch; /* iOS için daha akıcı kaydırma */
+}
+
+/* ===== Film Detay Sayfası Stilleri ===== */
+#movie-detail {
+    color: #fff;
+}
+
+/* Film Banner Bölümü */
+.movie-banner {
+    position: relative;
+    padding: 60px 0;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(8, 15, 40, 0.8), rgba(8, 15, 40, 0.95));
+    z-index: 1;
+}
+
+.banner-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(5px);
+    opacity: 0.5;
+    z-index: 0;
+}
+
+.movie-banner-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    gap: 30px;
+}
+
+.movie-poster {
+    flex: 0 0 300px;
+    position: relative;
+}
+
+.movie-poster img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.movie-poster .movie-quality {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255, 44, 31, 0.7);
+    color: #fff;
+    padding: 2px;
+    border-radius: 2px;
+    font-size: 8px;
+    font-weight: 600;
+    min-width: 18px;
+    min-height: 18px;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.movie-poster .movie-year {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+}
+
+.movie-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.movie-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.movie-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.movie-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+.movie-meta i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+}
+
+/* Dizi sezon bilgisi için özel stil */
+.movie-meta .series-seasons {
+    display: flex;
+    align-items: center;
+}
+
+.movie-meta .movie-rating {
+    color: #ffb800;
+    font-weight: 600;
+}
+
+.movie-meta .movie-duration i,
+.movie-meta .movie-year i {
+    opacity: 0.8;
+}
+
+.movie-genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.movie-genres a {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.movie-genres a:hover {
+    background-color: #ff2c1f;
+    color: #fff;
+}
+
+.movie-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #ff2c1f;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #e41f12;
+}
+
+.btn-secondary {
+    background-color: #1976d2;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #1565c0;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+}
+
+.btn-outline:hover {
+    border-color: #fff;
+}
+
+/* Film İçerik Bölümü */
+.movie-content {
+    padding: 30px 0;
+}
+
+.movie-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 30px;
+}
+
+.movie-main-content > div {
+    background-color: rgba(28, 35, 60, 0.6);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.movie-main-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.movie-description p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.movie-description p:last-child {
+    margin-bottom: 0;
+}
+
+/* Film Detay Bilgileri */
+.movie-details {
+    font-size: 0.95rem;
+}
+
+.detail-row {
+    display: flex;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.detail-row:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.detail-label {
+    flex: 0 0 120px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.detail-value {
+    flex: 1;
+    color: #fff;
+}
+
+/* Fragman Bölümü */
+.trailer-container {
+    position: relative;
+    padding-top: 0;
+    background-color: #000;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Yorum Bölümü */
+.comment-form {
+    margin-bottom: 30px;
+}
+
+.comment-form h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group textarea {
+    width: 100%;
+    height: 100px;
+    padding: 12px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: #fff;
+    resize: none;
+}
+
+.rating-select {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rating {
+    display: flex;
+    gap: 5px;
+}
+
+.rating i {
+    color: #ffb800;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.comments-list {
+    margin-top: 20px;
+}
+
+.comment {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.comment:last-of-type {
+    border-bottom: none;
+}
+
+.comment-avatar {
+    flex: 0 0 60px;
+}
+
+.comment-avatar img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.comment-content {
+    flex: 1;
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.comment-header h4 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.comment-rating {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.comment-rating i {
+    color: #ffb800;
+    font-size: 0.8rem;
+}
+
+.comment-rating span {
+    margin-left: 5px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.comment-date {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.comment-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.comment-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.comment-actions a {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.comment-actions a:hover {
+    color: #ff2c1f;
+}
+
+.load-more {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Yan Sütun Stilleri */
+.movie-sidebar > div {
+    background-color: rgba(28, 35, 60, 0.6);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.movie-sidebar h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Benzer Filmler */
+.movie-card-vertical {
+    margin-bottom: 15px;
+}
+
+.movie-card-vertical:last-child {
+    margin-bottom: 0;
+}
+
+.movie-card-vertical a {
+    display: flex;
+    gap: 10px;
+}
+
+.card-poster {
+    position: relative;
+    flex: 0 0 80px;
+}
+
+.card-poster img {
+    width: 80px;
+    height: 120px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.card-poster .movie-quality {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(255, 44, 31, 0.7);
+    color: #fff;
+    padding: 1px;
+    border-radius: 2px;
+    font-size: 8px;
+    font-weight: 600;
+    min-width: 16px;
+    min-height: 16px;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card-info h4 {
+    font-size: 0.95rem;
+    margin-bottom: 5px;
+    transition: color 0.3s ease;
+}
+
+.card-info .card-rating {
+    color: #ffb800;
+    font-size: 0.8rem;
+    margin-right: 8px;
+}
+
+.card-info .card-year {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.movie-card-vertical a:hover h4 {
+    color: #ff2c1f;
+}
+
+/* Popüler Filmler */
+.popular-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.popular-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.popular-rank {
+    flex: 0 0 25px;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ff2c1f;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.popular-poster {
+    flex: 0 0 40px;
+}
+
+.popular-poster img {
+    width: 40px;
+    height: 60px;
+    border-radius: 3px;
+    object-fit: cover;
+}
+
+.popular-info {
+    flex: 1;
+}
+
+.popular-info h4 {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    transition: color 0.3s ease;
+}
+
+.popular-info:hover h4 {
+    color: #ff2c1f;
+}
+
+.popular-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.75rem;
+}
+
+.popular-meta span:first-child {
+    color: #ffb800;
+}
+
+.popular-meta span:last-child {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Responsive Düzenlemeler */
+@media (max-width: 992px) {
+    .movie-content-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .movie-banner-content {
+        flex-direction: column;
+    }
+    
+    .movie-poster {
+        flex: 0 0 auto;
+        width: 250px;
+        margin: 0 auto 30px;
+    }
+    
+    .movie-info {
+        text-align: center;
+    }
+    
+    .movie-meta, .movie-genres, .movie-actions {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .movie-banner {
+        padding: 40px 0;
+    }
+    
+    .movie-info h1 {
+        font-size: 2rem;
+    }
+    
+    .movie-trailer iframe {
+        height: 350px;
+    }
+}
+
+@media (max-width: 576px) {
+    .movie-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .movie-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .movie-trailer iframe {
+        height: 250px;
+    }
+    
+    .comment {
+        flex-direction: column;
+    }
+    
+    .comment-avatar {
+        margin-bottom: 10px;
+    }
+}
+
+/* ===== Dizi Detay Sayfası Stilleri ===== */
+#series-detail {
+    color: #fff;
+}
+
+/* Sezon ve Bölüm Stilleri */
+.series-seasons {
+    margin-bottom: 30px;
+}
+
+.season-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.season-tab {
+    padding: 8px 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.season-tab.active {
+    background-color: #ff2c1f;
+}
+
+.season-tab:hover:not(.active) {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.season-content {
+    display: none;
+}
+
+.season-content.active {
+    display: block;
+}
+
+.episode-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.episode-item {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.episode-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.episode-number {
+    flex: 0 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 44, 31, 0.7);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.episode-thumbnail {
+    flex: 0 0 150px;
+    position: relative;
+}
+
+.episode-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.episode-thumbnail:hover .play-overlay {
+    opacity: 1;
+}
+
+.play-btn-small {
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255, 44, 31, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+}
+
+.episode-thumbnail:hover .play-btn-small {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.episode-info {
+    flex: 1;
+    padding: 15px;
+}
+
+.episode-info h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.episode-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.episode-desc {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.8);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.season-info {
+    padding: 20px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Responsive Düzenlemeler */
+@media (max-width: 768px) {
+    .season-tabs {
+        justify-content: center;
+    }
+    
+    .episode-item {
+        flex-direction: column;
+    }
+    
+    .episode-number {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
+        z-index: 2;
+    }
+    
+    .episode-thumbnail {
+        flex: 0 0 auto;
+        width: 100%;
+        height: 180px;
+    }
+}
+
+@media (max-width: 576px) {
+    .season-tab {
+        flex: 1 0 calc(50% - 10px);
+        text-align: center;
+    }
+    
+    .episode-info h3 {
+        font-size: 1rem;
+    }
+    
+    .episode-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .episode-thumbnail {
+        height: 150px;
+    }
+}
+
+/* ===== Kategori Sayfası Stilleri ===== */
+#category-page {
+    color: #fff;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Kategori Banner Bölümü */
+.category-banner {
+    position: relative;
+    padding: 60px 0;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.category-banner-content {
+    position: relative;
+    z-index: 2;
+    max-width: 70%;
+}
+
+.category-banner-content h1 {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #fff;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.7);
+}
+
+.category-banner-content p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 20px;
+    max-width: 800px;
+}
+
+/* Kategori İçerik Bölümü */
+.category-content {
+    padding: 30px 0 60px;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 30px;
+}
+
+/* Filtre Kenar Çubuğu */
+.filter-sidebar {
+    background-color: rgba(25, 28, 41, 0.8);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    height: fit-content;
+    position: sticky;
+    top: 90px;
+}
+
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.filter-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.clear-filters {
+    color: #e50914;
+    font-size: 14px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.clear-filters:hover {
+    text-decoration: underline;
+}
+
+.filter-group {
+    margin-bottom: 25px;
+}
+
+.filter-group h4 {
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: #fff;
+    font-weight: 500;
+}
+
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Checkbox Stili */
+.checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    user-select: none;
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.2s ease;
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkbox-container:hover {
+    color: #fff;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    transition: all 0.2s ease;
+}
+
+.checkbox-container:hover .checkmark {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.checkbox-container input:checked ~ .checkmark {
+    background-color: #e50914;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkbox-container .checkmark:after {
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Radio Button Stili */
+.radio-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    user-select: none;
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.2s ease;
+}
+
+.radio-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.radio-container:hover {
+    color: #fff;
+}
+
+.radiodot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.radio-container:hover .radiodot {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.radio-container input:checked ~ .radiodot {
+    background-color: #e50914;
+}
+
+.radiodot:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.radio-container input:checked ~ .radiodot:after {
+    display: block;
+}
+
+.radio-container .radiodot:after {
+    top: 6px;
+    left: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+/* Range Slider Stili */
+.range-slider {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.range-values {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.range-container {
+    position: relative;
+    width: 100%;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.range-input {
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    height: 20px;
+}
+
+.range-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #e50914;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 3;
+    position: relative;
+}
+
+.range-input::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: #e50914;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 3;
+    position: relative;
+    border: none;
+}
+
+/* Apply Filters Button */
+.apply-filters-btn {
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #e50914;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.apply-filters-btn:hover {
+    background-color: #ff0f1a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3);
+}
+
+/* İçerik Alanı */
+.content-area {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.results-count {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.sort-view-options {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.sort-options {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sort-options label {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.sort-options select {
+    background-color: rgba(25, 28, 41, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: #fff;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.sort-options select:hover, .sort-options select:focus {
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.view-toggle {
+    display: flex;
+    gap: 10px;
+}
+
+.view-btn {
+    background-color: rgba(25, 28, 41, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: rgba(255, 255, 255, 0.6);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.view-btn:hover, .view-btn.active {
+    color: #fff;
+    background-color: rgba(229, 9, 20, 0.2);
+    border-color: #e50914;
+}
+
+/* Izgara Görünümü */
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+/* Liste Görünümü */
+.content-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.list-item {
+    display: flex;
+    gap: 20px;
+    background-color: rgba(25, 28, 41, 0.8);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.list-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.list-item-poster {
+    flex: 0 0 150px;
+    position: relative;
+}
+
+.list-item-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.list-item-poster .movie-quality {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(229, 9, 20, 0.7);
+    color: #fff;
+    padding: 2px;
+    border-radius: 2px;
+    font-size: 8px;
+    font-weight: 600;
+    z-index: 1;
+    min-width: 18px;
+    min-height: 18px;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.list-item-info {
+    flex: 1;
+    padding: 15px 0;
+}
+
+.list-item-info h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.list-item-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.list-item-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.meta-type {
+    background-color: rgba(229, 9, 20, 0.2);
+    color: #e50914;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.list-item-desc {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 15px;
+    line-height: 1.5;
+    max-width: 90%;
+}
+
+.list-item-genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.list-item-genres a {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 4px 10px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.list-item-genres a:hover {
+    background-color: rgba(229, 9, 20, 0.2);
+    color: #e50914;
+}
+
+.list-item-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 20px;
+    flex: 0 0 auto;
+}
+
+/* Sayfalama */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-top: 40px;
+}
+
+.pagination a, .pagination span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    background-color: rgba(25, 28, 41, 0.8);
+    color: #fff;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.pagination a:hover, .pagination a.active {
+    background-color: #e50914;
+}
+
+.pagination-dots {
+    background-color: transparent !important;
+}
+
+.pagination-prev, .pagination-next {
+    width: 36px;
+    height: 36px;
+}
+
+/* Mobil Uyumluluk için Media Queries */
+@media (max-width: 1200px) {
+    .category-grid {
+        grid-template-columns: 220px 1fr;
+        gap: 20px;
+    }
+    
+    .content-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+}
+
+@media (max-width: 992px) {
+    .category-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .filter-sidebar {
+        position: static;
+        margin-bottom: 30px;
+    }
+    
+    .category-banner-content {
+        max-width: 90%;
+    }
+    
+    .content-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .sort-view-options {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 768px) {
+    .category-banner {
+        padding: 40px 0;
+    }
+    
+    .category-banner-content h1 {
+        font-size: 30px;
+    }
+    
+    .category-banner-content p {
+        font-size: 14px;
+    }
+    
+    .list-item {
+        flex-wrap: wrap;
+    }
+    
+    .list-item-poster {
+        flex: 0 0 100px;
+    }
+    
+    .list-item-actions {
+        flex-direction: row;
+        width: 100%;
+        padding: 0 15px 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .category-banner-content {
+        max-width: 100%;
+    }
+    
+    .category-banner-content h1 {
+        font-size: 24px;
+    }
+    
+    .content-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 15px;
+    }
+    
+    .list-item-info h3 {
+        font-size: 16px;
+    }
+    
+    .list-item-desc {
+        font-size: 12px;
+    }
+    
+    .list-item-meta {
+        font-size: 12px;
+        gap: 10px;
+    }
+}
+
+/* Filtre sidebar efekti */
+.filter-sidebar.filter-applied {
+    box-shadow: 0 0 15px rgba(229, 9, 20, 0.7);
+    animation: pulse 0.5s 1;
+}
+
+/* Mobil filtre butonu */
+.mobile-filter-toggle {
+    display: none;
+    width: 100%;
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    background-color: rgba(25, 28, 41, 0.8);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    z-index: 5;
+}
+
+.mobile-filter-toggle i {
+    margin-right: 8px;
+}
+
+.mobile-filter-toggle:hover {
+    background-color: rgba(229, 9, 20, 0.2);
+    border-color: #e50914;
+}
+
+@media (max-width: 992px) {
+    /* Mobil Filtre butonunu göster */
+    .mobile-filter-toggle {
+        display: block !important;
+    }
+    
+    /* Filtre sidebar'ı mobil görünüm için ayarla */
+    .filter-sidebar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: 1000;
+        overflow-y: auto;
+        padding: 50px 20px 20px;
+        box-sizing: border-box;
+        margin-bottom: 0;
+        border-radius: 0;
+        background-color: rgba(22, 24, 33, 0.98);
+    }
+    
+    .filter-sidebar.active {
+        display: block;
+        animation: fadeInFromLeft 0.3s forwards;
+    }
+}
+
+/* Filtre Sidebar Kapatma Butonu */
+.close-sidebar-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(229, 9, 20, 0.7);
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.close-sidebar-btn:hover {
+    background-color: #e50914;
+    transform: scale(1.1);
+}
+
+/* Filtre Sidebar Backdrop */
+.filter-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    backdrop-filter: blur(3px);
+    animation: fadeIn 0.3s forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Footer Newsletter Stilini Düzenleme */
+.footer-newsletter form {
+    display: flex;
+    margin-top: 15px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.footer-newsletter input {
+    flex: 1;
+    padding: 12px 15px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.footer-newsletter input:focus {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.footer-newsletter input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.footer-newsletter button {
+    background-color: #e50914;
+    color: #fff;
+    border: none;
+    padding: 12px 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.footer-newsletter button:hover {
+    background-color: #ff0f1a;
+}
+
+@media (max-width: 992px) {
+    .filter-sidebar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: 1000;
+        overflow-y: auto;
+        padding: 50px 20px 20px;
+        box-sizing: border-box;
+        margin-bottom: 0;
+        border-radius: 0;
+    }
+}
+
+/* ===== Arama Sonuçları Sayfası Stilleri ===== */
+#search-results-page {
+    color: #fff;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Arama Başlık Bölümü */
+.search-header {
+    background-color: rgba(25, 28, 41, 0.8);
+    padding: 40px 0;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.search-header-content {
+    text-align: center;
+}
+
+.search-header-content h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.search-header-content h1 span {
+    color: #e50914;
+}
+
+.search-header-content p {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Arama İçerik Bölümü */
+.search-content {
+    padding: 0 0 60px;
+}
+
+.search-grid {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 30px;
+}
+
+/* Arama Sayfası Film Kartları */
+#search-results-page .movie-card {
+    position: relative;
+    width: 100%;
+}
+
+#search-results-page .movie-poster {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+#search-results-page .movie-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#search-results-page .play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: 10;
+    margin: 0;
+    width: 45px;
+    height: 45px;
+    background-color: rgba(229, 9, 20, 0.9);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+#search-results-page .movie-card:hover .play-btn {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#search-results-page .play-btn:hover {
+    background-color: #e50914;
+    transform: translate(-50%, -50%) scale(1.1) !important;
+    box-shadow: 0 0 15px rgba(229, 9, 20, 0.7);
+}
+
+/* Mobil Filtre Butonu */
+.mobile-filter-toggle {
+    display: none;
+    width: 100%;
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    background-color: rgba(25, 28, 41, 0.8);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    z-index: 5;
+}
+
+.mobile-filter-toggle i {
+    margin-right: 8px;
+}
+
+.mobile-filter-toggle:hover {
+    background-color: rgba(229, 9, 20, 0.2);
+    border-color: #e50914;
+}
+
+@media (max-width: 992px) {
+    /* Mobil Filtre butonunu göster */
+    .mobile-filter-toggle {
+        display: block !important;
+    }
+    
+    /* Filtre sidebar'ı mobil görünüm için ayarla */
+    .filter-sidebar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: 1000;
+        overflow-y: auto;
+        padding: 50px 20px 20px;
+        box-sizing: border-box;
+        margin-bottom: 0;
+        border-radius: 0;
+        background-color: rgba(22, 24, 33, 0.98);
+    }
+    
+    .filter-sidebar.active {
+        display: block;
+        animation: fadeInFromLeft 0.3s forwards;
+    }
+}
+
+/* Filtre Sidebar Kapatma Butonu */
+.close-sidebar-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(229, 9, 20, 0.7);
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.close-sidebar-btn:hover {
+    background-color: #e50914;
+    transform: scale(1.1);
+}
+
+/* Filtre Sidebar Backdrop */
+.filter-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    backdrop-filter: blur(3px);
+    animation: fadeIn 0.3s forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Liste Görünümü Özellikleri */
+.view-mode-list .list-item {
+    margin-bottom: 20px;
+    background-color: rgba(25, 28, 41, 0.6);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.view-mode-list .list-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Düzenlemeler */
+@media (max-width: 992px) {
+    .search-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .sort-view-options {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    /* Mobil Filtre butonunu göster */
+    .mobile-filter-toggle {
+        display: block;
+    }
+    
+    /* Filtre sidebar'ı mobil görünüm için ayarla */
+    .filter-sidebar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: 1000;
+        overflow-y: auto;
+        padding: 50px 20px 20px;
+        box-sizing: border-box;
+        margin-bottom: 0;
+        border-radius: 0;
+        background-color: rgba(22, 24, 33, 0.98);
+    }
+    
+    .filter-sidebar.active {
+        display: block;
+        animation: fadeInFromLeft 0.3s forwards;
+    }
+    
+    @keyframes fadeInFromLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .search-header {
+        padding: 30px 0;
+    }
+    
+    .search-header-content h1 {
+        font-size: 26px;
+    }
+    
+    .list-item {
+        flex-direction: column;
+    }
+    
+    .list-item-actions {
+        display: flex;
+        justify-content: space-around;
+        padding: 15px;
+    }
+    
+    /* Mobil görünümde play butonunu düzgün ortalama */
+    #search-results-page .movie-poster {
+        position: relative;
+        width: 100%;
+        display: block;
+        overflow: hidden;
+    }
+    
+    @media (max-width: 768px) {
+    .movie-poster {
+        position: relative;
+        width: 100%;
+        display: block;
+        overflow: hidden;
+    }
+    
+    .movie-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 100%;
+        max-width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        box-sizing: border-box;
+    }
+    
+    .play-btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        margin: 0;
+        box-sizing: border-box;
+    }
+    
+    .movie-card:hover .play-btn {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+    
+    #search-results-page .play-btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        margin: 0;
+        box-sizing: border-box;
+    }
+    
+    #search-results-page .movie-card:hover .play-btn {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@media (max-width: 576px) {
+    .search-header-content h1 {
+        font-size: 22px;
+    }
+    
+    .search-header-content p {
+        font-size: 14px;
+    }
+    
+    .content-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    }
+    
+    /* Küçük ekranlar için play buton boyutunu küçült */
+    #search-results-page .play-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+    }
+    
+    /* Küçük ekranlarda sayfalama düzeltmesi */
+    .pagination {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* Dizi detay sayfası için meta bilgileri */
+.movie-meta-wrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+.meta-item i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+}
+
+.meta-item.rating {
+    color: #ffb800;
+    font-weight: 600;
+}
+
+/* Dizi detay sayfası içerik stilleri */
+#series-detail .movie-genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+#series-detail .movie-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+/* Mobil görünüm için meta bilgileri düzenlemesi */
+@media (max-width: 992px) {
+    .movie-meta-wrapper {
+        justify-content: center;
+        width: 100%;
+        text-align: center;
+    }
+    
+    #series-detail .movie-info h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    #series-detail .movie-genres {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 25px;
+    }
+    
+    #series-detail .movie-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .movie-meta-wrapper {
+        gap: 10px;
+    }
+    
+    .meta-item {
+        font-size: 0.9rem;
+    }
+}
+
+/* Eski movie-meta stilini koruyalım fakat kullanmayalım */
+.movie-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
 } 
