@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap / Kayıt Ol - Film Dünyası</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <h1>Film<span>Dünyası</span></h1>
+                </a>
+            </div>
+            <div class="search-box">
+                <input type="text" placeholder="Film veya dizi ara...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <nav>
+                                <ul>                    <li><a href="index.html">Anasayfa</a></li>                    <li><a href="category.html">Filmler</a></li>                    <li><a href="series-detail.html">Diziler</a></li>                    <li><a href="category.html">Türler</a></li>                    <li><a href="search-results.html">İletişim</a></li>                    <li><a href="login-register.html" class="active login-btn">Giriş Yap</a></li>                </ul>
+            </nav>
+            <div class="hamburger-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu Backdrop -->
+    <div class="menu-backdrop"></div>
+
+    <!-- Login Register Ana İçerik Bölümü -->
+    <div id="login-register-page">
+        <!-- Hero Section -->
+        <section class="auth-hero">
+            <div class="auth-hero-overlay"></div>
+            <div class="auth-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1574267432553-4b4628081c31?q=80&w=1920&auto=format')"></div>
+            <div class="container">
+                <div class="auth-hero-content">
+                    <h1>Hoş Geldiniz</h1>
+                    <p>Film Dünyası'na katılın ve binlerce filme sınırsız erişim sağlayın.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Auth Forms Section -->
+        <section class="auth-section">
+            <div class="container">
+                <div class="auth-container">
+                    <!-- Form Tabs -->
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" data-tab="login">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Giriş Yap
+                        </button>
+                        <button class="auth-tab" data-tab="register">
+                            <i class="fas fa-user-plus"></i>
+                            Kayıt Ol
+                        </button>
+                    </div>
+
+                    <!-- Login Form -->
+                    <div class="auth-form-container active" id="login-form">
+                        <div class="form-header">
+                            <h2>Giriş Yap</h2>
+                            <p>Hesabınıza giriş yaparak kaldığınız yerden devam edin.</p>
+                        </div>
+                        
+                        <form action="#" method="POST" class="auth-form">
+                            <div class="form-group">
+                                <label for="login-email">E-posta Adresi</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="email" id="login-email" name="email" placeholder="E-posta adresinizi girin" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="login-password">Şifre</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" id="login-password" name="password" placeholder="Şifrenizi girin" required>
+                                    <button type="button" class="password-toggle" data-target="login-password">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-options">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="remember">
+                                    <span class="checkmark"></span>
+                                    Beni Hatırla
+                                </label>
+                                <a href="#" class="forgot-password" data-tab="forgot">Şifremi Unuttum</a>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-full">
+                                <i class="fas fa-sign-in-alt"></i>
+                                Giriş Yap
+                            </button>
+                        </form>
+
+                        <div class="social-login">
+                            <div class="divider">
+                                <span>veya</span>
+                            </div>
+                            <div class="social-buttons">
+                                <a href="#" class="social-btn google">
+                                    <i class="fab fa-google"></i>
+                                    Google ile Giriş
+                                </a>
+                                <a href="#" class="social-btn facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                    Facebook ile Giriş
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="form-footer">
+                            <p>Hesabınız yok mu? <a href="#" data-tab="register">Kayıt olun</a></p>
+                        </div>
+                    </div>
+
+                    <!-- Register Form -->
+                    <div class="auth-form-container" id="register-form">
+                        <div class="form-header">
+                            <h2>Kayıt Ol</h2>
+                            <p>Yeni hesap oluşturun ve film dünyasına katılın.</p>
+                        </div>
+                        
+                        <form action="#" method="POST" class="auth-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="register-firstname">Ad</label>
+                                    <div class="input-wrapper">
+                                        <i class="fas fa-user"></i>
+                                        <input type="text" id="register-firstname" name="firstname" placeholder="Adınız" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="register-lastname">Soyad</label>
+                                    <div class="input-wrapper">
+                                        <i class="fas fa-user"></i>
+                                        <input type="text" id="register-lastname" name="lastname" placeholder="Soyadınız" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="register-email">E-posta Adresi</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="email" id="register-email" name="email" placeholder="E-posta adresiniz" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="register-password">Şifre</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" id="register-password" name="password" placeholder="Güçlü bir şifre oluşturun" required>
+                                    <button type="button" class="password-toggle" data-target="register-password">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="password-strength">
+                                    <div class="strength-bar">
+                                        <div class="strength-fill"></div>
+                                    </div>
+                                    <span class="strength-text">Şifre gücü</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="register-confirm-password">Şifre Tekrar</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" id="register-confirm-password" name="confirm_password" placeholder="Şifrenizi tekrar girin" required>
+                                    <button type="button" class="password-toggle" data-target="register-confirm-password">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="register-birthdate">Doğum Tarihi</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <input type="date" id="register-birthdate" name="birthdate" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="register-gender">Cinsiyet</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-venus-mars"></i>
+                                    <select id="register-gender" name="gender" required>
+                                        <option value="">Seçiniz</option>
+                                        <option value="male">Erkek</option>
+                                        <option value="female">Kadın</option>
+                                        <option value="other">Diğer</option>
+                                        <option value="prefer_not_to_say">Belirtmek İstemiyorum</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-agreements">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="terms" required>
+                                    <span class="checkmark"></span>
+                                    <a href="#" target="_blank">Kullanım Şartları</a>'nı okudum ve kabul ediyorum
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="privacy" required>
+                                    <span class="checkmark"></span>
+                                    <a href="#" target="_blank">Gizlilik Politikası</a>'nı okudum ve kabul ediyorum
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="newsletter">
+                                    <span class="checkmark"></span>
+                                    E-posta bildirimleri almak istiyorum
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-full">
+                                <i class="fas fa-user-plus"></i>
+                                Kayıt Ol
+                            </button>
+                        </form>
+
+                        <div class="social-login">
+                            <div class="divider">
+                                <span>veya</span>
+                            </div>
+                            <div class="social-buttons">
+                                <a href="#" class="social-btn google">
+                                    <i class="fab fa-google"></i>
+                                    Google ile Kayıt Ol
+                                </a>
+                                <a href="#" class="social-btn facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                    Facebook ile Kayıt Ol
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="form-footer">
+                            <p>Zaten hesabınız var mı? <a href="#" data-tab="login">Giriş yapın</a></p>
+                        </div>
+                    </div>
+
+                    <!-- Forgot Password Form -->
+                    <div class="auth-form-container" id="forgot-form">
+                        <div class="form-header">
+                            <h2>Şifremi Unuttum</h2>
+                            <p>E-posta adresinizi girin, şifre sıfırlama bağlantısını size gönderelim.</p>
+                        </div>
+                        
+                        <form action="#" method="POST" class="auth-form">
+                            <div class="form-group">
+                                <label for="forgot-email">E-posta Adresi</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="email" id="forgot-email" name="email" placeholder="Kayıtlı e-posta adresiniz" required>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-full">
+                                <i class="fas fa-paper-plane"></i>
+                                Sıfırlama Bağlantısı Gönder
+                            </button>
+                        </form>
+
+                        <div class="form-footer">
+                            <p>Şifrenizi hatırladınız mı? <a href="#" data-tab="login">Giriş yapın</a></p>
+                            <p>Hesabınız yok mu? <a href="#" data-tab="register">Kayıt olun</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Benefits Section -->
+                <div class="auth-benefits">
+                    <h3>Film Dünyası'nın Avantajları</h3>
+                    <div class="benefits-grid">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-film"></i>
+                            </div>
+                            <h4>Binlerce Film</h4>
+                            <p>En yeni filmlerden klasiklere kadar geniş bir koleksiyon</p>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-tv"></i>
+                            </div>
+                            <h4>Popüler Diziler</h4>
+                            <p>Dünyadan ve Türkiye'den en çok izlenen diziler</p>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h4>Kişisel Liste</h4>
+                            <p>Beğendiklerinizi listeleyin, daha sonra izleyin</p>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h4>Her Cihazda</h4>
+                            <p>Telefon, tablet, bilgisayar - istediğiniz yerden izleyin</p>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-hd-video"></i>
+                            </div>
+                            <h4>HD Kalite</h4>
+                            <p>Yüksek çözünürlük ve kristal netlikte görüntü</p>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h4>Özel İçerikler</h4>
+                            <p>Sadece üyelerimize özel filmler ve diziler</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Film<span>Dünyası</span></h2>
+                    <p>En yeni ve popüler filmleri izlemek için doğru adrestesiniz.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Hızlı Linkler</h3>
+                    <ul>
+                        <li><a href="index.html">Anasayfa</a></li>
+                        <li><a href="category.html">Filmler</a></li>
+                        <li><a href="series-detail.html">Diziler</a></li>
+                        <li><a href="category.html">Türler</a></li>
+                        <li><a href="search-results.html">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Türler</h3>
+                    <ul>
+                        <li><a href="category.html">Aksiyon</a></li>
+                        <li><a href="category.html">Komedi</a></li>
+                        <li><a href="category.html">Drama</a></li>
+                        <li><a href="category.html">Bilim Kurgu</a></li>
+                        <li><a href="category.html">Korku</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Bülten</h3>
+                    <p>En yeni filmler ve özel teklifler için abone olun.</p>
+                    <form action="#" method="POST">
+                        <input type="email" placeholder="E-posta adresiniz" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Film Dünyası. Tüm hakları saklıdır.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Gizlilik Politikası</a>
+                    <a href="#">Kullanım Şartları</a>
+                    <a href="#">KVKK</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html> 

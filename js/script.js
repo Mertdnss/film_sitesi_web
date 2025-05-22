@@ -1155,4 +1155,353 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Arama sonuçları sayfası init
     initSearchResultsPage();
-}); 
+
+    // Initialize all functions when page loads
+    initCategoryPage();
+    initSearchResultsPage();
+    
+    // ===== LOGIN REGISTER PAGE FUNCTIONALITY =====
+    const initLoginRegisterPage = () => {
+        // Check if we're on the login-register page
+        if (!document.getElementById('login-register-page')) return;
+        
+        // Tab switching functionality
+        const authTabs = document.querySelectorAll('.auth-tab');
+        const formContainers = document.querySelectorAll('.auth-form-container');
+        
+        authTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.dataset.tab;
+                
+                // Remove active class from all tabs and containers
+                authTabs.forEach(t => t.classList.remove('active'));
+                formContainers.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show corresponding form container
+                const targetContainer = document.getElementById(`${targetTab}-form`);
+                if (targetContainer) {
+                    targetContainer.classList.add('active');
+                }
+            });
+        });
+        
+        // Handle links that switch between forms
+        const formSwitchLinks = document.querySelectorAll('[data-tab]');
+        formSwitchLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetTab = link.dataset.tab;
+                
+                // Find and click the corresponding tab
+                const targetTabButton = document.querySelector(`.auth-tab[data-tab="${targetTab}"]`);
+                if (targetTabButton) {
+                    targetTabButton.click();
+                }
+            });
+        });
+        
+        // Password toggle functionality
+        const passwordToggles = document.querySelectorAll('.password-toggle');
+        passwordToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const targetId = toggle.dataset.target;
+                const passwordInput = document.getElementById(targetId);
+                const icon = toggle.querySelector('i');
+                
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
+        });
+        
+        // Password strength indicator
+        const registerPassword = document.getElementById('register-password');
+        if (registerPassword) {
+            const strengthBar = document.querySelector('.strength-fill');
+            const strengthText = document.querySelector('.strength-text');
+            
+            registerPassword.addEventListener('input', () => {
+                const password = registerPassword.value;
+                const strength = calculatePasswordStrength(password);
+                
+                // Update strength bar
+                strengthBar.style.width = strength.percentage + '%';
+                strengthText.textContent = strength.text;
+                
+                // Update bar color based on strength
+                strengthBar.style.background = strength.color;
+            });
+        }
+        
+        // Password confirmation validation
+        const confirmPassword = document.getElementById('register-confirm-password');
+        if (confirmPassword && registerPassword) {
+            confirmPassword.addEventListener('input', () => {
+                const password = registerPassword.value;
+                const confirm = confirmPassword.value;
+                
+                if (confirm && password !== confirm) {
+                    confirmPassword.style.borderColor = '#ff4757';
+                } else {
+                    confirmPassword.style.borderColor = '';
+                }
+            });
+        }
+        
+        // Form validation
+        const forms = document.querySelectorAll('.auth-form');
+        forms.forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const formData = new FormData(form);
+                const formType = form.closest('.auth-form-container').id;
+                
+                // Validate form based on type
+                if (validateForm(form, formType)) {
+                    // Form is valid, proceed with submission
+                    console.log('Form validation passed:', formType);
+                    // Here you would typically send the data to your backend
+                    showSuccessMessage('Form submitted successfully!');
+                } else {
+                    showErrorMessage('Please check your form data and try again.');
+                }
+            });
+        });
+        
+        // Search box focus animation
+        const searchBox = document.querySelector('.search-box');
+        const searchInput = searchBox?.querySelector('input');
+        
+        if (searchInput) {
+            searchInput.addEventListener('focus', () => {
+                searchBox.classList.add('focused');
+            });
+            
+            searchInput.addEventListener('blur', () => {
+                searchBox.classList.remove('focused');
+            });
+        }
+    };
+    
+    // Password strength calculation function
+    function calculatePasswordStrength(password) {
+        let score = 0;
+        let feedback = [];
+        
+        if (password.length === 0) {
+            return {
+                percentage: 0,
+                text: 'Şifre gücü',
+                color: '#ddd'
+            };
+        }
+        
+        // Length check
+        if (password.length >= 8) score += 25;
+        else feedback.push('En az 8 karakter');
+        
+        // Uppercase check
+        if (/[A-Z]/.test(password)) score += 25;
+        else feedback.push('Büyük harf');
+        
+        // Lowercase check
+        if (/[a-z]/.test(password)) score += 25;
+        else feedback.push('Küçük harf');
+        
+        // Number check
+        if (/\d/.test(password)) score += 25;
+        else feedback.push('Rakam');
+        
+        // Special character check
+        if (/[^A-Za-z0-9]/.test(password)) score += 10;
+        
+        let text, color;
+        
+        if (score < 30) {
+            text = 'Zayıf';
+            color = '#ff4757';
+        } else if (score < 60) {
+            text = 'Orta';
+            color = '#ffa502';
+        } else if (score < 90) {
+            text = 'İyi';
+            color = '#2ed573';
+        } else {
+            text = 'Mükemmel';
+            color = '#2ed573';
+        }
+        
+        return {
+            percentage: Math.min(score, 100),
+            text: text,
+            color: color
+        };
+    }
+    
+    // Form validation function
+    function validateForm(form, formType) {
+        let isValid = true;
+        const inputs = form.querySelectorAll('input[required]');
+        
+        inputs.forEach(input => {
+            // Remove previous error styling
+            input.style.borderColor = '';
+            
+            // Check if field is empty
+            if (!input.value.trim()) {
+                input.style.borderColor = '#ff4757';
+                isValid = false;
+                return;
+            }
+            
+            // Email validation
+            if (input.type === 'email') {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(input.value)) {
+                    input.style.borderColor = '#ff4757';
+                    isValid = false;
+                    return;
+                }
+            }
+            
+            // Password validation for register form
+            if (formType === 'register-form' && input.name === 'password') {
+                if (input.value.length < 8) {
+                    input.style.borderColor = '#ff4757';
+                    isValid = false;
+                    return;
+                }
+            }
+            
+            // Confirm password validation
+            if (input.name === 'confirm_password') {
+                const passwordInput = form.querySelector('[name="password"]');
+                if (passwordInput && input.value !== passwordInput.value) {
+                    input.style.borderColor = '#ff4757';
+                    isValid = false;
+                    return;
+                }
+            }
+        });
+        
+        // Check required checkboxes for register form
+        if (formType === 'register-form') {
+            const requiredCheckboxes = form.querySelectorAll('input[type="checkbox"][required]');
+            requiredCheckboxes.forEach(checkbox => {
+                if (!checkbox.checked) {
+                    // Highlight the checkbox container
+                    const container = checkbox.closest('.checkbox-container');
+                    if (container) {
+                        container.style.color = '#ff4757';
+                        setTimeout(() => {
+                            container.style.color = '';
+                        }, 3000);
+                    }
+                    isValid = false;
+                }
+            });
+        }
+        
+        return isValid;
+    }
+    
+    // Success message function
+    function showSuccessMessage(message) {
+        // Create and show success message
+        const messageDiv = document.createElement('div');
+        messageDiv.textContent = message;
+        messageDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #2ed573, #26d063);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(46,213,115,0.3);
+            z-index: 10000;
+            font-weight: 500;
+            animation: slideInRight 0.3s ease;
+        `;
+        
+        document.body.appendChild(messageDiv);
+        
+        // Remove message after 3 seconds
+        setTimeout(() => {
+            messageDiv.style.animation = 'slideOutRight 0.3s ease forwards';
+            setTimeout(() => {
+                document.body.removeChild(messageDiv);
+            }, 300);
+        }, 3000);
+    }
+    
+    // Error message function
+    function showErrorMessage(message) {
+        // Create and show error message
+        const messageDiv = document.createElement('div');
+        messageDiv.textContent = message;
+        messageDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #ff4757, #ff3838);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(255,71,87,0.3);
+            z-index: 10000;
+            font-weight: 500;
+            animation: slideInRight 0.3s ease;
+        `;
+        
+        document.body.appendChild(messageDiv);
+        
+        // Remove message after 3 seconds
+        setTimeout(() => {
+            messageDiv.style.animation = 'slideOutRight 0.3s ease forwards';
+            setTimeout(() => {
+                document.body.removeChild(messageDiv);
+            }, 300);
+        }, 3000);
+    }
+    
+    // Initialize login-register page
+    initLoginRegisterPage();
+});
+
+// Add CSS animations for messages
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideOutRight {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style); 

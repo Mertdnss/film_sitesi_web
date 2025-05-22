@@ -185,6 +185,35 @@ nav ul li a:hover, nav ul li a.active {
     color: #e50914;
 }
 
+/* Login Button Styling */
+nav ul li a.login-btn {
+    background: linear-gradient(45deg, #e50914 0%, #ff0f1a 100%);
+    color: #fff !important;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: 600;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+nav ul li a.login-btn::after {
+    display: none; /* Remove the underline animation */
+}
+
+nav ul li a.login-btn:hover {
+    background: linear-gradient(45deg, #ff0f1a 0%, #e50914 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(229, 9, 20, 0.4);
+    color: #fff !important;
+}
+
+nav ul li a.login-btn:active {
+    transform: translateY(0);
+}
+
 .hamburger-menu {
     display: none;
     cursor: pointer;
@@ -982,6 +1011,25 @@ footer::before {
         display: block;
         padding: 10px 0;
     }
+    
+    /* Mobile Login Button */
+    nav ul li a.login-btn {
+        background: linear-gradient(45deg, #e50914 0%, #ff0f1a 100%);
+        color: #fff !important;
+        padding: 12px 20px;
+        border-radius: 25px;
+        text-align: center;
+        margin: 15px 0;
+        font-weight: 600;
+        display: block;
+        box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3);
+    }
+    
+    nav ul li a.login-btn:hover {
+        background: linear-gradient(45deg, #ff0f1a 0%, #e50914 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(229, 9, 20, 0.5);
+    }
 
     .hamburger-menu {
         display: block;
@@ -1267,10 +1315,9 @@ a, button, .movie-card, .category-item, .hamburger-menu {
 
 .movie-meta {
     display: flex;
-    align-items: center;
-    flex-wrap: wrap;
     gap: 15px;
-    margin-bottom: 20px;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .movie-meta span {
@@ -3277,3 +3324,718 @@ a, button, .movie-card, .category-item, .hamburger-menu {
     gap: 15px;
     margin-bottom: 20px;
 } 
+
+/* ===== LOGIN REGISTER PAGE STYLES ===== */
+
+/* Auth Hero Section */
+#login-register-page .auth-hero {
+    position: relative;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#login-register-page .auth-hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(2px);
+    transform: scale(1.1);
+}
+
+#login-register-page .auth-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(229,9,20,0.3) 100%);
+    z-index: 1;
+}
+
+#login-register-page .auth-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 600px;
+    padding: 0 20px;
+}
+
+#login-register-page .auth-hero-content h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    background: linear-gradient(45deg, #fff 0%, #e50914 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+#login-register-page .auth-hero-content p {
+    font-size: 18px;
+    margin-bottom: 0;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Auth Section */
+#login-register-page .auth-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, #0f1014 0%, #1a1d29 100%);
+}
+
+#login-register-page .auth-container {
+    max-width: 500px;
+    margin: 0 auto;
+    background: rgba(37, 40, 54, 0.95);
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Auth Tabs */
+#login-register-page .auth-tabs {
+    display: flex;
+    margin-bottom: 30px;
+    background: rgba(15,16,20,0.8);
+    border-radius: 8px;
+    padding: 5px;
+}
+
+#login-register-page .auth-tab {
+    flex: 1;
+    padding: 12px 20px;
+    background: transparent;
+    border: none;
+    color: #8b8b8b;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+#login-register-page .auth-tab.active {
+    background: #e50914;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(229,9,20,0.3);
+}
+
+#login-register-page .auth-tab:hover:not(.active) {
+    color: #fff;
+    background: rgba(255,255,255,0.1);
+}
+
+/* Form Containers */
+#login-register-page .auth-form-container {
+    display: none;
+}
+
+#login-register-page .auth-form-container.active {
+    display: block;
+    animation: fadeInUp 0.4s ease;
+}
+
+#login-register-page .form-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#login-register-page .form-header h2 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+#login-register-page .form-header p {
+    color: #8b8b8b;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Form Styles */
+#login-register-page .auth-form {
+    margin-bottom: 25px;
+}
+
+#login-register-page .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#login-register-page .form-group {
+    margin-bottom: 20px;
+}
+
+#login-register-page .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+}
+
+#login-register-page .input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+#login-register-page .input-wrapper i {
+    position: absolute;
+    left: 15px;
+    color: #8b8b8b;
+    font-size: 16px;
+    z-index: 2;
+}
+
+#login-register-page .input-wrapper input,
+#login-register-page .input-wrapper select {
+    width: 100%;
+    padding: 12px 15px 12px 45px;
+    background: rgba(15,16,20,0.8);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+#login-register-page .input-wrapper input:focus,
+#login-register-page .input-wrapper select:focus {
+    border-color: #e50914;
+    background: rgba(15,16,20,0.95);
+    box-shadow: 0 0 0 3px rgba(229,9,20,0.1);
+}
+
+#login-register-page .input-wrapper input::placeholder {
+    color: #666;
+    font-size: 14px;
+}
+
+#login-register-page .input-wrapper select {
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b8b8b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 16px;
+}
+
+#login-register-page .input-wrapper select option {
+    background: #252836;
+    color: #fff;
+    padding: 10px;
+}
+
+#login-register-page .input-wrapper input[type="date"] {
+    color: #fff;
+}
+
+#login-register-page .input-wrapper input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+#login-register-page .input-wrapper input[type="date"]::-webkit-inner-spin-button,
+#login-register-page .input-wrapper input[type="date"]::-webkit-clear-button {
+    display: none;
+}
+
+/* Password Toggle */
+#login-register-page .password-toggle {
+    position: absolute;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #8b8b8b;
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.3s ease;
+    z-index: 2;
+    font-size: 14px;
+}
+
+#login-register-page .password-toggle:hover {
+    color: #e50914;
+}
+
+/* Password Strength */
+#login-register-page .password-strength {
+    margin-top: 8px;
+}
+
+#login-register-page .strength-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+#login-register-page .strength-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(to right, #ff4757, #ffa502, #2ed573);
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+#login-register-page .strength-text {
+    font-size: 12px;
+    color: #8b8b8b;
+    margin-top: 4px;
+    display: block;
+}
+
+/* Form Options */
+#login-register-page .form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#login-register-page .checkbox-container {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    cursor: pointer;
+    color: #8b8b8b;
+    transition: color 0.3s ease;
+    user-select: none;
+}
+
+#login-register-page .checkbox-container:hover {
+    color: #fff;
+}
+
+#login-register-page .checkbox-container input {
+    display: none;
+}
+
+#login-register-page .checkbox-container .checkmark {
+    width: 18px;
+    height: 18px;
+    background: rgba(15,16,20,0.8);
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+    margin-right: 10px;
+    position: relative;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+#login-register-page .checkbox-container:hover .checkmark {
+    border-color: rgba(255,255,255,0.4);
+}
+
+#login-register-page .checkbox-container input:checked ~ .checkmark {
+    background: #e50914;
+    border-color: #e50914;
+}
+
+#login-register-page .checkbox-container .checkmark:after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#login-register-page .checkbox-container input:checked ~ .checkmark:after {
+    opacity: 1;
+}
+
+#login-register-page .forgot-password {
+    color: #e50914;
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+#login-register-page .forgot-password:hover {
+    color: #ff0f1a;
+    text-decoration: underline;
+}
+
+/* Form Agreements */
+#login-register-page .form-agreements {
+    margin-bottom: 25px;
+}
+
+#login-register-page .form-agreements .checkbox-container {
+    margin-bottom: 12px;
+    align-items: flex-start;
+    line-height: 1.4;
+}
+
+#login-register-page .form-agreements .checkbox-container:last-child {
+    margin-bottom: 0;
+}
+
+#login-register-page .form-agreements .checkbox-container .checkmark {
+    margin-top: 2px;
+}
+
+#login-register-page .form-agreements a {
+    color: #e50914;
+    text-decoration: none;
+}
+
+#login-register-page .form-agreements a:hover {
+    text-decoration: underline;
+}
+
+/* Button Styles */
+#login-register-page .btn-full {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+#login-register-page .btn-primary {
+    background: linear-gradient(45deg, #e50914 0%, #ff0f1a 100%);
+    border: none;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#login-register-page .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(229,9,20,0.4);
+}
+
+#login-register-page .btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Social Login */
+#login-register-page .social-login {
+    margin-bottom: 25px;
+}
+
+#login-register-page .divider {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+#login-register-page .divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+}
+
+#login-register-page .divider span {
+    background: rgba(37, 40, 54, 0.95);
+    padding: 0 15px;
+    color: #8b8b8b;
+    font-size: 14px;
+    position: relative;
+    z-index: 1;
+}
+
+#login-register-page .social-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+#login-register-page .social-btn {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    background: rgba(15,16,20,0.5);
+}
+
+#login-register-page .social-btn:hover {
+    transform: translateY(-1px);
+}
+
+#login-register-page .social-btn.google:hover {
+    border-color: #db4437;
+    background: rgba(219,68,55,0.1);
+    color: #db4437;
+}
+
+#login-register-page .social-btn.facebook:hover {
+    border-color: #4267B2;
+    background: rgba(66,103,178,0.1);
+    color: #4267B2;
+}
+
+/* Form Footer */
+#login-register-page .form-footer {
+    text-align: center;
+}
+
+#login-register-page .form-footer p {
+    color: #8b8b8b;
+    font-size: 14px;
+}
+
+#login-register-page .form-footer a {
+    color: #e50914;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+#login-register-page .form-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Benefits Section */
+#login-register-page .auth-benefits {
+    margin-top: 60px;
+    padding: 50px 0;
+    background: rgba(15,16,20,0.5);
+    border-radius: 15px;
+}
+
+#login-register-page .auth-benefits h3 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    color: #fff;
+}
+
+#login-register-page .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+#login-register-page .benefit-item {
+    text-align: center;
+    padding: 30px 20px;
+    background: rgba(37, 40, 54, 0.5);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+}
+
+#login-register-page .benefit-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    border-color: rgba(229,9,20,0.3);
+}
+
+#login-register-page .benefit-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #e50914 0%, #ff0f1a 100%);
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+#login-register-page .benefit-item:hover .benefit-icon {
+    transform: scale(1.1);
+}
+
+#login-register-page .benefit-icon i {
+    font-size: 24px;
+    color: #fff;
+}
+
+#login-register-page .benefit-item h4 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+#login-register-page .benefit-item p {
+    color: #8b8b8b;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Input validation styles */
+#login-register-page .input-wrapper input.error,
+#login-register-page .input-wrapper select.error {
+    border-color: #ff4757;
+    background: rgba(255,71,87,0.1);
+}
+
+#login-register-page .input-wrapper input.success,
+#login-register-page .input-wrapper select.success {
+    border-color: #2ed573;
+    background: rgba(46,213,115,0.1);
+}
+
+/* Loading state */
+#login-register-page .btn-primary.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+#login-register-page .btn-primary.loading::after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 8px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #login-register-page .auth-hero-content h1 {
+        font-size: 36px;
+    }
+    
+    #login-register-page .auth-hero-content p {
+        font-size: 16px;
+    }
+    
+    #login-register-page .auth-container {
+        margin: 0 20px;
+        padding: 30px 25px;
+    }
+    
+    #login-register-page .form-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    #login-register-page .form-options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    #login-register-page .social-buttons {
+        flex-direction: column;
+    }
+    
+    #login-register-page .benefits-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    #login-register-page .auth-benefits {
+        margin-top: 40px;
+        padding: 40px 20px;
+    }
+    
+    #login-register-page .auth-benefits h3 {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 576px) {
+    #login-register-page .auth-hero {
+        height: 250px;
+    }
+    
+    #login-register-page .auth-hero-content h1 {
+        font-size: 28px;
+    }
+    
+    #login-register-page .auth-hero-content p {
+        font-size: 14px;
+    }
+    
+    #login-register-page .auth-container {
+        margin: 0 15px;
+        padding: 25px 20px;
+    }
+    
+    #login-register-page .form-header h2 {
+        font-size: 24px;
+    }
+    
+    #login-register-page .auth-tab {
+        padding: 10px 15px;
+        font-size: 13px;
+    }
+    
+    #login-register-page .input-wrapper input,
+    #login-register-page .input-wrapper select {
+        padding: 10px 12px 10px 40px;
+        font-size: 14px;
+    }
+    
+    #login-register-page .benefit-item {
+        padding: 25px 15px;
+    }
+}
+
+/* Animation for form switching */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

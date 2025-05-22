@@ -15,10 +15,15 @@ Bu doküman, Film Dünyası web sitesinin geliştirilmesi için yol haritasını
 - [x] Arama Sonuçları Sayfası (search-results.html) - **TAMAMLANDI**
   - Arama sonuçlarını listeleyecek sayfa
   - Filtreleme seçenekleri
-- [ ] Üye Giriş/Kayıt Sayfası (login-register.html)
+- [x] Üye Giriş/Kayıt Sayfası (login-register.html) - **TAMAMLANDI**
   - Giriş formu
-  - Kayıt formu
+  - Kayıt formu  
   - Şifremi unuttum formu
+  - Sosyal medya giriş seçenekleri
+  - Şifre güvenlik göstergesi
+  - Form doğrulama işlemleri
+  - Responsive tasarım
+  - JavaScript işlevselliği
 - [ ] Kullanıcı Profil Sayfası (profile.html)
   - Kullanıcı bilgileri
   - İzleme listesi
@@ -35,6 +40,7 @@ Bu doküman, Film Dünyası web sitesinin geliştirilmesi için yol haritasını
 - [x] Ana Sayfa responsive tasarımı - **TAMAMLANDI**
 - [x] Film Detay Sayfası responsive tasarımı - **TAMAMLANDI**
 - [x] Dizi Detay Sayfası responsive tasarımı - **TAMAMLANDI**
+- [x] Login-Register Sayfası responsive tasarımı - **TAMAMLANDI**
 - [ ] Diğer sayfaların mobil uyumlu hale getirilmesi
 - [ ] Farklı ekran boyutlarında test edilmesi
 
@@ -42,9 +48,13 @@ Bu doküman, Film Dünyası web sitesinin geliştirilmesi için yol haritasını
 - [x] Slider/Kaydırma işlevleri - **TAMAMLANDI**
 - [x] Yorum derecelendirme sistemi - **TAMAMLANDI**
 - [x] Sezon sekmesi geçişleri - **TAMAMLANDI**
+- [x] Login-Register form işlevleri - **TAMAMLANDI**
+  - Tab switching
+  - Password toggle
+  - Password strength indicator
+  - Form validation
 - [ ] Film ve dizi arama fonksiyonları
 - [ ] Dinamik sayfa yükleme
-- [ ] Form doğrulama işlemleri
 - [ ] Kullanıcı etkileşimleri (beğenme, yorum yapma, listeye ekleme)
 - [ ] Medya oynatıcı kontrolleri
 
