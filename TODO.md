@@ -17,21 +17,30 @@ Bu doküman, Film Dünyası web sitesinin geliştirilmesi için yol haritasını
   - Filtreleme seçenekleri
 - [x] Üye Giriş/Kayıt Sayfası (login-register.html) - **TAMAMLANDI**
   - Giriş formu
-  - Kayıt formu  
+  - Kayıt formu
   - Şifremi unuttum formu
   - Sosyal medya giriş seçenekleri
   - Şifre güvenlik göstergesi
   - Form doğrulama işlemleri
   - Responsive tasarım
   - JavaScript işlevselliği
-- [ ] Kullanıcı Profil Sayfası (profile.html)
-  - Kullanıcı bilgileri
+- [x] Kullanıcı Profil Sayfası (profile.html) - **TAMAMLANDI**
+  - Kullanıcı bilgileri (profil fotoğrafı, kapak fotoğrafı, biyografi)
   - İzleme listesi
-  - Beğeniler
-  - Yorumlar
-- [ ] İletişim Sayfası (contact.html)
+  - İzlenen filmler ve diziler
+  - Beğeniler/Favoriler
+  - Yorumlar ve değerlendirmeler
+  - Son aktiviteler
+  - Profil dropdown menü (tüm sayfalarda)
+  - Responsive tasarım
+  - Tab-based navigasyon
+- [x] İletişim Sayfası (contact.html) - **TAMAMLANDI**
   - İletişim formu
   - Adres ve iletişim bilgileri
+  - Google Maps entegrasyonu
+  - Sıkça Sorulan Sorular (FAQ)
+  - Form validasyonu ve gönderim sistemi
+  - Responsive tasarım
 - [ ] Hakkımızda Sayfası (about.html)
   - Site hakkında bilgiler
 - [ ] 404 Hata Sayfası (404.html)

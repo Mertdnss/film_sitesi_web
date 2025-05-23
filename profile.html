@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - Film Dünyası</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <h1>Film<span>Dünyası</span></h1>
+                </a>
+            </div>
+            <div class="search-box">
+                <input type="text" placeholder="Film veya dizi ara...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Anasayfa</a></li>
+                    <li><a href="category.html">Filmler</a></li>
+                    <li><a href="series-detail.html">Diziler</a></li>
+                    <li><a href="category.html">Türler</a></li>
+                    <li><a href="search-results.html">İletişim</a></li>
+                    <li>
+                        <a href="profile.html" class="profile-link active">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=40&h=40&auto=format&fit=crop&crop=face" alt="Profil" class="profile-img">
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="hamburger-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu Backdrop -->
+    <div class="menu-backdrop"></div>
+
+    <!-- Profil Ana İçerik Bölümü -->
+    <div id="profile-page">
+        <!-- Profil Header Section -->
+        <section class="profile-header-section">
+            <div class="container">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&h=150&auto=format&fit=crop&crop=face" alt="Profil Fotoğrafı">
+                        <button class="edit-avatar-btn" title="Profil Fotoğrafını Değiştir">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <h1>Mert Demir</h1>
+                        <p class="profile-username">@mertdemir</p>
+                        <p class="profile-bio">Film ve dizi tutkunu. Özellikle bilim kurgu ve aksiyon türlerini seviyorum. En sevdiğim yönetmenler: Christopher Nolan, Denis Villeneuve.</p>
+                        <div class="profile-stats">
+                            <div class="stat">
+                                <span class="stat-number">127</span>
+                                <span class="stat-label">İzlenen Film</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">43</span>
+                                <span class="stat-label">İzlenen Dizi</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">89</span>
+                                <span class="stat-label">Yapılan Yorum</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">234</span>
+                                <span class="stat-label">Beğeni</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="btn btn-primary edit-profile-btn">
+                            <i class="fas fa-edit"></i> Profili Düzenle
+                        </button>
+                        <button class="btn btn-outline settings-btn">
+                            <i class="fas fa-cog"></i> Ayarlar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profil İçerik Sekmeler -->
+        <section class="profile-content">
+            <div class="container">
+                <div class="profile-tabs">
+                    <div class="tab-nav">
+                        <button class="tab-btn active" data-tab="watchlist">
+                            <i class="fas fa-bookmark"></i> İzleme Listesi (15)
+                        </button>
+                        <button class="tab-btn" data-tab="watched">
+                            <i class="fas fa-check-circle"></i> İzlenenler (170)
+                        </button>
+                        <button class="tab-btn" data-tab="favorites">
+                            <i class="fas fa-heart"></i> Favoriler (32)
+                        </button>
+                        <button class="tab-btn" data-tab="reviews">
+                            <i class="fas fa-star"></i> Değerlendirmeler (89)
+                        </button>
+                        <button class="tab-btn" data-tab="activity">
+                            <i class="fas fa-clock"></i> Son Aktiviteler
+                        </button>
+                    </div>
+
+                    <!-- İzleme Listesi Sekmesi -->
+                    <div class="tab-content active" id="watchlist">
+                        <div class="section-header">
+                            <h3>İzleme Listesi</h3>
+                            <div class="view-controls">
+                                <button class="view-btn grid-view active" title="Izgara Görünümü">
+                                    <i class="fas fa-th"></i>
+                                </button>
+                                <button class="view-btn list-view" title="Liste Görünümü">
+                                    <i class="fas fa-list"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="content-grid">
+                            <div class="movie-card">
+                                <div class="movie-poster">
+                                    <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?q=80&w=300&h=450&auto=format" alt="Deadpool & Wolverine">
+                                    <div class="movie-overlay">
+                                        <a href="movie-detail.html" class="play-btn"><i class="fas fa-play"></i></a>
+                                    </div>
+                                    <button class="remove-from-list" title="Listeden Çıkar">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    <span class="movie-quality">HD</span>
+                                    <span class="movie-rating"><i class="fas fa-star"></i> 8.5</span>
+                                </div>
+                                <div class="movie-info">
+                                    <h4>Deadpool & Wolverine</h4>
+                                    <span class="movie-year">2024</span>
+                                    <span class="movie-duration"><i class="far fa-clock"></i> 127 dk</span>
+                                </div>
+                            </div>
+
+                            <div class="movie-card">
+                                <div class="movie-poster">
+                                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=300&h=450&auto=format" alt="Dune: Çöl Gezegeni 2">
+                                    <div class="movie-overlay">
+                                        <a href="movie-detail.html" class="play-btn"><i class="fas fa-play"></i></a>
+                                    </div>
+                                    <button class="remove-from-list" title="Listeden Çıkar">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    <span class="movie-quality">HD</span>
+                                    <span class="movie-rating"><i class="fas fa-star"></i> 8.7</span>
+                                </div>
+                                <div class="movie-info">
+                                    <h4>Dune: Çöl Gezegeni 2</h4>
+                                    <span class="movie-year">2024</span>
+                                    <span class="movie-duration"><i class="far fa-clock"></i> 166 dk</span>
+                                </div>
+                            </div>
+
+                            <div class="movie-card">
+                                <div class="movie-poster">
+                                    <img src="https://images.unsplash.com/photo-1520034475321-cbe63696469a?q=80&w=300&h=450&auto=format" alt="Fallout">
+                                    <div class="movie-overlay">
+                                        <a href="series-detail.html" class="play-btn"><i class="fas fa-play"></i></a>
+                                    </div>
+                                    <button class="remove-from-list" title="Listeden Çıkar">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    <span class="movie-quality">HD</span>
+                                    <span class="movie-rating"><i class="fas fa-star"></i> 8.5</span>
+                                </div>
+                                <div class="movie-info">
+                                    <h4>Fallout</h4>
+                                    <span class="movie-year">2024</span>
+                                    <span class="movie-season"><i class="fas fa-layer-group"></i> 1 Sezon</span>
+                                </div>
+                            </div>
+
+                            <div class="movie-card">
+                                <div class="movie-poster">
+                                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=300&h=450&auto=format" alt="Interstellar">
+                                    <div class="movie-overlay">
+                                        <a href="#" class="play-btn"><i class="fas fa-play"></i></a>
+                                    </div>
+                                    <button class="remove-from-list" title="Listeden Çıkar">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    <span class="movie-quality">HD</span>
+                                    <span class="movie-rating"><i class="fas fa-star"></i> 8.7</span>
+                                </div>
+                                <div class="movie-info">
+                                    <h4>Interstellar</h4>
+                                    <span class="movie-year">2014</span>
+                                    <span class="movie-duration"><i class="far fa-clock"></i> 169 dk</span>
+                                </div>
+                            </div>
+
+                            <div class="movie-card">
+                                <div class="movie-poster">
+                                    <img src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=300&h=450&auto=format" alt="The Batman">
+                                    <div class="movie-overlay">
+                                        <a href="#" class="play-btn"><i class="fas fa-play"></i></a>
+                                    </div>
+                                    <button class="remove-from-list" title="Listeden Çıkar">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    <span class="movie-quality">HD</span>
+                                    <span class="movie-rating"><i class="fas fa-star"></i> 8.2</span>
+                                </div>
+                                <div class="movie-info">
+                                    <h4>The Batman</h4>
+                                    <span class="movie-year">2022</span>
+                                    <span class="movie-duration"><i class="far fa-clock"></i> 176 dk</span>
+                                </div>
+                            </div>
+
+                            <div class="movie-card">
+                                <div class="movie-poster">
+                                    <img src="https://images.unsplash.com/photo-1579546929662-711aa81148cf?q=80&w=300&h=450&auto=format" alt="Avatar 2">
+                                    <div class="movie-overlay">
+                                        <a href="#" class="play-btn"><i class="fas fa-play"></i></a>
+                                    </div>
+                                    <button class="remove-from-list" title="Listeden Çıkar">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    <span class="movie-quality">HD</span>
+                                    <span class="movie-rating"><i class="fas fa-star"></i> 8.1</span>
+                                </div>
+                                <div class="movie-info">
+                                    <h4>Avatar: Suyun Yolu</h4>
+                                    <span class="movie-year">2022</span>
+                                    <span class="movie-duration"><i class="far fa-clock"></i> 192 dk</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- İzlenenler Sekmesi -->
+                    <div class="tab-content" id="watched">
+                        <div class="section-header">
+                            <h3>İzlenen Film ve Diziler</h3>
+                            <div class="filter-options">
+                                <select id="watched-filter">
+                                    <option value="all">Tümü</option>
+                                    <option value="movies">Sadece Filmler</option>
+                                    <option value="series">Sadece Diziler</option>
+                                    <option value="recent">Son İzlenenler</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="watched-list">
+                            <div class="watched-item">
+                                <div class="watched-poster">
+                                    <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?q=80&w=120&h=180&auto=format" alt="Deadpool & Wolverine">
+                                </div>
+                                <div class="watched-info">
+                                    <h4>Deadpool & Wolverine</h4>
+                                    <div class="watched-meta">
+                                        <span class="watched-date">3 gün önce izlendi</span>
+                                        <span class="watched-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            (4/5)
+                                        </span>
+                                    </div>
+                                    <p class="watched-review">"Harika bir aksiyon-komedi karışımı. Ryan Reynolds ve Hugh Jackman'ın uyumu mükemmel."</p>
+                                </div>
+                                <div class="watched-actions">
+                                    <button class="btn btn-sm" title="Tekrar İzle">
+                                        <i class="fas fa-play"></i>
+                                    </button>
+                                    <button class="btn btn-sm" title="Değerlendirmeyi Düzenle">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="watched-item">
+                                <div class="watched-poster">
+                                    <img src="https://images.unsplash.com/photo-1520034475321-cbe63696469a?q=80&w=120&h=180&auto=format" alt="Fallout">
+                                </div>
+                                <div class="watched-info">
+                                    <h4>Fallout</h4>
+                                    <div class="watched-meta">
+                                        <span class="watched-date">1 hafta önce izlendi</span>
+                                        <span class="watched-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            (5/5)
+                                        </span>
+                                    </div>
+                                    <p class="watched-review">"Oyun uyarlamalarının nasıl yapılması gerektiğini gösteren mükemmel bir örnek. Görsel efektler harika!"</p>
+                                </div>
+                                <div class="watched-actions">
+                                    <button class="btn btn-sm" title="Tekrar İzle">
+                                        <i class="fas fa-play"></i>
+                                    </button>
+                                    <button class="btn btn-sm" title="Değerlendirmeyi Düzenle">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="watched-item">
+                                <div class="watched-poster">
+                                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=120&h=180&auto=format" alt="Interstellar">
+                                </div>
+                                <div class="watched-info">
+                                    <h4>Interstellar</h4>
+                                    <div class="watched-meta">
+                                        <span class="watched-date">2 hafta önce izlendi</span>
+                                        <span class="watched-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            (5/5)
+                                        </span>
+                                    </div>
+                                    <p class="watched-review">"Christopher Nolan'ın başyapıtlarından biri. Bilim kurgu severlerin mutlaka izlemesi gereken bir film."</p>
+                                </div>
+                                <div class="watched-actions">
+                                    <button class="btn btn-sm" title="Tekrar İzle">
+                                        <i class="fas fa-play"></i>
+                                    </button>
+                                    <button class="btn btn-sm" title="Değerlendirmeyi Düzenle">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="load-more">
+                            <button class="btn btn-outline">Daha Fazla Yükle</button>
+                        </div>
+                    </div>
+
+                    <!-- Favoriler Sekmesi -->
+                    <div class="tab-content" id="favorites">
+                        <div class="section-header">
+                            <h3>Favori Film ve Diziler</h3>
+                        </div>
+                        <div class="content-grid">
+                            <div class="movie-card">
+                                <div class="movie-poster">
+                                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=300&h=450&auto=format" alt="Interstellar">
+                                    <div class="movie-overlay">
+                                        <a href="#" class="play-btn"><i class="fas fa-play"></i></a>
+                                    </div>
+                                    <button class="remove-from-favorites" title="Favorilerden Çıkar">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                    <span class="movie-quality">HD</span>
+                                    <span class="movie-rating"><i class="fas fa-star"></i> 8.7</span>
+                                </div>
+                                <div class="movie-info">
+                                    <h4>Interstellar</h4>
+                                    <span class="movie-year">2014</span>
+                                    <span class="movie-duration"><i class="far fa-clock"></i> 169 dk</span>
+                                </div>
+                            </div>
+
+                            <div class="movie-card">
+                                <div class="movie-poster">
+                                    <img src="https://images.unsplash.com/photo-1520034475321-cbe63696469a?q=80&w=300&h=450&auto=format" alt="Fallout">
+                                    <div class="movie-overlay">
+                                        <a href="series-detail.html" class="play-btn"><i class="fas fa-play"></i></a>
+                                    </div>
+                                    <button class="remove-from-favorites" title="Favorilerden Çıkar">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                    <span class="movie-quality">HD</span>
+                                    <span class="movie-rating"><i class="fas fa-star"></i> 8.5</span>
+                                </div>
+                                <div class="movie-info">
+                                    <h4>Fallout</h4>
+                                    <span class="movie-year">2024</span>
+                                    <span class="movie-season"><i class="fas fa-layer-group"></i> 1 Sezon</span>
+                                </div>
+                            </div>
+
+                            <div class="movie-card">
+                                <div class="movie-poster">
+                                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=300&h=450&auto=format" alt="Dune: Çöl Gezegeni 2">
+                                    <div class="movie-overlay">
+                                        <a href="movie-detail.html" class="play-btn"><i class="fas fa-play"></i></a>
+                                    </div>
+                                    <button class="remove-from-favorites" title="Favorilerden Çıkar">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                    <span class="movie-quality">HD</span>
+                                    <span class="movie-rating"><i class="fas fa-star"></i> 8.7</span>
+                                </div>
+                                <div class="movie-info">
+                                    <h4>Dune: Çöl Gezegeni 2</h4>
+                                    <span class="movie-year">2024</span>
+                                    <span class="movie-duration"><i class="far fa-clock"></i> 166 dk</span>
+                                </div>
+                            </div>
+
+                            <div class="movie-card">
+                                <div class="movie-poster">
+                                    <img src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=300&h=450&auto=format" alt="The Batman">
+                                    <div class="movie-overlay">
+                                        <a href="#" class="play-btn"><i class="fas fa-play"></i></a>
+                                    </div>
+                                    <button class="remove-from-favorites" title="Favorilerden Çıkar">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                    <span class="movie-quality">HD</span>
+                                    <span class="movie-rating"><i class="fas fa-star"></i> 8.2</span>
+                                </div>
+                                <div class="movie-info">
+                                    <h4>The Batman</h4>
+                                    <span class="movie-year">2022</span>
+                                    <span class="movie-duration"><i class="far fa-clock"></i> 176 dk</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Değerlendirmeler Sekmesi -->
+                    <div class="tab-content" id="reviews">
+                        <div class="section-header">
+                            <h3>Film ve Dizi Değerlendirmelerim</h3>
+                        </div>
+                        <div class="reviews-list">
+                            <div class="review-item">
+                                <div class="review-poster">
+                                    <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?q=80&w=100&h=150&auto=format" alt="Deadpool & Wolverine">
+                                </div>
+                                <div class="review-content">
+                                    <div class="review-header">
+                                        <h4>Deadpool & Wolverine</h4>
+                                        <div class="review-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <span class="rating-score">4/5</span>
+                                        </div>
+                                    </div>
+                                    <div class="review-meta">
+                                        <span class="review-date">3 gün önce</span>
+                                        <span class="review-likes">23 beğeni</span>
+                                    </div>
+                                    <p class="review-text">
+                                        Deadpool ve Wolverine'ın bir araya geldiği bu film, Marvel evrenindeki en eğlenceli yapımlardan biri. Ryan Reynolds'ın Deadpool karakterindeki doğaçlama yetenekleri ve Hugh Jackman'ın Wolverine'e olan veda performansı gerçekten etkileyici. Aksiyon sahneleri oldukça iyi koreografiye edilmiş ve komedi unsurları da çok başarılı. Sadece hikaye biraz öngörülebilir olmuş ama genel olarak çok keyifli bir deneyim.
+                                    </p>
+                                    <div class="review-actions">
+                                        <button class="btn btn-sm" title="Düzenle">
+                                            <i class="fas fa-edit"></i> Düzenle
+                                        </button>
+                                        <button class="btn btn-sm" title="Sil">
+                                            <i class="fas fa-trash"></i> Sil
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="review-item">
+                                <div class="review-poster">
+                                    <img src="https://images.unsplash.com/photo-1520034475321-cbe63696469a?q=80&w=100&h=150&auto=format" alt="Fallout">
+                                </div>
+                                <div class="review-content">
+                                    <div class="review-header">
+                                        <h4>Fallout</h4>
+                                        <div class="review-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <span class="rating-score">5/5</span>
+                                        </div>
+                                    </div>
+                                    <div class="review-meta">
+                                        <span class="review-date">1 hafta önce</span>
+                                        <span class="review-likes">45 beğeni</span>
+                                    </div>
+                                    <p class="review-text">
+                                        Video oyunu uyarlamalarının nasıl yapılması gerektiğini gösteren mükemmel bir örnek. Fallout evreninin atmosferini eksiksiz bir şekilde yansıtmış. Karakterler çok iyi geliştirilmiş, özellikle Lucy karakterinin gelişim yolculuğu harika. Görsel efektler ve sanat yönetimi olağanüstü. Her bölümde merakla ne olacağını beklettiren bir yapım. Kesinlikle izlenmeli!
+                                    </p>
+                                    <div class="review-actions">
+                                        <button class="btn btn-sm" title="Düzenle">
+                                            <i class="fas fa-edit"></i> Düzenle
+                                        </button>
+                                        <button class="btn btn-sm" title="Sil">
+                                            <i class="fas fa-trash"></i> Sil
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="review-item">
+                                <div class="review-poster">
+                                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=100&h=150&auto=format" alt="Interstellar">
+                                </div>
+                                <div class="review-content">
+                                    <div class="review-header">
+                                        <h4>Interstellar</h4>
+                                        <div class="review-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <span class="rating-score">5/5</span>
+                                        </div>
+                                    </div>
+                                    <div class="review-meta">
+                                        <span class="review-date">2 hafta önce</span>
+                                        <span class="review-likes">67 beğeni</span>
+                                    </div>
+                                    <p class="review-text">
+                                        Christopher Nolan'ın başyapıtlarından biri olduğu kesin. Bilim kurgu türündeki en etkileyici filmlerden biri. Zaman kavramı ve boyutlar arası yolculuk konularını çok başarılı bir şekilde işlemiş. Hans Zimmer'ın müzikleri filmin duygusal yoğunluğunu katlayor. Matthew McConaughey'in performansı da harika. Tekrar tekrar izlenebilecek türden bir film.
+                                    </p>
+                                    <div class="review-actions">
+                                        <button class="btn btn-sm" title="Düzenle">
+                                            <i class="fas fa-edit"></i> Düzenle
+                                        </button>
+                                        <button class="btn btn-sm" title="Sil">
+                                            <i class="fas fa-trash"></i> Sil
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Son Aktiviteler Sekmesi -->
+                    <div class="tab-content" id="activity">
+                        <div class="section-header">
+                            <h3>Son Aktiviteler</h3>
+                        </div>
+                        <div class="activity-timeline">
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p><strong>Deadpool & Wolverine</strong> filmini değerlendirdin</p>
+                                    <span class="activity-time">3 gün önce</span>
+                                </div>
+                            </div>
+
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p><strong>Dune: Çöl Gezegeni 2</strong> filmini favorilerine ekledi</p>
+                                    <span class="activity-time">5 gün önce</span>
+                                </div>
+                            </div>
+
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-bookmark"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p><strong>The Batman</strong> filmini izleme listesine ekledi</p>
+                                    <span class="activity-time">1 hafta önce</span>
+                                </div>
+                            </div>
+
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p><strong>Fallout</strong> dizisini izlemeyi tamamladı</p>
+                                    <span class="activity-time">1 hafta önce</span>
+                                </div>
+                            </div>
+
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-comment"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p><strong>Interstellar</strong> filmine yorum yaptı</p>
+                                    <span class="activity-time">2 hafta önce</span>
+                                </div>
+                            </div>
+
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p>Film Dünyası'na katıldı</p>
+                                    <span class="activity-time">3 ay önce</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Film<span>Dünyası</span></h2>
+                    <p>En yeni ve popüler filmleri izlemek için doğru adrestesiniz.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Hızlı Linkler</h3>
+                    <ul>
+                        <li><a href="index.html">Anasayfa</a></li>
+                        <li><a href="category.html">Filmler</a></li>
+                        <li><a href="series-detail.html">Diziler</a></li>
+                        <li><a href="category.html">Türler</a></li>
+                        <li><a href="search-results.html">İletişim</a></li>
+                        <li><a href="login-register.html">Giriş Yap</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Türler</h3>
+                    <ul>
+                        <li><a href="category.html">Aksiyon</a></li>
+                        <li><a href="category.html">Komedi</a></li>
+                        <li><a href="category.html">Drama</a></li>
+                        <li><a href="category.html">Bilim Kurgu</a></li>
+                        <li><a href="category.html">Korku</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Bülten</h3>
+                    <p>En yeni filmler ve özel teklifler için abone olun.</p>
+                    <form action="#" method="POST">
+                        <input type="email" placeholder="E-posta adresiniz" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Film Dünyası. Tüm hakları saklıdır.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Gizlilik Politikası</a>
+                    <a href="#">Kullanım Şartları</a>
+                    <a href="#">KVKK</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html> 

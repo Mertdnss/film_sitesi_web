@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İletişim - Film Dünyası</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <h1>Film<span>Dünyası</span></h1>
+                </a>
+            </div>
+            <div class="search-box">
+                <input type="text" placeholder="Film veya dizi ara...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Anasayfa</a></li>
+                    <li><a href="category.html">Filmler</a></li>
+                    <li><a href="series-detail.html">Diziler</a></li>
+                    <li><a href="category.html">Türler</a></li>
+                    <li><a href="contact.html" class="active">İletişim</a></li>
+                    <li>
+                        <a href="profile.html" class="profile-link">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=40&h=40&auto=format&fit=crop&crop=face" alt="Profil" class="profile-img">
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="hamburger-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu Backdrop -->
+    <div class="menu-backdrop"></div>
+
+    <!-- İletişim Ana İçerik Bölümü -->
+    <div id="contact-page">
+        <!-- İletişim Hero Section -->
+        <section class="contact-hero">
+            <div class="contact-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1920&auto=format')"></div>
+            <div class="contact-hero-overlay"></div>
+            <div class="container">
+                <div class="contact-hero-content">
+                    <h1>Bizimle İletişime Geçin</h1>
+                    <p>Sorularınız, önerileriniz veya herhangi bir konuda bizimle iletişime geçmekten çekinmeyin. Size en kısa sürede dönüş yapacağız.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- İletişim İçerik Section -->
+        <section class="contact-content">
+            <div class="container">
+                <div class="contact-grid">
+                    <!-- Sol Taraf - İletişim Formu -->
+                    <div class="contact-form-section">
+                        <div class="section-header">
+                            <h2>Mesaj Gönder</h2>
+                            <p>Aşağıdaki formu doldurarak bizimle iletişime geçebilirsiniz.</p>
+                        </div>
+
+                        <form class="contact-form" action="#" method="POST">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">Ad</label>
+                                    <div class="input-wrapper">
+                                        <i class="fas fa-user"></i>
+                                        <input type="text" id="firstName" name="firstName" placeholder="Adınız" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Soyad</label>
+                                    <div class="input-wrapper">
+                                        <i class="fas fa-user"></i>
+                                        <input type="text" id="lastName" name="lastName" placeholder="Soyadınız" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">E-posta</label>
+                                    <div class="input-wrapper">
+                                        <i class="fas fa-envelope"></i>
+                                        <input type="email" id="email" name="email" placeholder="E-posta adresiniz" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Telefon</label>
+                                    <div class="input-wrapper">
+                                        <i class="fas fa-phone"></i>
+                                        <input type="tel" id="phone" name="phone" placeholder="Telefon numaranız">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="subject">Konu</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-tag"></i>
+                                    <select id="subject" name="subject" required>
+                                        <option value="">Konu seçiniz</option>
+                                        <option value="general">Genel Bilgi</option>
+                                        <option value="technical">Teknik Destek</option>
+                                        <option value="content">İçerik Talebi</option>
+                                        <option value="partnership">İş Birliği</option>
+                                        <option value="complaint">Şikayet</option>
+                                        <option value="suggestion">Öneri</option>
+                                        <option value="other">Diğer</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Mesaj</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-comment"></i>
+                                    <textarea id="message" name="message" placeholder="Mesajınızı buraya yazın..." rows="6" required></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="newsletter" value="1">
+                                    <span class="checkmark"></span>
+                                    E-bülten ve güncellemelerden haberdar olmak istiyorum
+                                </label>
+                            </div>
+
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="privacy" value="1" required>
+                                    <span class="checkmark"></span>
+                                    <a href="#" target="_blank">Gizlilik Politikası</a>'nı okudum ve kabul ediyorum
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-full">
+                                <i class="fas fa-paper-plane"></i>
+                                Mesajı Gönder
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Sağ Taraf - İletişim Bilgileri -->
+                    <div class="contact-info-section">
+                        <div class="contact-info-card">
+                            <h3>İletişim Bilgileri</h3>
+                            <p>Bizimle iletişime geçmek için aşağıdaki yöntemleri kullanabilirsiniz.</p>
+
+                            <div class="contact-methods">
+                                <div class="contact-method">
+                                    <div class="method-icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div class="method-info">
+                                        <h4>Adres</h4>
+                                        <p>Şişli, İstanbul<br>Türkiye</p>
+                                    </div>
+                                </div>
+
+                                <div class="contact-method">
+                                    <div class="method-icon">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="method-info">
+                                        <h4>Telefon</h4>
+                                        <p>+90 (212) 555 0123</p>
+                                    </div>
+                                </div>
+
+                                <div class="contact-method">
+                                    <div class="method-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="method-info">
+                                        <h4>E-posta</h4>
+                                        <p>info@filmdunyasi.com</p>
+                                    </div>
+                                </div>
+
+                                <div class="contact-method">
+                                    <div class="method-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="method-info">
+                                        <h4>Çalışma Saatleri</h4>
+                                        <p>Pazartesi - Cuma: 09:00 - 18:00<br>Hafta Sonu: 10:00 - 16:00</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="social-contact">
+                                <h4>Sosyal Medya</h4>
+                                <div class="social-icons">
+                                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                                    <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Harita Bölümü -->
+                        <div class="map-section">
+                            <h3>Konum</h3>
+                            <div class="map-container">
+                                <iframe 
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.8267419151147!2d28.973493!3d41.058887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab9bd6570f6e1%3A0x94e0c402d7ca48a1!2s%C5%9Ei%C5%9Fli%2F%C4%B0stanbul!5e0!3m2!1str!2str!4v1634567890123!5m2!1str!2str"
+                                    width="100%" 
+                                    height="300" 
+                                    style="border:0;" 
+                                    allowfullscreen="" 
+                                    loading="lazy">
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SSS Section -->
+        <section class="faq-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2>Sıkça Sorulan Sorular</h2>
+                    <p>En çok merak edilen sorular ve cevapları</p>
+                </div>
+
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>Üyelik ücretsiz mi?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Evet, Film Dünyası'na üyelik tamamen ücretsizdir. Herhangi bir ücret ödemeden tüm film ve dizilerimizi izleyebilirsiniz.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>Mobil uygulamanız var mı?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Şu anda web sitemizdeki responsive tasarım sayesinde mobil cihazlarınızdan rahatça izleyebilirsiniz. Mobil uygulama üzerinde çalışmalarımız devam etmektedir.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>İçerik talebinde bulunabilir miyim?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Tabii ki! Yukarıdaki iletişim formunu kullanarak veya e-posta ile istediğiniz film veya dizi taleplerini bize iletebilirsiniz.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>Teknik sorun yaşıyorum, ne yapmalıyım?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Teknik sorunlarınız için yukarıdaki formdan "Teknik Destek" konusunu seçerek bize ulaşabilir veya info@filmdunyasi.com adresine e-posta gönderebilirsiniz.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>Hangi cihazlardan izleyebilirim?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Bilgisayar, tablet, telefon ve smart TV'lerden rahatlıkla izleyebilirsiniz. Tüm modern web tarayıcıları desteklenmektedir.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>İş birliği teklifim var, kimle konuşmalıyım?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>İş birliği teklifleriniz için yukarıdaki formdan "İş Birliği" konusunu seçerek bize ulaşabilirsiniz. En kısa sürede size dönüş yapacağız.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Film<span>Dünyası</span></h2>
+                    <p>En yeni ve popüler filmleri izlemek için doğru adrestesiniz.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Hızlı Linkler</h3>
+                    <ul>
+                        <li><a href="index.html">Anasayfa</a></li>
+                        <li><a href="category.html">Filmler</a></li>
+                        <li><a href="series-detail.html">Diziler</a></li>
+                        <li><a href="category.html">Türler</a></li>
+                        <li><a href="contact.html">İletişim</a></li>
+                        <li><a href="login-register.html">Giriş Yap</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Türler</h3>
+                    <ul>
+                        <li><a href="category.html">Aksiyon</a></li>
+                        <li><a href="category.html">Komedi</a></li>
+                        <li><a href="category.html">Drama</a></li>
+                        <li><a href="category.html">Bilim Kurgu</a></li>
+                        <li><a href="category.html">Korku</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Bülten</h3>
+                    <p>En yeni filmler ve özel teklifler için abone olun.</p>
+                    <form action="#" method="POST">
+                        <input type="email" placeholder="E-posta adresiniz" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Film Dünyası. Tüm hakları saklıdır.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Gizlilik Politikası</a>
+                    <a href="#">Kullanım Şartları</a>
+                    <a href="#">KVKK</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html> 

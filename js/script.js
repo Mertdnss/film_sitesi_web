@@ -1477,6 +1477,718 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize login-register page
     initLoginRegisterPage();
+    
+    // ===== PROFILE PAGE FUNCTIONALITY =====
+    
+    // Profile Page Initialization
+    const initProfilePage = () => {
+        const profilePage = document.getElementById('profile-page');
+        if (!profilePage) return;
+        
+        // Tab Switching
+        initProfileTabs();
+        
+        // View Toggle (Grid/List)
+        initViewToggle();
+        
+        // Profile Actions
+        initProfileActions();
+        
+        // Remove from List/Favorites
+        initRemoveActions();
+        
+        // Load More functionality
+        initLoadMore();
+        
+        // Filter functionality
+        initWatchedFilter();
+    };
+    
+    // Profile Tabs Functionality
+    function initProfileTabs() {
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetTab = button.getAttribute('data-tab');
+                
+                // Remove active class from all tabs
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                button.classList.add('active');
+                const targetContent = document.getElementById(targetTab);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+                
+                // Animate tab change
+                button.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    button.style.transform = '';
+                }, 150);
+            });
+        });
+    }
+    
+    // View Toggle (Grid/List)
+    function initViewToggle() {
+        const gridViewBtn = document.querySelector('.view-btn.grid-view');
+        const listViewBtn = document.querySelector('.view-btn.list-view');
+        const contentGrid = document.querySelector('.content-grid');
+        
+        if (gridViewBtn && listViewBtn && contentGrid) {
+            gridViewBtn.addEventListener('click', () => {
+                gridViewBtn.classList.add('active');
+                listViewBtn.classList.remove('active');
+                contentGrid.classList.remove('list-mode');
+                contentGrid.classList.add('grid-mode');
+            });
+            
+            listViewBtn.addEventListener('click', () => {
+                listViewBtn.classList.add('active');
+                gridViewBtn.classList.remove('active');
+                contentGrid.classList.remove('grid-mode');
+                contentGrid.classList.add('list-mode');
+            });
+        }
+    }
+    
+    // Profile Actions (Edit Profile, Settings)
+    function initProfileActions() {
+        const editProfileBtn = document.querySelector('.edit-profile-btn');
+        const settingsBtn = document.querySelector('.settings-btn');
+        const editCoverBtn = document.querySelector('.edit-cover-btn');
+        const editAvatarBtn = document.querySelector('.edit-avatar-btn');
+        
+        // Edit Profile
+        if (editProfileBtn) {
+            editProfileBtn.addEventListener('click', () => {
+                showProfileEditModal();
+            });
+        }
+        
+        // Settings
+        if (settingsBtn) {
+            settingsBtn.addEventListener('click', () => {
+                showSettingsModal();
+            });
+        }
+        
+        // Edit Cover Photo
+        if (editCoverBtn) {
+            editCoverBtn.addEventListener('click', () => {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                input.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            const coverImg = document.querySelector('.profile-cover img');
+                            if (coverImg) {
+                                coverImg.src = e.target.result;
+                                showSuccessMessage('Kapak fotoğrafı güncellendi!');
+                            }
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                };
+                input.click();
+            });
+        }
+        
+        // Edit Avatar
+        if (editAvatarBtn) {
+            editAvatarBtn.addEventListener('click', () => {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                input.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            const avatarImg = document.querySelector('.profile-avatar img');
+                            const profileImgs = document.querySelectorAll('.profile-img');
+                            if (avatarImg) {
+                                avatarImg.src = e.target.result;
+                                // Update profile images in dropdown too
+                                profileImgs.forEach(img => {
+                                    img.src = e.target.result;
+                                });
+                                showSuccessMessage('Profil fotoğrafı güncellendi!');
+                            }
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                };
+                input.click();
+            });
+        }
+    }
+    
+    // Remove from List/Favorites
+    function initRemoveActions() {
+        const removeButtons = document.querySelectorAll('.remove-from-list, .remove-from-favorites');
+        
+        removeButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const movieCard = button.closest('.movie-card');
+                const isFromFavorites = button.classList.contains('remove-from-favorites');
+                
+                if (movieCard) {
+                    // Animate removal
+                    movieCard.style.transform = 'scale(0.8)';
+                    movieCard.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        movieCard.remove();
+                        const message = isFromFavorites ? 
+                            'Film favorilerden çıkarıldı!' : 
+                            'Film izleme listesinden çıkarıldı!';
+                        showSuccessMessage(message);
+                        
+                        // Update counter in tab if exists
+                        updateTabCounter(isFromFavorites ? 'favorites' : 'watchlist');
+                    }, 300);
+                }
+            });
+        });
+    }
+    
+    // Load More functionality
+    function initLoadMore() {
+        const loadMoreBtns = document.querySelectorAll('.load-more .btn');
+        
+        loadMoreBtns.forEach(button => {
+            button.addEventListener('click', () => {
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Yükleniyor...';
+                button.disabled = true;
+                
+                // Simulate loading
+                setTimeout(() => {
+                    button.innerHTML = 'Daha Fazla Yükle';
+                    button.disabled = false;
+                    showSuccessMessage('Daha fazla içerik yüklendi!');
+                }, 1500);
+            });
+        });
+    }
+    
+    // Watched Filter
+    function initWatchedFilter() {
+        const watchedFilter = document.getElementById('watched-filter');
+        
+        if (watchedFilter) {
+            watchedFilter.addEventListener('change', () => {
+                const selectedValue = watchedFilter.value;
+                console.log('Filter changed to:', selectedValue);
+                
+                // Add loading effect
+                const watchedList = document.querySelector('.watched-list');
+                if (watchedList) {
+                    watchedList.style.opacity = '0.5';
+                    setTimeout(() => {
+                        watchedList.style.opacity = '1';
+                        showSuccessMessage('Filtre uygulandı!');
+                    }, 500);
+                }
+            });
+        }
+    }
+    
+    // Update Tab Counter
+    function updateTabCounter(tabType) {
+        const tabBtn = document.querySelector(`[data-tab="${tabType}"]`);
+        if (tabBtn) {
+            const text = tabBtn.textContent;
+            const match = text.match(/\((\d+)\)/);
+            if (match) {
+                const currentCount = parseInt(match[1]);
+                const newText = text.replace(/\(\d+\)/, `(${currentCount - 1})`);
+                tabBtn.innerHTML = tabBtn.innerHTML.replace(text, newText);
+            }
+        }
+    }
+    
+    // Show Profile Edit Modal (placeholder)
+    function showProfileEditModal() {
+        // This would show a modal for editing profile
+        showSuccessMessage('Profil düzenleme modalı yakında eklenecek!');
+    }
+    
+    // Show Settings Modal (placeholder)
+    function showSettingsModal() {
+        // This would show settings modal
+        showSuccessMessage('Ayarlar modalı yakında eklenecek!');
+    }
+    
+    // ===== PROFILE DROPDOWN FUNCTIONALITY =====
+    
+    // Profile Dropdown
+    const initProfileDropdown = () => {
+        console.log('initProfileDropdown çalışıyor...');
+        const profileDropdowns = document.querySelectorAll('.profile-dropdown');
+        console.log('Bulunan dropdown sayısı:', profileDropdowns.length);
+        
+        // Önceki event listener'ları temizle
+        profileDropdowns.forEach(dropdown => {
+            const newDropdown = dropdown.cloneNode(true);
+            dropdown.parentNode.replaceChild(newDropdown, dropdown);
+        });
+        
+        // Güncellenmiş dropdown'ları tekrar seç
+        const updatedDropdowns = document.querySelectorAll('.profile-dropdown');
+        
+        updatedDropdowns.forEach((dropdown, index) => {
+            const trigger = dropdown.querySelector('.profile-trigger');
+            const menu = dropdown.querySelector('.profile-menu');
+            
+            console.log(`Dropdown ${index + 1} - trigger:`, !!trigger, 'menu:', !!menu);
+            
+            if (trigger && menu) {
+                const screenWidth = window.innerWidth;
+                const isMobile = screenWidth <= 992;
+                
+                console.log(`Ekran genişliği: ${screenWidth}, Mobil: ${isMobile}`);
+                
+                if (!isMobile) {
+                    // Masaüstü - Hover events
+                    console.log('Masaüstü hover event\'leri ekleniyor...');
+                    
+                    dropdown.addEventListener('mouseenter', (e) => {
+                        console.log('🖱️ MASAÜSTÜ: Mouse enter - dropdown açılıyor');
+                        dropdown.classList.add('open');
+                    });
+                    
+                    dropdown.addEventListener('mouseleave', (e) => {
+                        console.log('🖱️ MASAÜSTÜ: Mouse leave - dropdown kapanıyor');
+                        dropdown.classList.remove('open');
+                    });
+                    
+                    // Test için trigger'a da event ekle
+                    trigger.addEventListener('mouseenter', (e) => {
+                        console.log('🖱️ TRIGGER: Mouse enter');
+                    });
+                    
+                } else {
+                    // Mobil - Click events
+                    console.log('Mobil click event\'leri ekleniyor...');
+                    
+                    trigger.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('📱 MOBİL: Click - dropdown toggle');
+                        
+                        // Diğer açık dropdown'ları kapat
+                        updatedDropdowns.forEach(otherDropdown => {
+                            if (otherDropdown !== dropdown) {
+                                otherDropdown.classList.remove('open');
+                            }
+                        });
+                        
+                        dropdown.classList.toggle('open');
+                    });
+                }
+            }
+        });
+        
+        // Body click ile kapatma (hem masaüstü hem mobil için)
+        const handleBodyClick = (e) => {
+            const isClickInsideDropdown = e.target.closest('.profile-dropdown');
+            if (!isClickInsideDropdown) {
+                updatedDropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('open');
+                });
+            }
+        };
+        
+        // Önceki body click listener'ı kaldır
+        document.removeEventListener('click', handleBodyClick);
+        // Yeni listener ekle
+        document.addEventListener('click', handleBodyClick);
+        
+        // ESC tuşu ile kapatma
+        const handleEscKey = (e) => {
+            if (e.key === 'Escape') {
+                updatedDropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('open');
+                });
+            }
+        };
+        
+        // Önceki ESC listener'ı kaldır
+        document.removeEventListener('keydown', handleEscKey);
+        // Yeni listener ekle
+        document.addEventListener('keydown', handleEscKey);
+    };
+
+    // Initialize Profile functionality
+    initProfilePage();
+    initProfileDropdown();
+
+    // Window resize event'i - dropdown'ları yeniden başlat
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            // Tüm dropdown'ları kapat
+            document.querySelectorAll('.profile-dropdown').forEach(dropdown => {
+                dropdown.classList.remove('open');
+            });
+            // Dropdown'ları yeniden başlat
+            initProfileDropdown();
+        }, 300);
+    });
+    
+    // Handle Logout
+    function handleLogout() {
+        const confirmLogout = confirm('Çıkış yapmak istediğinizden emin misiniz?');
+        if (confirmLogout) {
+            // Simulate logout process
+            showSuccessMessage('Çıkış yapılıyor...');
+            setTimeout(() => {
+                // Redirect to login page
+                window.location.href = 'login-register.html';
+            }, 1500);
+        }
+    }
+
+    // Contact Page Functions
+    const initContactPage = () => {
+        console.log('=== CONTACT PAGE INIT START ===');
+        
+        const contactPage = document.getElementById('contact-page');
+        console.log('Contact page element found:', contactPage);
+        
+        if (!contactPage) {
+            console.log('Contact page not found, exiting');
+            return;
+        }
+
+        console.log('Initializing FAQ and Contact Form...');
+        initFAQToggle();
+        initContactForm();
+        console.log('=== CONTACT PAGE INIT END ===');
+    };
+
+    // FAQ Toggle Functionality - Simplified Version
+    function initFAQToggle() {
+        console.log('=== FAQ TOGGLE INIT START ===');
+        
+        // Window load sonrası da kontrol et
+        setTimeout(() => {
+            const faqItems = document.querySelectorAll('.faq-item');
+            console.log('FAQ items found after timeout:', faqItems.length);
+            
+            if (faqItems.length === 0) {
+                console.log('No FAQ items found!');
+                return;
+            }
+            
+            faqItems.forEach((item, index) => {
+                console.log(`Setting up FAQ item ${index}:`, item);
+                
+                const question = item.querySelector('.faq-question');
+                const answer = item.querySelector('.faq-answer');
+                
+                if (!question) {
+                    console.log(`No question found for item ${index}`);
+                    return;
+                }
+                
+                if (!answer) {
+                    console.log(`No answer found for item ${index}`);
+                    return;
+                }
+                
+                // Click event'i direkt item'a da ekle
+                item.addEventListener('click', function(e) {
+                    console.log(`FAQ item ${index} clicked!`);
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Mevcut durumu kontrol et
+                    const isActive = item.classList.contains('active');
+                    console.log(`Item ${index} current state - active:`, isActive);
+                    
+                    // Önce tüm FAQ'ları kapat
+                    faqItems.forEach((otherItem, otherIndex) => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                            console.log(`Closed FAQ item ${otherIndex}`);
+                        }
+                    });
+                    
+                    // Bu item'ı toggle yap
+                    if (isActive) {
+                        item.classList.remove('active');
+                        console.log(`Removed active from item ${index}`);
+                    } else {
+                        item.classList.add('active');
+                        console.log(`Added active to item ${index}`);
+                    }
+                });
+                
+                // Question'a da ayrı bir listener ekle
+                question.addEventListener('click', function(e) {
+                    console.log(`FAQ question ${index} clicked!`);
+                    e.preventDefault();
+                    e.stopPropagation();
+                    // Parent item'ın click event'ini tetikle
+                    item.click();
+                });
+                
+                console.log(`FAQ item ${index} setup completed`);
+            });
+            
+            console.log('=== FAQ TOGGLE INIT COMPLETED ===');
+        }, 100);
+    }
+
+    // Contact Form Validation and Submission
+    function initContactForm() {
+        const contactForm = document.querySelector('.contact-form');
+        if (!contactForm) return;
+
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        const inputs = contactForm.querySelectorAll('input, select, textarea');
+        
+        // Real-time validation for inputs
+        inputs.forEach(input => {
+            input.addEventListener('blur', () => {
+                validateInput(input);
+            });
+            
+            input.addEventListener('input', () => {
+                // Remove error state on input
+                if (input.classList.contains('error')) {
+                    input.classList.remove('error');
+                    removeErrorMessage(input);
+                }
+            });
+        });
+
+        // Form submission
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            let isValid = true;
+            
+            // Validate all inputs
+            inputs.forEach(input => {
+                if (!validateInput(input)) {
+                    isValid = false;
+                }
+            });
+            
+            // Check privacy policy checkbox
+            const privacyCheckbox = contactForm.querySelector('input[name="privacy"]');
+            if (!privacyCheckbox.checked) {
+                showErrorMessage('Gizlilik politikasını kabul etmelisiniz.');
+                isValid = false;
+            }
+            
+            if (isValid) {
+                submitContactForm(contactForm);
+            }
+        });
+    }
+
+    // Validate individual input
+    function validateInput(input) {
+        const value = input.value.trim();
+        const type = input.type;
+        const name = input.name;
+        let isValid = true;
+        let errorMessage = '';
+
+        // Remove previous error state
+        input.classList.remove('error');
+        removeErrorMessage(input);
+
+        // Required field validation
+        if (input.hasAttribute('required') && !value) {
+            errorMessage = 'Bu alan zorunludur.';
+            isValid = false;
+        }
+        // Email validation
+        else if (type === 'email' && value) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+                errorMessage = 'Geçerli bir e-posta adresi giriniz.';
+                isValid = false;
+            }
+        }
+        // Phone validation
+        else if (type === 'tel' && value) {
+            const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
+            if (!phoneRegex.test(value)) {
+                errorMessage = 'Geçerli bir telefon numarası giriniz.';
+                isValid = false;
+            }
+        }
+        // Text length validation
+        else if (name === 'message' && value && value.length < 10) {
+            errorMessage = 'Mesaj en az 10 karakter olmalıdır.';
+            isValid = false;
+        }
+
+        if (!isValid) {
+            input.classList.add('error');
+            showInputError(input, errorMessage);
+        }
+
+        return isValid;
+    }
+
+    // Show input-specific error
+    function showInputError(input, message) {
+        const inputWrapper = input.closest('.input-wrapper') || input.closest('.form-group');
+        let errorElement = inputWrapper.querySelector('.error-message');
+        
+        if (!errorElement) {
+            errorElement = document.createElement('div');
+            errorElement.className = 'error-message';
+            inputWrapper.appendChild(errorElement);
+        }
+        
+        errorElement.textContent = message;
+        errorElement.style.cssText = `
+            color: #f44336;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: block;
+        `;
+    }
+
+    // Remove error message
+    function removeErrorMessage(input) {
+        const inputWrapper = input.closest('.input-wrapper') || input.closest('.form-group');
+        const errorElement = inputWrapper.querySelector('.error-message');
+        if (errorElement) {
+            errorElement.remove();
+        }
+    }
+
+    // Submit contact form
+    function submitContactForm(form) {
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalText = submitButton.innerHTML;
+        
+        // Show loading state
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Gönderiliyor...';
+        
+        // Simulate form submission (replace with actual API call)
+        setTimeout(() => {
+            // Reset button
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalText;
+            
+            // Show success message
+            showContactSuccessMessage();
+            
+            // Reset form
+            form.reset();
+            
+            // Scroll to top of form
+            form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 2000);
+    }
+
+    // Show success message for contact form
+    function showContactSuccessMessage() {
+        // Remove existing messages
+        const existingMessage = document.querySelector('.contact-success-message');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+        
+        const successMessage = document.createElement('div');
+        successMessage.className = 'contact-success-message';
+        successMessage.innerHTML = `
+            <div style="
+                background: linear-gradient(135deg, #4caf50, #66bb6a);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 12px;
+                margin-bottom: 2rem;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                box-shadow: 0 10px 25px rgba(76, 175, 80, 0.3);
+                animation: slideInFromTop 0.5s ease-out;
+            ">
+                <i class="fas fa-check-circle" style="font-size: 1.2rem;"></i>
+                <div>
+                    <strong>Mesajınız başarıyla gönderildi!</strong>
+                    <p style="margin: 0.25rem 0 0 0; opacity: 0.9; font-size: 0.9rem;">
+                        En kısa sürede size dönüş yapacağız.
+                    </p>
+                </div>
+            </div>
+        `;
+        
+        const contactForm = document.querySelector('.contact-form-section');
+        contactForm.insertBefore(successMessage, contactForm.firstChild);
+        
+        // Auto remove after 8 seconds
+        setTimeout(() => {
+            if (successMessage && successMessage.parentNode) {
+                successMessage.style.transition = 'all 0.5s ease-out';
+                successMessage.style.opacity = '0';
+                successMessage.style.transform = 'translateY(-20px)';
+                setTimeout(() => {
+                    if (successMessage && successMessage.parentNode) {
+                        successMessage.remove();
+                    }
+                }, 500);
+            }
+        }, 8000);
+    }
+
+    // Initialize all page functions
+    initMovieSliders();
+    initMobileMenu();
+    initSearchFunctionality();
+    initCategoryPage();
+    initSearchResultsPage();
+    initLoginRegisterPage();
+    initProfilePage();
+    initProfileDropdown();
+    initContactPage(); // Add contact page initialization
+
+    // Add CSS animation for success message
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideInFromTop {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .contact-form .input-wrapper input.error,
+        .contact-form .input-wrapper select.error,
+        .contact-form .input-wrapper textarea.error {
+            border-color: #f44336 !important;
+            background: rgba(244, 67, 54, 0.1) !important;
+        }
+    `;
+    document.head.appendChild(style);
+
 });
 
 // Add CSS animations for messages
