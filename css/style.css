@@ -6646,6 +6646,7 @@ nav ul li a {
     .about-hero {
         height: 60vh;
         min-height: 400px;
+        padding: 60px 0 30px 0 !important; /* !important eklendi */
     }
     
     .about-hero-content h1 {
@@ -6691,6 +6692,10 @@ nav ul li a {
 }
 
 @media (max-width: 576px) {
+    .about-hero {
+        padding: 50px 0 25px 0 !important; /* !important eklendi */
+    }
+    
     .about-hero-content h1 {
         font-size: 2rem;
     }
