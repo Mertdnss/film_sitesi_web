@@ -41,9 +41,21 @@ Bu doküman, Film Dünyası web sitesinin geliştirilmesi için yol haritasını
   - Sıkça Sorulan Sorular (FAQ)
   - Form validasyonu ve gönderim sistemi
   - Responsive tasarım
-- [ ] Hakkımızda Sayfası (about.html)
+- [x] Hakkımızda Sayfası (about.html) - **TAMAMLANDI**
   - Site hakkında bilgiler
-- [ ] 404 Hata Sayfası (404.html)
+  - Ekip tanıtımı
+  - Misyon/Vizyon
+  - Özellikler ve avantajlar
+  - İstatistikler
+  - Call-to-action bölümü
+  - Responsive tasarım
+- [x] 404 Hata Sayfası (404.html) - **TAMAMLANDI**
+  - Modern glitch efektli tasarım
+  - Floating animasyonlar
+  - Popüler içerik önerileri
+  - Yardım bölümü
+  - Ana sayfaya dönüş ve navigasyon linkler
+  - Responsive tasarım
 
 ### 2. Responsive Tasarım Geliştirme
 - [x] Ana Sayfa responsive tasarımı - **TAMAMLANDI**
@@ -76,6 +88,7 @@ Bu doküman, Film Dünyası web sitesinin geliştirilmesi için yol haritasını
 
 ### 2. Veritabanı Tasarımı
 - [ ] Veritabanı şemasının oluşturulması
+- [ ] Veritabanı olarak MySql kullanılacak
 - [ ] Tablolar arası ilişkilerin tanımlanması
   - Filmler, diziler, kategoriler, kullanıcılar, yorumlar, oylamalar vb.
 

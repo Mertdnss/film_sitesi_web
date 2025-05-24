@@ -26,6 +26,7 @@
                     <li><a href="category.html">Filmler</a></li>
                     <li><a href="series-detail.html">Diziler</a></li>
                     <li><a href="category.html">Türler</a></li>
+                    <li><a href="about.html">Hakkımızda</a></li>
                     <li><a href="contact.html" class="active">İletişim</a></li>
                     <li>
                         <a href="profile.html" class="profile-link">
@@ -241,68 +242,65 @@
                 </div>
 
                 <div class="faq-grid">
-                    <div class="faq-item">
+                    <div class="faq-item" data-faq-id="1">
                         <div class="faq-question">
                             <h4>Üyelik ücretsiz mi?</h4>
                             <i class="fas fa-plus"></i>
                         </div>
-                        <div class="faq-answer">
-                            <p>Evet, Film Dünyası'na üyelik tamamen ücretsizdir. Herhangi bir ücret ödemeden tüm film ve dizilerimizi izleyebilirsiniz.</p>
-                        </div>
                     </div>
 
-                    <div class="faq-item">
+                    <div class="faq-item" data-faq-id="2">
                         <div class="faq-question">
                             <h4>Mobil uygulamanız var mı?</h4>
                             <i class="fas fa-plus"></i>
                         </div>
-                        <div class="faq-answer">
-                            <p>Şu anda web sitemizdeki responsive tasarım sayesinde mobil cihazlarınızdan rahatça izleyebilirsiniz. Mobil uygulama üzerinde çalışmalarımız devam etmektedir.</p>
-                        </div>
                     </div>
 
-                    <div class="faq-item">
+                    <div class="faq-item" data-faq-id="3">
                         <div class="faq-question">
                             <h4>İçerik talebinde bulunabilir miyim?</h4>
                             <i class="fas fa-plus"></i>
                         </div>
-                        <div class="faq-answer">
-                            <p>Tabii ki! Yukarıdaki iletişim formunu kullanarak veya e-posta ile istediğiniz film veya dizi taleplerini bize iletebilirsiniz.</p>
-                        </div>
                     </div>
 
-                    <div class="faq-item">
+                    <div class="faq-item" data-faq-id="4">
                         <div class="faq-question">
                             <h4>Teknik sorun yaşıyorum, ne yapmalıyım?</h4>
                             <i class="fas fa-plus"></i>
                         </div>
-                        <div class="faq-answer">
-                            <p>Teknik sorunlarınız için yukarıdaki formdan "Teknik Destek" konusunu seçerek bize ulaşabilir veya info@filmdunyasi.com adresine e-posta gönderebilirsiniz.</p>
-                        </div>
                     </div>
 
-                    <div class="faq-item">
+                    <div class="faq-item" data-faq-id="5">
                         <div class="faq-question">
                             <h4>Hangi cihazlardan izleyebilirim?</h4>
                             <i class="fas fa-plus"></i>
                         </div>
-                        <div class="faq-answer">
-                            <p>Bilgisayar, tablet, telefon ve smart TV'lerden rahatlıkla izleyebilirsiniz. Tüm modern web tarayıcıları desteklenmektedir.</p>
-                        </div>
                     </div>
 
-                    <div class="faq-item">
+                    <div class="faq-item" data-faq-id="6">
                         <div class="faq-question">
                             <h4>İş birliği teklifim var, kimle konuşmalıyım?</h4>
                             <i class="fas fa-plus"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p>İş birliği teklifleriniz için yukarıdaki formdan "İş Birliği" konusunu seçerek bize ulaşabilirsiniz. En kısa sürede size dönüş yapacağız.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- FAQ Modal -->
+        <div class="faq-modal" id="faqModal">
+            <div class="faq-modal-content">
+                <div class="faq-modal-header">
+                    <h3 id="faqModalTitle"></h3>
+                    <button class="faq-modal-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="faq-modal-body">
+                    <p id="faqModalAnswer"></p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -326,8 +324,8 @@
                         <li><a href="category.html">Filmler</a></li>
                         <li><a href="series-detail.html">Diziler</a></li>
                         <li><a href="category.html">Türler</a></li>
+                        <li><a href="about.html">Hakkımızda</a></li>
                         <li><a href="contact.html">İletişim</a></li>
-                        <li><a href="login-register.html">Giriş Yap</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
@@ -361,5 +359,77 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script>
+        // SSS Verileri
+        const faqData = {
+            1: {
+                title: "Üyelik ücretsiz mi?",
+                answer: "Evet, Film Dünyası'na üyelik tamamen ücretsizdir. Herhangi bir ücret ödemeden tüm film ve dizilerimizi izleyebilirsiniz."
+            },
+            2: {
+                title: "Mobil uygulamanız var mı?",
+                answer: "Şu anda web sitemizdeki responsive tasarım sayesinde mobil cihazlarınızdan rahatça izleyebilirsiniz. Mobil uygulama üzerinde çalışmalarımız devam etmektedir."
+            },
+            3: {
+                title: "İçerik talebinde bulunabilir miyim?",
+                answer: "Tabii ki! Yukarıdaki iletişim formunu kullanarak veya e-posta ile istediğiniz film veya dizi taleplerini bize iletebilirsiniz."
+            },
+            4: {
+                title: "Teknik sorun yaşıyorum, ne yapmalıyım?",
+                answer: "Teknik sorunlarınız için yukarıdaki formdan 'Teknik Destek' konusunu seçerek bize ulaşabilir veya info@filmdunyasi.com adresine e-posta gönderebilirsiniz."
+            },
+            5: {
+                title: "Hangi cihazlardan izleyebilirim?",
+                answer: "Bilgisayar, tablet, telefon ve smart TV'lerden rahatlıkla izleyebilirsiniz. Tüm modern web tarayıcıları desteklenmektedir."
+            },
+            6: {
+                title: "İş birliği teklifim var, kimle konuşmalıyım?",
+                answer: "İş birliği teklifleriniz için yukarıdaki formdan 'İş Birliği' konusunu seçerek bize ulaşabilirsiniz. En kısa sürede size dönüş yapacağız."
+            }
+        };
+
+        // Modal elementleri
+        const modal = document.getElementById('faqModal');
+        const modalTitle = document.getElementById('faqModalTitle');
+        const modalAnswer = document.getElementById('faqModalAnswer');
+        const closeButton = document.querySelector('.faq-modal-close');
+
+        // SSS öğelerine tıklama olayı ekle
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const faqId = item.getAttribute('data-faq-id');
+                const faqItem = faqData[faqId];
+                
+                if (faqItem) {
+                    modalTitle.textContent = faqItem.title;
+                    modalAnswer.textContent = faqItem.answer;
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Sayfa kaydırmayı engelle
+                }
+            });
+        });
+
+        // Modal kapatma işlemleri
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // Sayfa kaydırmayı tekrar etkinleştir
+        }
+
+        closeButton.addEventListener('click', closeModal);
+
+        // Modal dışına tıklandığında kapatma
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // ESC tuşu ile kapatma
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html> 

@@ -272,9 +272,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const nav = document.querySelector('nav');
     const backdrop = document.querySelector('.menu-backdrop');
 
+    // Hamburger menü varsa event listener ekle
+    if (hamburgerMenu && nav) {
     hamburgerMenu.addEventListener('click', function() {
         // Toggle navigation and animation classes
-        nav.classList.toggle('open');
+            nav.classList.toggle('mobile-active');
         hamburgerMenu.classList.toggle('active');
         
         if (backdrop) {
@@ -286,12 +288,13 @@ document.addEventListener('DOMContentLoaded', function() {
         bars.forEach(bar => bar.classList.toggle('animate'));
         
         // Menü açıkken body'nin scroll'unu engelle
-        if (nav.classList.contains('open')) {
+            if (nav.classList.contains('mobile-active')) {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = '';
         }
     });
+    }
 
     // Close mobile menu when clicking outside
     if (backdrop) {
@@ -302,14 +305,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Kapatma fonksiyonu
     function closeMenu() {
-        nav.classList.remove('open');
-        hamburgerMenu.classList.remove('active');
+        if (nav) nav.classList.remove('mobile-active');
+        if (hamburgerMenu) hamburgerMenu.classList.remove('active');
         if (backdrop) {
             backdrop.classList.remove('active');
         }
         
+        if (hamburgerMenu) {
         const bars = hamburgerMenu.querySelectorAll('.bar');
         bars.forEach(bar => bar.classList.remove('animate'));
+        }
         
         document.body.style.overflow = '';
     }
@@ -323,7 +328,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ESC tuşuna basınca menüyü kapat
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && nav.classList.contains('open')) {
+        if (e.key === 'Escape' && nav && nav.classList.contains('mobile-active')) {
             closeMenu();
         }
     });
