@@ -371,6 +371,51 @@ class AdManager {
         console.log('🧪 Test amaçlı popup gösteriliyor...');
         this.showPopupAd();
     }
+
+    // Reklam çoğaltma fonksiyonu - Test için (console'dan çağırılabilir)
+    multiplyAds(count = 3) {
+        console.log(`🔄 ${count} adet reklam çoğaltılıyor...`);
+        
+        const headerBanner = document.querySelector('.ad-header-banner');
+        const bottomBanner = document.querySelector('.ad-bottom-banner');
+        
+        if (headerBanner) {
+            for (let i = 1; i <= count; i++) {
+                const clone = headerBanner.cloneNode(true);
+                clone.querySelector('.ad-text').textContent = `🎬 Çoğaltılmış Reklam ${i} 🎬`;
+                headerBanner.parentNode.insertBefore(clone, headerBanner.nextSibling);
+            }
+        }
+        
+        if (bottomBanner) {
+            for (let i = 1; i <= count; i++) {
+                const clone = bottomBanner.cloneNode(true);
+                clone.querySelector('.ad-text').textContent = `🎯 Çoğaltılmış Alt Reklam ${i} 🎯`;
+                bottomBanner.parentNode.insertBefore(clone, bottomBanner.nextSibling);
+            }
+        }
+        
+        console.log(`✅ Reklamlar çoğaltıldı! Sayfa yüksekliği otomatik arttı.`);
+        console.log(`📏 Yeni sayfa yüksekliği: ${document.body.scrollHeight}px`);
+        console.log(`💡 Kullanım: adManager.clearMultipliedAds() ile temizleyebilirsiniz`);
+    }
+
+    // Çoğaltılmış reklamları temizle (console'dan çağırılabilir)
+    clearMultipliedAds() {
+        const allAds = document.querySelectorAll('.ad-header-banner, .ad-bottom-banner');
+        let removedCount = 0;
+        
+        allAds.forEach((ad, index) => {
+            const text = ad.querySelector('.ad-text');
+            if (text && text.textContent.includes('Çoğaltılmış')) {
+                ad.remove();
+                removedCount++;
+            }
+        });
+        
+        console.log(`🗑️ ${removedCount} adet çoğaltılmış reklam temizlendi`);
+        console.log(`📏 Yeni sayfa yüksekliği: ${document.body.scrollHeight}px`);
+    }
 }
 
 // Sayfa yüklendiğinde reklam sistemini başlat

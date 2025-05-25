@@ -13,8 +13,9 @@ body {
     background-color: #0f1014;
     color: #fff;
     line-height: 1.6;
-    padding-top: 60px; /* Fixed header için */
+    padding-top: 80px; /* Fixed header için artırıldı */
     overflow-x: hidden; /* Yatay taşmayı önle */
+    min-height: 100vh; /* Minimum yükseklik */
 }
 
 html {
@@ -46,7 +47,9 @@ img {
 
 #homepage {
     width: 100%;
-    overflow: hidden;
+    overflow: visible; /* hidden yerine visible - reklam alanları görünsün */
+    padding-top: 40px; /* Header için ek padding */
+    min-height: auto; /* Otomatik yükseklik */
 }
 
 /* Header Styles */
@@ -117,6 +120,11 @@ header .logo h1 span {
     padding: 0;
     margin-left: 8px;
     font-size: 14px;
+    flex-shrink: 0; /* İkonun küçülmesini engelle */
+    min-width: 20px; /* Minimum genişlik */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Navigation */
@@ -933,6 +941,71 @@ footer::before {
 }
 
 /* Responsive Styles */
+/* 1200px'den itibaren kademeli küçülme başlasın */
+@media (max-width: 1200px) {
+    nav ul li a {
+        font-size: 12px; /* Font boyutu küçült */
+        padding: 7px 10px; /* Padding azalt */
+    }
+    
+    nav ul li {
+        margin: 0 6px; /* Margin azalt */
+    }
+    
+    .search-box {
+        flex: 0 1 280px; /* Search box biraz küçült */
+        margin: 0 15px;
+    }
+}
+
+/* 1100px'de daha fazla küçült */
+@media (max-width: 1100px) {
+    nav ul li a {
+        font-size: 11px;
+        padding: 6px 8px;
+    }
+    
+    nav ul li {
+        margin: 0 5px;
+    }
+    
+    .search-box {
+        flex: 0 1 250px;
+        margin: 0 12px;
+    }
+    
+    header .logo h1 {
+        font-size: 22px; /* Logo da küçült */
+    }
+}
+
+/* 1000px'de daha da küçült */
+@media (max-width: 1000px) {
+    nav ul li a {
+        font-size: 11px;
+        padding: 5px 7px;
+    }
+    
+    nav ul li {
+        margin: 0 4px;
+    }
+    
+    .search-box {
+        flex: 0 1 220px;
+        margin: 0 10px;
+        padding: 7px 10px; /* Search box padding azalt */
+    }
+    
+    .search-box input {
+        font-size: 12px;
+    }
+    
+    .search-box button {
+        font-size: 13px;
+        margin-left: 6px;
+    }
+}
+
 @media screen and (max-width: 992px) {
     nav {
         position: fixed;
@@ -993,14 +1066,33 @@ footer::before {
     }
 
     .search-box {
-        order: 3;
-        width: 100%;
-        margin-top: 15px;
+        flex: 0 1 200px; /* Sabit genişlik yerine flex kullan */
+        margin: 0 10px; /* Margin azaltıldı */
+        min-width: 150px; /* Minimum genişlik eklendi */
+        max-width: 250px; /* Maksimum genişlik eklendi */
+        padding: 6px 10px; /* Padding azaltıldı */
+    }
+    
+    .search-box input {
+        font-size: 12px;
+        min-width: 0; /* Input'un küçülmesine izin ver */
+    }
+    
+    .search-box button {
+        font-size: 12px;
+        margin-left: 5px;
     }
 
     header .container {
         justify-content: space-between;
-        flex-wrap: wrap;
+        align-items: center;
+        flex-wrap: nowrap; /* Wrap kaldırıldı */
+        gap: 10px; /* Elemanlar arası boşluk */
+    }
+    
+    /* Profil kısmının küçülmesini engelle */
+    .profile-link {
+        flex-shrink: 0; /* Küçülmeyi engelle */
     }
 
     .slider-container {
@@ -1018,6 +1110,20 @@ footer::before {
     .section-header, .category-grid, .footer-content {
         width: 100%;
         box-sizing: border-box;
+    }
+}
+
+/* 992px ile 768px arası geçiş için özel responsive kural */
+@media screen and (max-width: 992px) and (min-width: 769px) {
+    .search-box {
+        flex: 0 1 180px; /* Orta boyut */
+        margin: 0 8px;
+        min-width: 140px;
+        max-width: 200px;
+    }
+    
+    header .container {
+        gap: 8px;
     }
 }
 
@@ -3303,6 +3409,7 @@ a, button, .movie-card, .category-item, .hamburger-menu {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    padding: 120px 0 40px 0; /* Header için üst padding eklendi */
 }
 
 #login-register-page .auth-hero-bg {
@@ -3961,6 +4068,7 @@ a, button, .movie-card, .category-item, .hamburger-menu {
 @media (max-width: 576px) {
     #login-register-page .auth-hero {
         height: 250px;
+        padding: 90px 0 30px 0 !important; /* Küçük mobilde header için padding artırıldı */
     }
     
     #login-register-page .auth-hero-content h1 {
@@ -5166,6 +5274,7 @@ nav ul li a {
     display: flex;
     align-items: center;
     overflow: hidden;
+    padding: 120px 0 40px 0; /* Header için üst padding eklendi */
 }
 
 .contact-hero-bg {
@@ -5698,6 +5807,7 @@ nav ul li a {
     .contact-hero {
         height: 50vh;
         min-height: 300px;
+        padding: 100px 0 40px 0 !important; /* Mobilde header için padding artırıldı */
     }
     
     .contact-hero-content h1 {
@@ -6090,7 +6200,7 @@ nav ul li a {
     display: flex;
     align-items: center;
     overflow: hidden;
-    padding: 80px 0 40px 0;
+    padding: 120px 0 40px 0; /* Üst padding artırıldı */
 }
 
 .about-hero-bg {
@@ -6665,9 +6775,9 @@ nav ul li a {
 
 @media (max-width: 768px) {
     .about-hero {
-        height: 60vh;
-        min-height: 400px;
-        padding: 60px 0 30px 0 !important; /* !important eklendi */
+        height: 70vh; /* Yükseklik artırıldı */
+        min-height: 500px; /* Minimum yükseklik artırıldı */
+        padding: 100px 0 60px 0 !important; /* Alt padding artırıldı */
     }
     
     .about-hero-content h1 {
@@ -6676,13 +6786,15 @@ nav ul li a {
     
     .about-hero-content p {
         font-size: 1.1rem;
+        margin-bottom: 2rem; /* Alt margin eklendi */
     }
     
     .hero-stats {
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.5rem; /* Gap artırıldı */
         max-width: 300px;
         margin: 2rem auto 0;
+        padding-bottom: 2rem; /* Alt padding eklendi */
     }
     
     .story-content h2 {
@@ -6714,7 +6826,7 @@ nav ul li a {
 
 @media (max-width: 576px) {
     .about-hero {
-        padding: 50px 0 25px 0 !important; /* !important eklendi */
+        padding: 90px 0 25px 0 !important; /* Küçük mobilde üst padding artırıldı */
     }
     
     .about-hero-content h1 {
@@ -6773,46 +6885,85 @@ nav ul li a {
 @media (max-width: 768px) {
     header .container {
         padding: 0 15px;
+        gap: 8px; /* Gap azaltıldı */
     }
     
     .search-box {
-        flex: 0 1 200px;
-        margin: 0 10px;
+        flex: 0 1 150px; /* Daha küçük flex değeri */
+        margin: 0 5px; /* Margin azaltıldı */
+        min-width: 120px; /* Minimum genişlik azaltıldı */
+        max-width: 180px; /* Maksimum genişlik azaltıldı */
+        padding: 6px 10px; /* Padding azaltıldı */
     }
     
     .search-box input {
-        font-size: 12px;
+        font-size: 11px; /* Font boyutu azaltıldı */
+        min-width: 0; /* Input'un küçülmesine izin ver */
+    }
+    
+    .search-box button {
+        font-size: 11px;
+        margin-left: 4px;
+        min-width: 18px; /* Minimum genişlik azaltıldı */
     }
     
     .hamburger-menu {
         display: flex;
+        flex-shrink: 0; /* Küçülmeyi engelle */
     }
     
     .profile-img {
         width: 28px;
         height: 28px;
     }
+    
+    /* Logo'nun küçülmesini engelle */
+    header .logo {
+        flex-shrink: 0;
+    }
 }
 
 @media (max-width: 480px) {
+    header .container {
+        gap: 5px; /* Daha küçük gap */
+        padding: 0 10px; /* Padding azaltıldı */
+    }
+    
     header .logo h1 {
-        font-size: 22px;
+        font-size: 20px; /* Font boyutu azaltıldı */
         white-space: nowrap;
     }
     
     .search-box {
-        flex: 0 1 150px;
-        margin: 0 8px;
-        padding: 6px 10px;
+        flex: 0 1 120px; /* Daha küçük flex değeri */
+        margin: 0 3px; /* Margin azaltıldı */
+        padding: 5px 8px; /* Padding azaltıldı */
+        min-width: 100px; /* Minimum genişlik azaltıldı */
+        max-width: 140px; /* Maksimum genişlik azaltıldı */
     }
     
     .search-box input {
-        font-size: 11px;
+        font-size: 10px; /* Daha küçük font */
+        min-width: 0; /* Input'un küçülmesine izin ver */
+    }
+    
+    .search-box button {
+        font-size: 10px;
+        margin-left: 3px;
+        min-width: 16px; /* Minimum genişlik daha da azaltıldı */
     }
     
     .profile-img {
         width: 26px;
         height: 26px;
+    }
+    
+    .hamburger-menu {
+        padding: 3px; /* Hamburger menu padding azaltıldı */
+    }
+    
+    .hamburger-menu .bar {
+        width: 18px; /* Bar genişliği azaltıldı */
     }
 }
 
@@ -7149,7 +7300,7 @@ nav ul li a {
 /* Responsive Design for 404 Page */
 @media (max-width: 768px) {
     .error-hero {
-        padding: 80px 0 40px 0;
+        padding: 100px 0 40px 0; /* Mobilde header için padding artırıldı */
         min-height: 80vh;
     }
 

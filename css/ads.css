@@ -2,16 +2,17 @@
 
 /* Genel Reklam Container Stilleri */
 .ad-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block; /* flex yerine block yapıldı */
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
     border: 1px solid #333;
     border-radius: 8px;
     overflow: hidden;
     position: relative;
     transition: all 0.3s ease;
-    margin: 15px 0;
+    margin: 15px auto; /* Ortalama için auto eklendi */
+    z-index: 1;
+    width: 100%; /* Genişlik belirtildi */
+    box-sizing: border-box; /* Padding ve border dahil */
 }
 
 .ad-container:hover {
@@ -56,19 +57,40 @@
     transform: scale(1.02);
 }
 
-/* ===== HEADER BANNER (Leaderboard 728x90) ===== */
+/* ===== HEADER BANNER (Leaderboard 600x70) ===== */
 .ad-header-banner {
     width: 100%;
-    max-width: 728px;
-    height: 90px;
-    margin: 0 auto 20px;
+    max-width: 600px;
+    height: 70px;
+    margin: 20px auto 20px;
     background: linear-gradient(45deg, #1a1a1a, #2d2d2d, #1a1a1a);
     background-size: 200% 200%;
     animation: gradientShift 4s ease infinite;
+    position: static; /* relative yerine static - fiziksel yer kaplasın */
+    z-index: 1;
+    border-radius: 35px;
+    overflow: hidden;
+    border: 2px solid #333;
+    display: block; /* Block display ile yer kaplasın */
+    box-sizing: border-box;
 }
 
 .ad-header-banner .ad-content {
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 728 90"><rect width="728" height="90" fill="%23000"/><text x="364" y="45" text-anchor="middle" fill="%23e50914" font-family="Arial" font-size="14" font-weight="bold">🎬 FİLM DÜNYASI REKLAM ALANI 728x90 🎬</text></svg>') center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    position: relative;
+    background: transparent;
+}
+
+.ad-header-banner .ad-text {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: colorfulText 3s ease-in-out infinite;
+    text-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
 }
 
 /* ===== SIDEBAR REKLAMLARI (300x250) ===== */
@@ -107,6 +129,10 @@
     background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #0f0f0f 100%);
     background-size: 400% 400%;
     animation: megaGradient 6s ease infinite;
+    display: block;
+    position: static;
+    box-sizing: border-box;
+    clear: both; /* Önceki elementlerden etkilenmesin */
 }
 
 .ad-large-banner .ad-content {
@@ -124,10 +150,50 @@
     animation: contentAdShift 5s ease infinite;
     border: 2px solid transparent;
     background-clip: padding-box;
+    display: block;
+    position: static;
+    box-sizing: border-box;
+    clear: both;
 }
 
 .ad-content-between .ad-content {
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 728 90"><rect width="728" height="90" fill="%23111"/><text x="364" y="35" text-anchor="middle" fill="%23e50914" font-family="Arial" font-size="12" font-weight="bold">🎯 İÇERİK ARASI REKLAM</text><text x="364" y="55" text-anchor="middle" fill="%23fff" font-family="Arial" font-size="10">728x90 - Yüksek Görünürlük</text></svg>') center/cover;
+}
+
+/* ===== ALT BANNER (Header ile aynı stil) ===== */
+.ad-bottom-banner {
+    width: 100%;
+    max-width: 600px;
+    height: 70px;
+    margin: 30px auto 20px;
+    background: linear-gradient(45deg, #1a1a1a, #2d2d2d, #1a1a1a);
+    background-size: 200% 200%;
+    animation: gradientShift 4s ease infinite;
+    position: static; /* relative yerine static - fiziksel yer kaplasın */
+    z-index: 1;
+    border-radius: 35px;
+    overflow: hidden;
+    border: 2px solid #333;
+    display: block; /* Block display ile yer kaplasın */
+    box-sizing: border-box;
+}
+
+.ad-bottom-banner .ad-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    position: relative;
+    background: transparent;
+}
+
+.ad-bottom-banner .ad-text {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: colorfulText 3s ease-in-out infinite;
+    text-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
 }
 
 /* ===== FOOTER BANNER ===== */
@@ -137,6 +203,10 @@
     height: 90px;
     margin: 20px auto 0;
     background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 50%, #2d2d2d 100%);
+    display: block;
+    position: static;
+    box-sizing: border-box;
+    clear: both;
 }
 
 .ad-footer-banner .ad-content {
@@ -151,7 +221,7 @@
     transform: translateY(-50%);
     width: 160px;
     height: 600px;
-    z-index: 1000;
+    z-index: 999; /* Header'ın altında kalması için z-index düşürüldü */
     background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
     border: 1px solid #333;
     border-radius: 8px;
@@ -176,8 +246,14 @@
     border: 1px solid #333;
     border-radius: 12px;
     padding: 15px;
-    margin: 20px 0;
+    margin: 20px auto;
     backdrop-filter: blur(10px);
+    display: block;
+    position: static;
+    box-sizing: border-box;
+    clear: both;
+    width: 100%;
+    max-width: 600px;
 }
 
 .ad-native-content {
@@ -301,7 +377,44 @@
     100% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0); }
 }
 
+@keyframes colorfulText {
+    0% { 
+        color: #e50914; 
+        transform: translateX(-10px) scale(1);
+        text-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+    }
+    25% { 
+        color: #ff6b35; 
+        transform: translateX(5px) scale(1.05);
+        text-shadow: 0 0 15px rgba(255, 107, 53, 0.7);
+    }
+    50% { 
+        color: #f7931e; 
+        transform: translateX(0px) scale(1.1);
+        text-shadow: 0 0 20px rgba(247, 147, 30, 0.8);
+    }
+    75% { 
+        color: #ffd700; 
+        transform: translateX(-5px) scale(1.05);
+        text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+    }
+    100% { 
+        color: #e50914; 
+        transform: translateX(-10px) scale(1);
+        text-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+    }
+}
+
 /* ===== RESPONSİVE TASARIM ===== */
+
+/* Masaüstü için header banner özel kuralları */
+@media (min-width: 993px) {
+    .ad-header-banner,
+    .ad-bottom-banner {
+        margin-top: 25px; /* Header'dan daha fazla uzaklık */
+        z-index: 1; /* Header'ın altında kalması garantisi */
+    }
+}
 
 /* Tablet */
 @media (max-width: 1024px) {
@@ -324,6 +437,18 @@
 /* Mobil */
 @media (max-width: 768px) {
     .ad-header-banner,
+    .ad-bottom-banner {
+        max-width: 300px;
+        height: 50px;
+        border-radius: 25px; /* Mobilde daha küçük oval */
+    }
+    
+    .ad-header-banner .ad-text,
+    .ad-bottom-banner .ad-text {
+        font-size: 12px;
+        letter-spacing: 1px;
+    }
+    
     .ad-content-between,
     .ad-footer-banner {
         max-width: 320px;
