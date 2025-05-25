@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yorum Yönetimi - Film Dünyası Admin</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body id="admin-panel">
+    <!-- Backdrop for mobile sidebar -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <div class="admin-logo">
+                <h2>Film <span>Dünyası</span></h2>
+                <p>Yönetim Paneli</p>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-menu">
+            <ul>
+                <li class="menu-item">
+                    <a href="index.html">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="movies.html">
+                        <i class="fas fa-film"></i>
+                        <span>Filmler</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="series.html">
+                        <i class="fas fa-tv"></i>
+                        <span>Diziler</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="categories.html">
+                        <i class="fas fa-tags"></i>
+                        <span>Kategoriler</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="users.html">
+                        <i class="fas fa-users"></i>
+                        <span>Kullanıcılar</span>
+                    </a>
+                </li>
+                <li class="menu-item active">
+                    <a href="comments.html">
+                        <i class="fas fa-comments"></i>
+                        <span>Yorumlar</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="analytics.html">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>İstatistikler</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="settings.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Ayarlar</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="admin-profile">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=40&h=40&auto=format&fit=crop&crop=face" alt="Admin">
+                    <div class="profile-info">
+                        <span class="admin-name">Admin</span>
+                        <span class="admin-role">Yönetici</span>
+                    </div>
+                </div>
+                <div class="logout-section">
+                    <a href="../index.html" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Çıkış Yap</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="admin-main">
+        <!-- Top Bar -->
+        <header class="admin-topbar">
+            <div class="topbar-left">
+                <button class="mobile-sidebar-toggle" id="mobileSidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1>Yorum Yönetimi</h1>
+            </div>
+            <div class="topbar-right">
+                <div class="admin-notifications">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                </div>
+                <div class="admin-profile-dropdown">
+                    <button class="profile-btn">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=32&h=32&auto=format&fit=crop&crop=face" alt="Admin">
+                        <span>Admin</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="profile-dropdown-menu">
+                        <a href="profile.html"><i class="fas fa-user"></i> Profil</a>
+                        <a href="settings.html"><i class="fas fa-cog"></i> Ayarlar</a>
+                        <hr>
+                        <a href="../index.html"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Content Area -->
+        <div class="admin-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="page-title">
+                    <h2>Yorum Yönetimi</h2>
+                    <p>Kullanıcı yorumlarını görüntüleyin, moderasyonunu yapın ve yönetin</p>
+                </div>
+                <div class="page-actions">
+                    <button class="btn btn-primary" id="bulkActionsBtn">
+                        <i class="fas fa-tasks"></i>
+                        Toplu İşlemler
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Comment Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Toplam Yorum</h3>
+                        <div class="stat-number">2,847</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            +156 bu hafta
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Onaylı Yorum</h3>
+                        <div class="stat-number">2,634</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            +142 bu hafta
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Bekleyen Yorum</h3>
+                        <div class="stat-number">187</div>
+                        <div class="stat-change negative">
+                            <i class="fas fa-arrow-down"></i>
+                            -23 bu hafta
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Reddedilen Yorum</h3>
+                        <div class="stat-number">26</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            +3 bu hafta
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content Filters -->
+            <div class="content-filters">
+                <div class="filter-left">
+                    <div class="search-wrapper">
+                        <input type="text" 
+                               class="search-input" 
+                               placeholder="Yorum içeriği ara..." 
+                               id="commentSearch">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    
+                    <select class="filter-select" id="statusFilter">
+                        <option value="">Tüm Durumlar</option>
+                        <option value="approved">Onaylı</option>
+                        <option value="pending">Bekleyen</option>
+                        <option value="rejected">Reddedilen</option>
+                        <option value="spam">Spam</option>
+                    </select>
+                    
+                    <select class="filter-select" id="contentTypeFilter">
+                        <option value="">Tüm İçerikler</option>
+                        <option value="movie">Film Yorumları</option>
+                        <option value="series">Dizi Yorumları</option>
+                    </select>
+                    
+                    <select class="filter-select" id="dateFilter">
+                        <option value="">Tüm Tarihler</option>
+                        <option value="today">Bugün</option>
+                        <option value="week">Bu Hafta</option>
+                        <option value="month">Bu Ay</option>
+                        <option value="year">Bu Yıl</option>
+                    </select>
+                </div>
+                
+                <div class="filter-right">
+                    <div class="view-options">
+                        <button class="view-btn active" data-view="grid" id="gridViewBtn">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn" data-view="list" id="listViewBtn">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="sort-options">
+                        <select id="sortBy">
+                            <option value="date_desc">En Yeni</option>
+                            <option value="date_asc">En Eski</option>
+                            <option value="rating_desc">Yüksek Puan</option>
+                            <option value="rating_asc">Düşük Puan</option>
+                            <option value="status_pending">Bekleyenler Önce</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Comments Container -->
+            <div class="comments-container">
+                <div class="comments-grid" id="commentsGrid">
+                    <!-- Comment Card 1 -->
+                    <div class="movie-admin-card comment-card" data-status="pending" data-content-type="movie" data-date="2024-01-15">
+                        <div class="comment-header">
+                            <div class="user-info">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=50&h=50&auto=format&fit=crop&crop=face" 
+                                     alt="Mehmet Kaya" class="comment-avatar">
+                                <div class="user-details">
+                                    <div class="user-name">Mehmet Kaya</div>
+                                    <div class="user-email">mehmet.kaya@email.com</div>
+                                </div>
+                            </div>
+                            <div class="comment-status status-pending">Bekleyen</div>
+                        </div>
+                        
+                        <div class="movie-details">
+                            <div class="content-info">
+                                <h4>Deadpool & Wolverine</h4>
+                                <div class="content-meta">
+                                    <span><i class="fas fa-film"></i> Film</span>
+                                    <span><i class="fas fa-star"></i> 4.5/5</span>
+                                    <span><i class="fas fa-calendar"></i> 15 Ocak 2024</span>
+                                </div>
+                            </div>
+                            
+                            <div class="comment-text">
+                                Gerçekten harika bir film! Deadpool'un espri anlayışı ve Wolverine'in sert karakteri mükemmel bir uyum oluşturmuş. Aksiyon sahneleri nefes kesici, komedi unsurları da çok başarılı. Kesinlikle izlenmesi gereken bir yapım.
+                            </div>
+                            
+                            <div class="comment-rating">
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="rating-text">4.5/5</span>
+                            </div>
+                            
+                            <div class="movie-actions">
+                                <button class="action-btn btn-approve" title="Onayla">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                                <button class="action-btn btn-edit" title="Düzenle">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn btn-reply" title="Yanıtla">
+                                    <i class="fas fa-reply"></i>
+                                </button>
+                                <button class="action-btn btn-delete" title="Sil">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Comment Card 2 -->
+                    <div class="movie-admin-card comment-card" data-status="approved" data-content-type="series" data-date="2024-01-14">
+                        <div class="comment-header">
+                            <div class="user-info">
+                                <img src="https://images.unsplash.com/photo-1494790108755-2616b9e75ba8?q=80&w=50&h=50&auto=format&fit=crop&crop=face" 
+                                     alt="Ayşe Demir" class="comment-avatar">
+                                <div class="user-details">
+                                    <div class="user-name">Ayşe Demir</div>
+                                    <div class="user-email">ayse.demir@email.com</div>
+                                </div>
+                            </div>
+                            <div class="comment-status status-approved">Onaylı</div>
+                        </div>
+                        
+                        <div class="movie-details">
+                            <div class="content-info">
+                                <h4>Breaking Bad</h4>
+                                <div class="content-meta">
+                                    <span><i class="fas fa-tv"></i> Dizi</span>
+                                    <span><i class="fas fa-star"></i> 5.0/5</span>
+                                    <span><i class="fas fa-calendar"></i> 14 Ocak 2024</span>
+                                </div>
+                            </div>
+                            
+                            <div class="comment-text">
+                                Şu ana kadar izlediğim en iyi dizi! Bryan Cranston'ın performansı Oscar'lık. Senaryo kusursuz, karakter gelişimi mükemmel. Her bölüm bir öncekinden daha iyi. Bu diziyi izlemeden ölmemek lazım.
+                            </div>
+                            
+                            <div class="comment-rating">
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-text">5.0/5</span>
+                            </div>
+                            
+                            <div class="movie-actions">
+                                <button class="action-btn btn-view" title="Görüntüle">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn btn-edit" title="Düzenle">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn btn-reply" title="Yanıtla">
+                                    <i class="fas fa-reply"></i>
+                                </button>
+                                <button class="action-btn btn-delete" title="Sil">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Comment Card 3 -->
+                    <div class="movie-admin-card comment-card" data-status="rejected" data-content-type="movie" data-date="2024-01-13">
+                        <div class="comment-header">
+                            <div class="user-info">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=50&h=50&auto=format&fit=crop&crop=face" 
+                                     alt="Ali Yılmaz" class="comment-avatar">
+                                <div class="user-details">
+                                    <div class="user-name">Ali Yılmaz</div>
+                                    <div class="user-email">ali.yilmaz@email.com</div>
+                                </div>
+                            </div>
+                            <div class="comment-status status-rejected">Reddedilen</div>
+                        </div>
+                        
+                        <div class="movie-details">
+                            <div class="content-info">
+                                <h4>The Matrix</h4>
+                                <div class="content-meta">
+                                    <span><i class="fas fa-film"></i> Film</span>
+                                    <span><i class="fas fa-star"></i> 1.0/5</span>
+                                    <span><i class="fas fa-calendar"></i> 13 Ocak 2024</span>
+                                </div>
+                            </div>
+                            
+                            <div class="comment-text">
+                                Bu film tamamen saçmalık! Hiç bir anlamı yok. Neden bu kadar övülüyor anlayamıyorum. Zaman kaybı...
+                            </div>
+                            
+                            <div class="rejection-reason">
+                                <strong>Ret Sebebi:</strong> Yapıcı olmayan eleştiri ve düşük kaliteli içerik.
+                            </div>
+                            
+                            <div class="comment-rating">
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-text">1.0/5</span>
+                            </div>
+                            
+                            <div class="movie-actions">
+                                <button class="action-btn btn-approve" title="Onayla">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                                <button class="action-btn btn-edit" title="Düzenle">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn btn-view" title="Detaylar">
+                                    <i class="fas fa-info"></i>
+                                </button>
+                                <button class="action-btn btn-delete" title="Sil">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Comment Card 4 -->
+                    <div class="movie-admin-card comment-card" data-status="pending" data-content-type="series" data-date="2024-01-12">
+                        <div class="comment-header">
+                            <div class="user-info">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=50&h=50&auto=format&fit=crop&crop=face" 
+                                     alt="Fatma Öztürk" class="comment-avatar">
+                                <div class="user-details">
+                                    <div class="user-name">Fatma Öztürk</div>
+                                    <div class="user-email">fatma.ozturk@email.com</div>
+                                </div>
+                            </div>
+                            <div class="comment-status status-pending">Bekleyen</div>
+                        </div>
+                        
+                        <div class="movie-details">
+                            <div class="content-info">
+                                <h4>Stranger Things</h4>
+                                <div class="content-meta">
+                                    <span><i class="fas fa-tv"></i> Dizi</span>
+                                    <span><i class="fas fa-star"></i> 4.0/5</span>
+                                    <span><i class="fas fa-calendar"></i> 12 Ocak 2024</span>
+                                </div>
+                            </div>
+                            
+                            <div class="comment-text">
+                                80'lerin nostaljik atmosferi harika! Çocuk oyuncuların performansı çok başarılı. Supernatural öğeler de güzel işlenmiş. Sadece son sezon biraz uzun geldi.
+                            </div>
+                            
+                            <div class="comment-rating">
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.0/5</span>
+                            </div>
+                            
+                            <div class="movie-actions">
+                                <button class="action-btn btn-approve" title="Onayla">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                                <button class="action-btn btn-edit" title="Düzenle">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn btn-reply" title="Yanıtla">
+                                    <i class="fas fa-reply"></i>
+                                </button>
+                                <button class="action-btn btn-delete" title="Sil">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Comment Card 5 -->
+                    <div class="movie-admin-card comment-card" data-status="approved" data-content-type="movie" data-date="2024-01-11">
+                        <div class="comment-header">
+                            <div class="user-info">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=50&h=50&auto=format&fit=crop&crop=face" 
+                                     alt="Emre Şahin" class="comment-avatar">
+                                <div class="user-details">
+                                    <div class="user-name">Emre Şahin</div>
+                                    <div class="user-email">emre.sahin@email.com</div>
+                                </div>
+                            </div>
+                            <div class="comment-status status-approved">Onaylı</div>
+                        </div>
+                        
+                        <div class="movie-details">
+                            <div class="content-info">
+                                <h4>Inception</h4>
+                                <div class="content-meta">
+                                    <span><i class="fas fa-film"></i> Film</span>
+                                    <span><i class="fas fa-star"></i> 4.8/5</span>
+                                    <span><i class="fas fa-calendar"></i> 11 Ocak 2024</span>
+                                </div>
+                            </div>
+                            
+                            <div class="comment-text">
+                                Christopher Nolan'ın bir başyapıtı! Zihin bükücü senaryo, muhteşem görsel efektler ve Hans Zimmer'in müziği. Her izleyişte yeni detaylar keşfediyorsunuz.
+                            </div>
+                            
+                            <div class="comment-rating">
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.8/5</span>
+                            </div>
+                            
+                            <div class="movie-actions">
+                                <button class="action-btn btn-view" title="Görüntüle">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn btn-edit" title="Düzenle">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn btn-reply" title="Yanıtla">
+                                    <i class="fas fa-reply"></i>
+                                </button>
+                                <button class="action-btn btn-delete" title="Sil">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Comment Card 6 -->
+                    <div class="movie-admin-card comment-card" data-status="spam" data-content-type="movie" data-date="2024-01-10">
+                        <div class="comment-header">
+                            <div class="user-info">
+                                <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=50&h=50&auto=format&fit=crop&crop=face" 
+                                     alt="Spam User" class="comment-avatar">
+                                <div class="user-details">
+                                    <div class="user-name">Spam User</div>
+                                    <div class="user-email">spam@example.com</div>
+                                </div>
+                            </div>
+                            <div class="comment-status status-spam">Spam</div>
+                        </div>
+                        
+                        <div class="movie-details">
+                            <div class="content-info">
+                                <h4>Avatar</h4>
+                                <div class="content-meta">
+                                    <span><i class="fas fa-film"></i> Film</span>
+                                    <span><i class="fas fa-star"></i> 5.0/5</span>
+                                    <span><i class="fas fa-calendar"></i> 10 Ocak 2024</span>
+                                </div>
+                            </div>
+                            
+                            <div class="comment-text">
+                                En iyi film sitesi www.example.com'da bedava film izleyin! Tıklayın ve kayıt olun!!!
+                            </div>
+                            
+                            <div class="spam-warning">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <strong>Spam Uyarısı:</strong> Bu yorum spam olarak işaretlenmiştir.
+                            </div>
+                            
+                            <div class="movie-actions">
+                                <button class="action-btn btn-ban" title="Kullanıcıyı Yasakla">
+                                    <i class="fas fa-user-slash"></i>
+                                </button>
+                                <button class="action-btn btn-view" title="Detaylar">
+                                    <i class="fas fa-info"></i>
+                                </button>
+                                <button class="action-btn btn-delete" title="Sil">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination-wrapper">
+                <div class="pagination-info">
+                    <span>1-6 / 2,847 yorum gösteriliyor</span>
+                </div>
+                <div class="pagination">
+                    <button class="page-btn prev-btn" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                        Önceki
+                    </button>
+                    <div class="page-numbers">
+                        <button class="page-number active">1</button>
+                        <button class="page-number">2</button>
+                        <button class="page-number">3</button>
+                        <span class="page-dots">...</span>
+                        <button class="page-number">475</button>
+                    </div>
+                    <button class="page-btn next-btn">
+                        Sonraki
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script src="js/admin.js"></script>
+    <script src="js/comments.js"></script>
+</body>
+</html> 

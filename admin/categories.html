@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kategori Yönetimi - Film Dünyası Admin</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body id="admin-panel">
+    <!-- Backdrop for mobile sidebar -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <div class="admin-logo">
+                <h2>Film <span>Dünyası</span></h2>
+                <p>Yönetim Paneli</p>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-menu">
+            <ul>
+                <li class="menu-item">
+                    <a href="index.html">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="movies.html">
+                        <i class="fas fa-film"></i>
+                        <span>Filmler</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="series.html">
+                        <i class="fas fa-tv"></i>
+                        <span>Diziler</span>
+                    </a>
+                </li>
+                <li class="menu-item active">
+                    <a href="categories.html">
+                        <i class="fas fa-tags"></i>
+                        <span>Kategoriler</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="users.html">
+                        <i class="fas fa-users"></i>
+                        <span>Kullanıcılar</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="comments.html">
+                        <i class="fas fa-comments"></i>
+                        <span>Yorumlar</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="analytics.html">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>İstatistikler</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="settings.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Ayarlar</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="admin-profile">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=40&h=40&auto=format&fit=crop&crop=face" alt="Admin">
+                    <div class="profile-info">
+                        <span class="admin-name">Admin</span>
+                        <span class="admin-role">Yönetici</span>
+                    </div>
+                </div>
+                <div class="logout-section">
+                    <a href="../index.html" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Çıkış Yap</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="admin-main">
+        <!-- Top Bar -->
+        <header class="admin-topbar">
+            <div class="topbar-left">
+                <button class="mobile-sidebar-toggle" id="mobileSidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1>Kategori Yönetimi</h1>
+            </div>
+            <div class="topbar-right">
+                <div class="admin-notifications">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                </div>
+                <div class="admin-profile-dropdown">
+                    <button class="profile-btn">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=32&h=32&auto=format&fit=crop&crop=face" alt="Admin">
+                        <span>Admin</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="profile-dropdown-menu">
+                        <a href="profile.html"><i class="fas fa-user"></i> Profil</a>
+                        <a href="settings.html"><i class="fas fa-cog"></i> Ayarlar</a>
+                        <hr>
+                        <a href="../index.html"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Content Area -->
+        <div class="admin-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="page-title">
+                    <h2>Kategori Yönetimi</h2>
+                    <p>Film ve dizi kategorilerini görüntüleyin, düzenleyin ve yönetin</p>
+                </div>
+                <div class="page-actions">
+                    <button class="btn btn-primary" id="addCategoryBtn">
+                        <i class="fas fa-plus"></i>
+                        Yeni Kategori Ekle
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Category Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Toplam Kategori</h3>
+                        <div class="stat-number">28</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            +3 bu ay
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Film Kategorisi</h3>
+                        <div class="stat-number">18</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            +2 bu ay
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Dizi Kategorisi</h3>
+                        <div class="stat-number">10</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            +1 bu ay
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Popüler Kategori</h3>
+                        <div class="stat-number">12</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            Aktif kullanımda
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content Filters -->
+            <div class="content-filters">
+                <div class="filter-left">
+                    <div class="search-wrapper">
+                        <input type="text" 
+                               class="search-input" 
+                               placeholder="Kategori ara..." 
+                               id="categorySearch">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    
+                    <select class="filter-select" id="typeFilter">
+                        <option value="">Tüm Türler</option>
+                        <option value="film">Film Kategorisi</option>
+                        <option value="series">Dizi Kategorisi</option>
+                        <option value="both">Her İkisi</option>
+                    </select>
+                    
+                    <select class="filter-select" id="statusFilter">
+                        <option value="">Tüm Durumlar</option>
+                        <option value="active">Aktif</option>
+                        <option value="inactive">Pasif</option>
+                    </select>
+                </div>
+                
+                <div class="filter-right">
+                    <div class="view-options">
+                        <button class="view-btn active" data-view="grid" id="gridViewBtn">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn" data-view="list" id="listViewBtn">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="sort-options">
+                        <select id="sortBy">
+                            <option value="name_asc">İsim (A-Z)</option>
+                            <option value="name_desc">İsim (Z-A)</option>
+                            <option value="content_count_desc">İçerik Sayısı (Çok-Az)</option>
+                            <option value="content_count_asc">İçerik Sayısı (Az-Çok)</option>
+                            <option value="created_desc">Yeni Eklenen</option>
+                            <option value="created_asc">Eski Eklenen</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Categories Container -->
+            <div class="categories-container">
+                <div class="categories-grid" id="categoriesGrid">
+                    <!-- Category Card 1 -->
+                    <div class="movie-admin-card category-card" data-type="both" data-status="active">
+                        <div class="category-header">
+                            <div class="category-icon-wrapper">
+                                <i class="fas fa-fist-raised category-icon" style="color: #e50914;"></i>
+                            </div>
+                            <div class="category-status status-active">Aktif</div>
+                        </div>
+                        
+                        <div class="movie-details">
+                            <h3>Aksiyon</h3>
+                            <div class="category-meta">
+                                <span><i class="fas fa-film"></i> 45 Film</span>
+                                <span><i class="fas fa-tv"></i> 23 Dizi</span>
+                                <span><i class="fas fa-eye"></i> 12.5K görüntülenme</span>
+                            </div>
+                            
+                            <div class="category-description">
+                                Adrenalin dolu aksiyon sahneleri ve heyecan verici maceralar içeren filmler ve diziler.
+                            </div>
+                            
+                            <div class="category-types">
+                                <span class="category-tag film-tag">Film</span>
+                                <span class="category-tag series-tag">Dizi</span>
+                            </div>
+                            
+                            <div class="movie-actions">
+                                <button class="action-btn btn-edit" title="Düzenle">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn btn-view" title="Görüntüle">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn btn-duplicate" title="Kopyala">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                <button class="action-btn btn-delete" title="Sil">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Category Card 2 -->
+                    <div class="movie-admin-card category-card" data-type="both" data-status="active">
+                        <div class="category-header">
+                            <div class="category-icon-wrapper">
+                                <i class="fas fa-heart category-icon" style="color: #ff69b4;"></i>
+                            </div>
+                            <div class="category-status status-active">Aktif</div>
+                        </div>
+                        
+                        <div class="movie-details">
+                            <h3>Romantik</h3>
+                            <div class="category-meta">
+                                <span><i class="fas fa-film"></i> 32 Film</span>
+                                <span><i class="fas fa-tv"></i> 18 Dizi</span>
+                                <span><i class="fas fa-eye"></i> 8.2K görüntülenme</span>
+                            </div>
+                            
+                            <div class="category-description">
+                                Aşk hikayaleri ve duygusal ilişkileri konu alan romantik yapımlar.
+                            </div>
+                            
+                            <div class="category-types">
+                                <span class="category-tag film-tag">Film</span>
+                                <span class="category-tag series-tag">Dizi</span>
+                            </div>
+                            
+                            <div class="movie-actions">
+                                <button class="action-btn btn-edit" title="Düzenle">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn btn-view" title="Görüntüle">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn btn-duplicate" title="Kopyala">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                <button class="action-btn btn-delete" title="Sil">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Category Card 3 -->
+                    <div class="movie-admin-card category-card" data-type="film" data-status="active">
+                        <div class="category-header">
+                            <div class="category-icon-wrapper">
+                                <i class="fas fa-laugh category-icon" style="color: #ffd700;"></i>
+                            </div>
+                            <div class="category-status status-active">Aktif</div>
+                        </div>
+                        
+                        <div class="movie-details">
+                            <h3>Komedi</h3>
+                            <div class="category-meta">
+                                <span><i class="fas fa-film"></i> 28 Film</span>
+                                <span><i class="fas fa-tv"></i> 0 Dizi</span>
+                                <span><i class="fas fa-eye"></i> 15.7K görüntülenme</span>
+                            </div>
+                            
+                            <div class="category-description">
+                                Güldüren ve eğlendiren komedi filmleri kategorisi.
+                            </div>
+                            
+                            <div class="category-types">
+                                <span class="category-tag film-tag">Film</span>
+                            </div>
+                            
+                            <div class="movie-actions">
+                                <button class="action-btn btn-edit" title="Düzenle">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn btn-view" title="Görüntüle">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn btn-duplicate" title="Kopyala">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                <button class="action-btn btn-delete" title="Sil">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Category Card 4 -->
+                    <div class="movie-admin-card category-card" data-type="series" data-status="active">
+                        <div class="category-header">
+                            <div class="category-icon-wrapper">
+                                <i class="fas fa-mask category-icon" style="color: #800080;"></i>
+                            </div>
+                            <div class="category-status status-active">Aktif</div>
+                        </div>
+                        
+                        <div class="movie-details">
+                            <h3>Korku-Gerilim</h3>
+                            <div class="category-meta">
+                                <span><i class="fas fa-film"></i> 0 Film</span>
+                                <span><i class="fas fa-tv"></i> 15 Dizi</span>
+                                <span><i class="fas fa-eye"></i> 6.8K görüntülenme</span>
+                            </div>
+                            
+                            <div class="category-description">
+                                Korku ve gerilim unsurları içeren dizi yapımları.
+                            </div>
+                            
+                            <div class="category-types">
+                                <span class="category-tag series-tag">Dizi</span>
+                            </div>
+                            
+                            <div class="movie-actions">
+                                <button class="action-btn btn-edit" title="Düzenle">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn btn-view" title="Görüntüle">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn btn-duplicate" title="Kopyala">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                <button class="action-btn btn-delete" title="Sil">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Category Card 5 -->
+                    <div class="movie-admin-card category-card" data-type="both" data-status="active">
+                        <div class="category-header">
+                            <div class="category-icon-wrapper">
+                                <i class="fas fa-rocket category-icon" style="color: #00bfff;"></i>
+                            </div>
+                            <div class="category-status status-active">Aktif</div>
+                        </div>
+                        
+                        <div class="movie-details">
+                            <h3>Bilim Kurgu</h3>
+                            <div class="category-meta">
+                                <span><i class="fas fa-film"></i> 22 Film</span>
+                                <span><i class="fas fa-tv"></i> 12 Dizi</span>
+                                <span><i class="fas fa-eye"></i> 9.3K görüntülenme</span>
+                            </div>
+                            
+                            <div class="category-description">
+                                Gelecek teknolojileri ve bilimsel hayal gücü içeren yapımlar.
+                            </div>
+                            
+                            <div class="category-types">
+                                <span class="category-tag film-tag">Film</span>
+                                <span class="category-tag series-tag">Dizi</span>
+                            </div>
+                            
+                            <div class="movie-actions">
+                                <button class="action-btn btn-edit" title="Düzenle">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn btn-view" title="Görüntüle">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn btn-duplicate" title="Kopyala">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                <button class="action-btn btn-delete" title="Sil">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Category Card 6 -->
+                    <div class="movie-admin-card category-card" data-type="both" data-status="inactive">
+                        <div class="category-header">
+                            <div class="category-icon-wrapper">
+                                <i class="fas fa-globe category-icon" style="color: #228b22;"></i>
+                            </div>
+                            <div class="category-status status-inactive">Pasif</div>
+                        </div>
+                        
+                        <div class="movie-details">
+                            <h3>Belgesel</h3>
+                            <div class="category-meta">
+                                <span><i class="fas fa-film"></i> 8 Film</span>
+                                <span><i class="fas fa-tv"></i> 5 Dizi</span>
+                                <span><i class="fas fa-eye"></i> 2.1K görüntülenme</span>
+                            </div>
+                            
+                            <div class="category-description">
+                                Gerçek olayları ve konuları ele alan belgesel yapımlar.
+                            </div>
+                            
+                            <div class="category-types">
+                                <span class="category-tag film-tag">Film</span>
+                                <span class="category-tag series-tag">Dizi</span>
+                            </div>
+                            
+                            <div class="movie-actions">
+                                <button class="action-btn btn-edit" title="Düzenle">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn btn-view" title="Görüntüle">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn btn-activate" title="Aktifleştir">
+                                    <i class="fas fa-toggle-on"></i>
+                                </button>
+                                <button class="action-btn btn-delete" title="Sil">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination-wrapper">
+                <div class="pagination-info">
+                    <span>1-6 / 28 kategori gösteriliyor</span>
+                </div>
+                <div class="pagination">
+                    <button class="page-btn prev-btn" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                        Önceki
+                    </button>
+                    <div class="page-numbers">
+                        <button class="page-number active">1</button>
+                        <button class="page-number">2</button>
+                        <button class="page-number">3</button>
+                        <span class="page-dots">...</span>
+                        <button class="page-number">5</button>
+                    </div>
+                    <button class="page-btn next-btn">
+                        Sonraki
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script src="js/admin.js"></script>
+    <script src="js/categories.js"></script>
+</body>
+</html> 

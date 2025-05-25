@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Film Dünyası - Online Film ve Dizi İzleme Sitesi</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ads.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -46,6 +47,16 @@
     <!-- Mobile Menu Backdrop -->
     <div class="menu-backdrop"></div>
 
+    <!-- Sticky Reklam (Sadece Desktop - Sağ Taraf) -->
+    <div class="ad-container ad-sticky-right">
+        <div class="ad-content"></div>
+    </div>
+
+    <!-- Header Banner Reklam -->
+    <div class="ad-container ad-header-banner">
+        <div class="ad-content"></div>
+    </div>
+
     <!-- Ana İçerik Bölümü - Homepage -->
     <div id="homepage">
         <!-- Hero Section with Slider -->
@@ -86,6 +97,11 @@
                 </div>
             </div>
         </section>
+
+        <!-- Büyük Banner Reklam -->
+        <div class="ad-container ad-large-banner">
+            <div class="ad-content"></div>
+        </div>
 
         <!-- Popular Movies Section -->
         <section class="movie-section">
@@ -226,6 +242,24 @@
                 </div>
             </div>
         </section>
+
+        <!-- İçerik Arası Reklam -->
+        <div class="ad-container ad-content-between">
+            <div class="ad-content"></div>
+        </div>
+
+        <!-- Native Reklam -->
+        <div class="ad-container ad-native">
+            <div class="ad-native-content">
+                <div class="ad-native-image">
+                    🎮
+                </div>
+                <div class="ad-native-text">
+                    <div class="ad-native-title">En İyi Oyun Deneyimi</div>
+                    <div class="ad-native-description">Yeni nesil oyunlar ve en güncel haberler için bizi takip edin. Özel indirimler ve kampanyalardan ilk siz haberdar olun!</div>
+                </div>
+            </div>
+        </div>
 
         <!-- Popular TV Series Section -->
         <section class="series-section">
@@ -373,6 +407,19 @@
             </div>
         </section>
 
+        <!-- İkinci Native Reklam -->
+        <div class="ad-container ad-native">
+            <div class="ad-native-content">
+                <div class="ad-native-image">
+                    💰
+                </div>
+                <div class="ad-native-text">
+                    <div class="ad-native-title">Güvenli Bahis Deneyimi</div>
+                    <div class="ad-native-description">Lisanslı bahis sitesinde güvenle oynayın. Yüksek oranlar, canlı bahis ve anında para çekme imkanı!</div>
+                </div>
+            </div>
+        </div>
+
         <!-- Category Films Section -->
         <section class="category-section">
             <div class="container">
@@ -421,6 +468,11 @@
         </section>
     </div>
 
+    <!-- Footer Öncesi Reklam -->
+    <div class="ad-container ad-footer-banner">
+        <div class="ad-content"></div>
+    </div>
+
     <!-- Footer Section -->
     <footer>
         <div class="container">
@@ -461,10 +513,12 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2024 FilmDünyası - Tüm Hakları Saklıdır.</p>
+                <a href="admin/index.html" class="admin-link">Admin Girişi</a>
             </div>
         </div>
     </footer>
 
     <script src="js/script.js"></script>
+    <script src="js/ads.js"></script>
 </body>
 </html> 

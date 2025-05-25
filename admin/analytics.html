@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İstatistikler - Film Dünyası Admin</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body id="admin-panel">
+    <!-- Backdrop for mobile sidebar -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <div class="admin-logo">
+                <h2>Film <span>Dünyası</span></h2>
+                <p>Yönetim Paneli</p>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-menu">
+            <ul>
+                <li class="menu-item">
+                    <a href="index.html">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="movies.html">
+                        <i class="fas fa-film"></i>
+                        <span>Filmler</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="series.html">
+                        <i class="fas fa-tv"></i>
+                        <span>Diziler</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="categories.html">
+                        <i class="fas fa-tags"></i>
+                        <span>Kategoriler</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="users.html">
+                        <i class="fas fa-users"></i>
+                        <span>Kullanıcılar</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="comments.html">
+                        <i class="fas fa-comments"></i>
+                        <span>Yorumlar</span>
+                    </a>
+                </li>
+                <li class="menu-item active">
+                    <a href="analytics.html">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>İstatistikler</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="settings.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Ayarlar</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="admin-profile">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=40&h=40&auto=format&fit=crop&crop=face" alt="Admin">
+                    <div class="profile-info">
+                        <span class="admin-name">Admin</span>
+                        <span class="admin-role">Yönetici</span>
+                    </div>
+                </div>
+                <div class="logout-section">
+                    <a href="../index.html" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Çıkış Yap</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="admin-main">
+        <!-- Top Bar -->
+        <header class="admin-topbar">
+            <div class="topbar-left">
+                <button class="mobile-sidebar-toggle" id="mobileSidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1>İstatistikler</h1>
+            </div>
+            <div class="topbar-right">
+                <div class="admin-notifications">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                </div>
+                <div class="admin-profile-dropdown">
+                    <button class="profile-btn">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=32&h=32&auto=format&fit=crop&crop=face" alt="Admin">
+                        <span>Admin</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="profile-dropdown-menu">
+                        <a href="profile.html"><i class="fas fa-user"></i> Profil</a>
+                        <a href="settings.html"><i class="fas fa-cog"></i> Ayarlar</a>
+                        <hr>
+                        <a href="../index.html"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Content Area -->
+        <div class="admin-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="page-title">
+                    <h2>İstatistikler ve Analizler</h2>
+                    <p>Detaylı site performansı, kullanıcı davranışları ve içerik analizleri</p>
+                </div>
+                <div class="page-actions">
+                    <button class="btn btn-primary" id="exportReportBtn">
+                        <i class="fas fa-download"></i>
+                        Rapor İndir
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Analytics Filters -->
+            <div class="analytics-filters">
+                <div class="filter-group">
+                    <label for="dateRangeFilter">Tarih Aralığı:</label>
+                    <select class="filter-select" id="dateRangeFilter">
+                        <option value="today">Bugün</option>
+                        <option value="week">Bu Hafta</option>
+                        <option value="month" selected>Bu Ay</option>
+                        <option value="quarter">Bu Çeyrek</option>
+                        <option value="year">Bu Yıl</option>
+                        <option value="custom">Özel Tarih</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="metricTypeFilter">Metrik Türü:</label>
+                    <select class="filter-select" id="metricTypeFilter">
+                        <option value="all" selected>Tüm Metrikler</option>
+                        <option value="content">İçerik Performansı</option>
+                        <option value="users">Kullanıcı Aktivitesi</option>
+                        <option value="engagement">Etkileşim Metrikleri</option>
+                        <option value="revenue">Gelir Analizi</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="comparisonFilter">Karşılaştırma:</label>
+                    <select class="filter-select" id="comparisonFilter">
+                        <option value="none" selected>Karşılaştırma Yok</option>
+                        <option value="previous">Önceki Dönem</option>
+                        <option value="year_ago">Geçen Yıl</option>
+                        <option value="industry">Sektör Ortalaması</option>
+                    </select>
+                </div>
+                
+                <button class="btn btn-secondary" id="refreshDataBtn">
+                    <i class="fas fa-sync-alt"></i>
+                    Verileri Yenile
+                </button>
+            </div>
+            
+            <!-- Overview Stats -->
+            <div class="analytics-overview">
+                <h3>Genel Bakış</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h4>Toplam Görüntülenme</h4>
+                            <div class="stat-number">1,247,862</div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +12.5% (önceki aya göre)
+                            </div>
+                            <div class="stat-details">
+                                <span>Günlük ortalama: 41,595</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h4>Aktif Kullanıcı</h4>
+                            <div class="stat-number">34,672</div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +8.3% (önceki aya göre)
+                            </div>
+                            <div class="stat-details">
+                                <span>Yeni kullanıcı: 2,847</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h4>Ortalama İzleme Süresi</h4>
+                            <div class="stat-number">89dk</div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +5.7% (önceki aya göre)
+                            </div>
+                            <div class="stat-details">
+                                <span>Maksimum: 247dk</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h4>Etkileşim Oranı</h4>
+                            <div class="stat-number">73.2%</div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +2.1% (önceki aya göre)
+                            </div>
+                            <div class="stat-details">
+                                <span>Yorum + Beğeni + Paylaşım</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Charts Section -->
+            <div class="analytics-charts">
+                <div class="chart-row">
+                    <div class="chart-container large-chart">
+                        <div class="chart-header">
+                            <h3>Günlük Ziyaretçi Trendi</h3>
+                            <div class="chart-controls">
+                                <button class="chart-btn active" data-period="7">7 Gün</button>
+                                <button class="chart-btn" data-period="30">30 Gün</button>
+                                <button class="chart-btn" data-period="90">90 Gün</button>
+                            </div>
+                        </div>
+                        <div class="chart-content">
+                            <div class="chart-placeholder">
+                                <i class="fas fa-chart-line"></i>
+                                <p>Ziyaretçi trendi grafiği burada gösterilecek</p>
+                                <div class="sample-data">
+                                    <span class="data-point">25K</span>
+                                    <span class="data-point">31K</span>
+                                    <span class="data-point">28K</span>
+                                    <span class="data-point">35K</span>
+                                    <span class="data-point">42K</span>
+                                    <span class="data-point">38K</span>
+                                    <span class="data-point">45K</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>Popüler Kategoriler</h3>
+                        </div>
+                        <div class="chart-content">
+                            <div class="category-stats">
+                                <div class="category-item">
+                                    <div class="category-info">
+                                        <span class="category-name">Aksiyon</span>
+                                        <span class="category-percentage">28.5%</span>
+                                    </div>
+                                    <div class="category-bar">
+                                        <div class="category-fill" style="width: 28.5%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="category-item">
+                                    <div class="category-info">
+                                        <span class="category-name">Komedi</span>
+                                        <span class="category-percentage">22.1%</span>
+                                    </div>
+                                    <div class="category-bar">
+                                        <div class="category-fill" style="width: 22.1%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="category-item">
+                                    <div class="category-info">
+                                        <span class="category-name">Dram</span>
+                                        <span class="category-percentage">18.7%</span>
+                                    </div>
+                                    <div class="category-bar">
+                                        <div class="category-fill" style="width: 18.7%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="category-item">
+                                    <div class="category-info">
+                                        <span class="category-name">Bilim Kurgu</span>
+                                        <span class="category-percentage">15.3%</span>
+                                    </div>
+                                    <div class="category-bar">
+                                        <div class="category-fill" style="width: 15.3%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="category-item">
+                                    <div class="category-info">
+                                        <span class="category-name">Romantik</span>
+                                        <span class="category-percentage">12.8%</span>
+                                    </div>
+                                    <div class="category-bar">
+                                        <div class="category-fill" style="width: 12.8%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="category-item">
+                                    <div class="category-info">
+                                        <span class="category-name">Diğer</span>
+                                        <span class="category-percentage">2.6%</span>
+                                    </div>
+                                    <div class="category-bar">
+                                        <div class="category-fill" style="width: 2.6%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chart-row">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>Kullanıcı Cihaz Dağılımı</h3>
+                        </div>
+                        <div class="chart-content">
+                            <div class="device-stats">
+                                <div class="device-item">
+                                    <div class="device-icon">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </div>
+                                    <div class="device-info">
+                                        <span class="device-name">Mobil</span>
+                                        <span class="device-percentage">62.4%</span>
+                                        <div class="device-count">21,644 kullanıcı</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="device-item">
+                                    <div class="device-icon">
+                                        <i class="fas fa-desktop"></i>
+                                    </div>
+                                    <div class="device-info">
+                                        <span class="device-name">Masaüstü</span>
+                                        <span class="device-percentage">24.8%</span>
+                                        <div class="device-count">8,599 kullanıcı</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="device-item">
+                                    <div class="device-icon">
+                                        <i class="fas fa-tablet-alt"></i>
+                                    </div>
+                                    <div class="device-info">
+                                        <span class="device-name">Tablet</span>
+                                        <span class="device-percentage">12.8%</span>
+                                        <div class="device-count">4,429 kullanıcı</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>En Çok İzlenen İçerikler</h3>
+                        </div>
+                        <div class="chart-content">
+                            <div class="top-content-list">
+                                <div class="content-item">
+                                    <div class="content-rank">1</div>
+                                    <div class="content-info">
+                                        <div class="content-title">Breaking Bad</div>
+                                        <div class="content-meta">
+                                            <span><i class="fas fa-eye"></i> 47.2K</span>
+                                            <span><i class="fas fa-tv"></i> Dizi</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="content-item">
+                                    <div class="content-rank">2</div>
+                                    <div class="content-info">
+                                        <div class="content-title">Inception</div>
+                                        <div class="content-meta">
+                                            <span><i class="fas fa-eye"></i> 39.8K</span>
+                                            <span><i class="fas fa-film"></i> Film</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="content-item">
+                                    <div class="content-rank">3</div>
+                                    <div class="content-info">
+                                        <div class="content-title">Stranger Things</div>
+                                        <div class="content-meta">
+                                            <span><i class="fas fa-eye"></i> 35.6K</span>
+                                            <span><i class="fas fa-tv"></i> Dizi</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="content-item">
+                                    <div class="content-rank">4</div>
+                                    <div class="content-info">
+                                        <div class="content-title">The Matrix</div>
+                                        <div class="content-meta">
+                                            <span><i class="fas fa-eye"></i> 32.1K</span>
+                                            <span><i class="fas fa-film"></i> Film</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="content-item">
+                                    <div class="content-rank">5</div>
+                                    <div class="content-info">
+                                        <div class="content-title">Game of Thrones</div>
+                                        <div class="content-meta">
+                                            <span><i class="fas fa-eye"></i> 28.9K</span>
+                                            <span><i class="fas fa-tv"></i> Dizi</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Performance Metrics -->
+            <div class="performance-metrics">
+                <h3>Performans Metrikleri</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <h4>Sunucu Performansı</h4>
+                            <div class="metric-status status-good">
+                                <i class="fas fa-check-circle"></i>
+                                İyi
+                            </div>
+                        </div>
+                        <div class="metric-details">
+                            <div class="metric-item">
+                                <span class="metric-label">Ortalama Yanıt Süresi:</span>
+                                <span class="metric-value">247ms</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">Uptime:</span>
+                                <span class="metric-value">99.9%</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">CPU Kullanımı:</span>
+                                <span class="metric-value">34%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <h4>Veritabanı Performansı</h4>
+                            <div class="metric-status status-warning">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Dikkat
+                            </div>
+                        </div>
+                        <div class="metric-details">
+                            <div class="metric-item">
+                                <span class="metric-label">Sorgu Süresi:</span>
+                                <span class="metric-value">84ms</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">Aktif Bağlantı:</span>
+                                <span class="metric-value">127/200</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">Önbellek Hit:</span>
+                                <span class="metric-value">92.4%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <h4>İçerik Dağıtımı</h4>
+                            <div class="metric-status status-good">
+                                <i class="fas fa-check-circle"></i>
+                                Mükemmel
+                            </div>
+                        </div>
+                        <div class="metric-details">
+                            <div class="metric-item">
+                                <span class="metric-label">CDN Kullanımı:</span>
+                                <span class="metric-value">98.7%</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">Bant Genişliği:</span>
+                                <span class="metric-value">2.4 TB</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">Cache Ratio:</span>
+                                <span class="metric-value">89.2%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Activities -->
+            <div class="analytics-activities">
+                <h3>Son Aktiviteler</h3>
+                <div class="activities-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Trafik Artışı Tespit Edildi</div>
+                            <div class="activity-description">Son 2 saatte %45 trafik artışı gözlemlendi</div>
+                            <div class="activity-time">15 dakika önce</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Yeni En Yüksek Puanlı İçerik</div>
+                            <div class="activity-description">"The Batman" filmi 4.9/5 puan alarak rekor kırdı</div>
+                            <div class="activity-time">2 saat önce</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Kullanıcı Milestone</div>
+                            <div class="activity-description">35,000 aktif kullanıcı sayısına ulaşıldı</div>
+                            <div class="activity-time">5 saat önce</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Sunucu Bakımı Tamamlandı</div>
+                            <div class="activity-description">Planlı bakım başarıyla tamamlandı, performans iyileşti</div>
+                            <div class="activity-time">1 gün önce</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script src="js/admin.js"></script>
+    <script src="js/analytics.js"></script>
+</body>
+</html> 

@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Ayarları - Film Dünyası Admin</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body id="admin-panel">
+    <!-- Backdrop for mobile sidebar -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <div class="admin-logo">
+                <h2>Film <span>Dünyası</span></h2>
+                <p>Yönetim Paneli</p>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-menu">
+            <ul>
+                <li class="menu-item">
+                    <a href="index.html">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="movies.html">
+                        <i class="fas fa-film"></i>
+                        <span>Filmler</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="series.html">
+                        <i class="fas fa-tv"></i>
+                        <span>Diziler</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="categories.html">
+                        <i class="fas fa-tags"></i>
+                        <span>Kategoriler</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="users.html">
+                        <i class="fas fa-users"></i>
+                        <span>Kullanıcılar</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="comments.html">
+                        <i class="fas fa-comments"></i>
+                        <span>Yorumlar</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="analytics.html">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>İstatistikler</span>
+                    </a>
+                </li>
+                <li class="menu-item active">
+                    <a href="settings.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Ayarlar</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="admin-profile">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=40&h=40&auto=format&fit=crop&crop=face" alt="Admin">
+                    <div class="profile-info">
+                        <span class="admin-name">Admin</span>
+                        <span class="admin-role">Yönetici</span>
+                    </div>
+                </div>
+                <div class="logout-section">
+                    <a href="../index.html" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Çıkış Yap</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="admin-main">
+        <!-- Top Bar -->
+        <header class="admin-topbar">
+            <div class="topbar-left">
+                <button class="mobile-sidebar-toggle" id="mobileSidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1>Sistem Ayarları</h1>
+            </div>
+            <div class="topbar-right">
+                <div class="admin-notifications">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                </div>
+                <div class="admin-profile-dropdown">
+                    <button class="profile-btn">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=32&h=32&auto=format&fit=crop&crop=face" alt="Admin">
+                        <span>Admin</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="profile-dropdown-menu">
+                        <a href="profile.html"><i class="fas fa-user"></i> Profil</a>
+                        <a href="settings.html"><i class="fas fa-cog"></i> Ayarlar</a>
+                        <hr>
+                        <a href="../index.html"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Content Area -->
+        <div class="admin-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="page-title">
+                    <h2>Sistem Ayarları</h2>
+                    <p>Site geneli ayarları, güvenlik, bildirimler ve sistem konfigürasyonları</p>
+                </div>
+                <div class="page-actions">
+                    <button class="btn btn-secondary" id="resetSettingsBtn">
+                        <i class="fas fa-undo"></i>
+                        Varsayılana Dön
+                    </button>
+                    <button class="btn btn-primary" id="saveAllSettingsBtn">
+                        <i class="fas fa-save"></i>
+                        Tüm Ayarları Kaydet
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Settings Navigation -->
+            <div class="settings-navigation">
+                <div class="settings-tabs">
+                    <button class="settings-tab active" data-tab="general">
+                        <i class="fas fa-globe"></i>
+                        Genel
+                    </button>
+                    <button class="settings-tab" data-tab="security">
+                        <i class="fas fa-shield-alt"></i>
+                        Güvenlik
+                    </button>
+                    <button class="settings-tab" data-tab="notifications">
+                        <i class="fas fa-bell"></i>
+                        Bildirimler
+                    </button>
+                    <button class="settings-tab" data-tab="api">
+                        <i class="fas fa-code"></i>
+                        API
+                    </button>
+                    <button class="settings-tab" data-tab="maintenance">
+                        <i class="fas fa-tools"></i>
+                        Bakım
+                    </button>
+                    <button class="settings-tab" data-tab="advanced">
+                        <i class="fas fa-cogs"></i>
+                        Gelişmiş
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Settings Content -->
+            <div class="settings-content">
+                <!-- General Settings -->
+                <div class="settings-section active" id="general-settings">
+                    <div class="settings-grid">
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>Site Bilgileri</h3>
+                                <p>Sitenizin genel bilgileri ve görünüm ayarları</p>
+                            </div>
+                            <div class="settings-card-body">
+                                <div class="form-group">
+                                    <label for="siteName">Site Adı</label>
+                                    <input type="text" id="siteName" value="Film Dünyası" class="form-control">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="siteDescription">Site Açıklaması</label>
+                                    <textarea id="siteDescription" class="form-control" rows="3">En yeni filmler ve diziler için güvenilir adresiniz. Binlerce içerik, kaliteli izleme deneyimi.</textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="siteUrl">Site URL</label>
+                                    <input type="url" id="siteUrl" value="https://filmdunyasi.com" class="form-control">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="adminEmail">Admin Email</label>
+                                    <input type="email" id="adminEmail" value="admin@filmdunyasi.com" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>Görünüm Ayarları</h3>
+                                <p>Site teması ve görsel düzenlemeler</p>
+                            </div>
+                            <div class="settings-card-body">
+                                <div class="form-group">
+                                    <label for="primaryColor">Ana Renk</label>
+                                    <input type="color" id="primaryColor" value="#e50914" class="form-control color-picker">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="darkMode" checked>
+                                        <span class="checkmark"></span>
+                                        Karanlık Tema
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="showRatings" checked>
+                                        <span class="checkmark"></span>
+                                        Puanları Göster
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="itemsPerPage">Sayfa Başına İçerik</label>
+                                    <select id="itemsPerPage" class="form-control">
+                                        <option value="12">12 İçerik</option>
+                                        <option value="24" selected>24 İçerik</option>
+                                        <option value="36">36 İçerik</option>
+                                        <option value="48">48 İçerik</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>İçerik Ayarları</h3>
+                                <p>Film ve dizi yönetim seçenekleri</p>
+                            </div>
+                            <div class="settings-card-body">
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="autoApprove" checked>
+                                        <span class="checkmark"></span>
+                                        Yorumları Otomatik Onayla
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="allowGuestComments">
+                                        <span class="checkmark"></span>
+                                        Misafir Yorumlarına İzin Ver
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="maxFileSize">Maksimum Dosya Boyutu (MB)</label>
+                                    <input type="number" id="maxFileSize" value="50" class="form-control" min="1" max="500">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="videoQuality">Varsayılan Video Kalitesi</label>
+                                    <select id="videoQuality" class="form-control">
+                                        <option value="720p">720p HD</option>
+                                        <option value="1080p" selected>1080p Full HD</option>
+                                        <option value="4k">4K Ultra HD</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Security Settings -->
+                <div class="settings-section" id="security-settings">
+                    <div class="settings-grid">
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>Şifre Politikaları</h3>
+                                <p>Kullanıcı şifreleri için güvenlik kuralları</p>
+                            </div>
+                            <div class="settings-card-body">
+                                <div class="form-group">
+                                    <label for="minPasswordLength">Minimum Şifre Uzunluğu</label>
+                                    <input type="number" id="minPasswordLength" value="8" class="form-control" min="4" max="50">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="requireUppercase" checked>
+                                        <span class="checkmark"></span>
+                                        Büyük Harf Zorunlu
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="requireNumbers" checked>
+                                        <span class="checkmark"></span>
+                                        Rakam Zorunlu
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="requireSpecialChars">
+                                        <span class="checkmark"></span>
+                                        Özel Karakter Zorunlu
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>Oturum Yönetimi</h3>
+                                <p>Kullanıcı oturumları ve güvenlik ayarları</p>
+                            </div>
+                            <div class="settings-card-body">
+                                <div class="form-group">
+                                    <label for="sessionTimeout">Oturum Zaman Aşımı (dakika)</label>
+                                    <input type="number" id="sessionTimeout" value="120" class="form-control" min="15" max="1440">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="maxLoginAttempts">Maksimum Giriş Denemesi</label>
+                                    <input type="number" id="maxLoginAttempts" value="5" class="form-control" min="3" max="10">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="lockoutDuration">Hesap Kilitleme Süresi (dakika)</label>
+                                    <input type="number" id="lockoutDuration" value="30" class="form-control" min="5" max="1440">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="twoFactorAuth">
+                                        <span class="checkmark"></span>
+                                        İki Faktörlü Doğrulama
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>IP ve Güvenlik Duvarı</h3>
+                                <p>IP kısıtlamaları ve güvenlik duvarı ayarları</p>
+                            </div>
+                            <div class="settings-card-body">
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="enableFirewall" checked>
+                                        <span class="checkmark"></span>
+                                        Güvenlik Duvarını Etkinleştir
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="allowedIPs">İzin Verilen IP Adresleri</label>
+                                    <textarea id="allowedIPs" class="form-control" rows="3" placeholder="192.168.1.1&#10;10.0.0.0/8">192.168.1.0/24
+10.0.0.0/8</textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="blockedIPs">Engellenen IP Adresleri</label>
+                                    <textarea id="blockedIPs" class="form-control" rows="3" placeholder="Engellenen IP adreslerini her satıra bir tane gelecek şekilde girin"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Notification Settings -->
+                <div class="settings-section" id="notifications-settings">
+                    <div class="settings-grid">
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>E-posta Bildirimleri</h3>
+                                <p>Sistem e-posta bildirimlerini yönetin</p>
+                            </div>
+                            <div class="settings-card-body">
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="emailNewUser" checked>
+                                        <span class="checkmark"></span>
+                                        Yeni Kullanıcı Kaydı
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="emailNewComment" checked>
+                                        <span class="checkmark"></span>
+                                        Yeni Yorum
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="emailSystemError" checked>
+                                        <span class="checkmark"></span>
+                                        Sistem Hataları
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="emailDailyReport">
+                                        <span class="checkmark"></span>
+                                        Günlük Rapor
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>SMTP Ayarları</h3>
+                                <p>E-posta gönderimi için SMTP konfigürasyonu</p>
+                            </div>
+                            <div class="settings-card-body">
+                                <div class="form-group">
+                                    <label for="smtpHost">SMTP Sunucusu</label>
+                                    <input type="text" id="smtpHost" value="mail.filmdunyasi.com" class="form-control">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="smtpPort">SMTP Port</label>
+                                    <input type="number" id="smtpPort" value="587" class="form-control">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="smtpUsername">SMTP Kullanıcı Adı</label>
+                                    <input type="email" id="smtpUsername" value="noreply@filmdunyasi.com" class="form-control">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="smtpPassword">SMTP Şifre</label>
+                                    <input type="password" id="smtpPassword" value="••••••••" class="form-control">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="smtpSSL" checked>
+                                        <span class="checkmark"></span>
+                                        SSL/TLS Kullan
+                                    </label>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button class="btn btn-secondary" id="testEmailBtn">
+                                        <i class="fas fa-paper-plane"></i>
+                                        Test E-postası Gönder
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>Push Bildirimleri</h3>
+                                <p>Web push bildirim ayarları</p>
+                            </div>
+                            <div class="settings-card-body">
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="enablePushNotifications" checked>
+                                        <span class="checkmark"></span>
+                                        Push Bildirimleri Etkin
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="vapidPublicKey">VAPID Public Key</label>
+                                    <input type="text" id="vapidPublicKey" value="BMxSvZVb..." class="form-control">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="vapidPrivateKey">VAPID Private Key</label>
+                                    <input type="password" id="vapidPrivateKey" value="••••••••" class="form-control">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="fcmServerKey">FCM Server Key</label>
+                                    <input type="password" id="fcmServerKey" value="••••••••" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- API Settings -->
+                <div class="settings-section" id="api-settings">
+                    <div class="settings-grid">
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>API Anahtarları</h3>
+                                <p>Harici servisler için API anahtarları</p>
+                            </div>
+                            <div class="settings-card-body">
+                                <div class="form-group">
+                                    <label for="tmdbApiKey">TMDB API Key</label>
+                                    <input type="password" id="tmdbApiKey" value="••••••••••••••••" class="form-control">
+                                    <small class="form-text">Film ve dizi bilgileri için</small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="omdbApiKey">OMDB API Key</label>
+                                    <input type="password" id="omdbApiKey" value="••••••••" class="form-control">
+                                    <small class="form-text">Alternatif film veritabanı</small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="youtubeApiKey">YouTube API Key</label>
+                                    <input type="password" id="youtubeApiKey" value="••••••••••••••••" class="form-control">
+                                    <small class="form-text">Fragman videoları için</small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="googleAnalyticsId">Google Analytics ID</label>
+                                    <input type="text" id="googleAnalyticsId" value="GA-123456789" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>API Kısıtlamaları</h3>
+                                <p>API kullanım limitleri ve güvenlik</p>
+                            </div>
+                            <div class="settings-card-body">
+                                <div class="form-group">
+                                    <label for="apiRateLimit">Dakika Başına İstek Limiti</label>
+                                    <input type="number" id="apiRateLimit" value="100" class="form-control" min="10" max="10000">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="apiMaxRequests">Günlük Maksimum İstek</label>
+                                    <input type="number" id="apiMaxRequests" value="10000" class="form-control" min="100" max="1000000">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="requireApiAuth" checked>
+                                        <span class="checkmark"></span>
+                                        API Kimlik Doğrulama Zorunlu
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="logApiRequests" checked>
+                                        <span class="checkmark"></span>
+                                        API İsteklerini Kaydet
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>CDN ve Depolama</h3>
+                                <p>İçerik dağıtım ağı ve depolama ayarları</p>
+                            </div>
+                            <div class="settings-card-body">
+                                <div class="form-group">
+                                    <label for="cdnProvider">CDN Sağlayıcısı</label>
+                                    <select id="cdnProvider" class="form-control">
+                                        <option value="cloudflare" selected>Cloudflare</option>
+                                        <option value="aws">Amazon CloudFront</option>
+                                        <option value="google">Google Cloud CDN</option>
+                                        <option value="azure">Azure CDN</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="cdnUrl">CDN URL</label>
+                                    <input type="url" id="cdnUrl" value="https://cdn.filmdunyasi.com" class="form-control">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="storageProvider">Depolama Sağlayıcısı</label>
+                                    <select id="storageProvider" class="form-control">
+                                        <option value="local" selected>Yerel Depolama</option>
+                                        <option value="aws">Amazon S3</option>
+                                        <option value="google">Google Cloud Storage</option>
+                                        <option value="azure">Azure Blob Storage</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="enableCompression" checked>
+                                        <span class="checkmark"></span>
+                                        Görsel Sıkıştırma
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Maintenance Settings -->
+                <div class="settings-section" id="maintenance-settings">
+                    <div class="settings-grid">
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>Bakım Modu</h3>
+                                <p>Site bakım durumu ve yönlendirme ayarları</p>
+                            </div>
+                            <div class="settings-card-body">
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="maintenanceMode">
+                                        <span class="checkmark"></span>
+                                        Bakım Modunu Etkinleştir
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="maintenanceMessage">Bakım Mesajı</label>
+                                    <textarea id="maintenanceMessage" class="form-control" rows="3">Sitemiz şu anda bakım aşamasında. En kısa sürede tekrar hizmetinizdeyiz.</textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="maintenanceEnd">Tahmini Bitiş Zamanı</label>
+                                    <input type="datetime-local" id="maintenanceEnd" class="form-control">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="allowedUsers">Bakım Sırasında İzin Verilen Kullanıcılar</label>
+                                    <textarea id="allowedUsers" class="form-control" rows="2" placeholder="Email adreslerini virgül ile ayırın">admin@filmdunyasi.com, dev@filmdunyasi.com</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>Önbellek Yönetimi</h3>
+                                <p>Sistem önbellek ayarları ve temizleme</p>
+                            </div>
+                            <div class="settings-card-body">
+                                <div class="form-group">
+                                    <label for="cacheDriver">Önbellek Sürücüsü</label>
+                                    <select id="cacheDriver" class="form-control">
+                                        <option value="file" selected>Dosya</option>
+                                        <option value="redis">Redis</option>
+                                        <option value="memcached">Memcached</option>
+                                        <option value="database">Veritabanı</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="cacheLifetime">Önbellek Yaşam Süresi (saat)</label>
+                                    <input type="number" id="cacheLifetime" value="24" class="form-control" min="1" max="168">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="enablePageCache" checked>
+                                        <span class="checkmark"></span>
+                                        Sayfa Önbelleği
+                                    </label>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button class="btn btn-warning" id="clearCacheBtn">
+                                        <i class="fas fa-broom"></i>
+                                        Tüm Önbelleği Temizle
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>Veritabanı Bakımı</h3>
+                                <p>Veritabanı optimizasyonu ve yedekleme</p>
+                            </div>
+                            <div class="settings-card-body">
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="autoBackup" checked>
+                                        <span class="checkmark"></span>
+                                        Otomatik Yedekleme
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="backupFrequency">Yedekleme Sıklığı</label>
+                                    <select id="backupFrequency" class="form-control">
+                                        <option value="daily" selected>Günlük</option>
+                                        <option value="weekly">Haftalık</option>
+                                        <option value="monthly">Aylık</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="backupRetention">Yedek Saklama Süresi (gün)</label>
+                                    <input type="number" id="backupRetention" value="30" class="form-control" min="1" max="365">
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button class="btn btn-info" id="createBackupBtn">
+                                        <i class="fas fa-database"></i>
+                                        Manuel Yedek Oluştur
+                                    </button>
+                                    <button class="btn btn-success" id="optimizeDbBtn">
+                                        <i class="fas fa-chart-line"></i>
+                                        Veritabanını Optimize Et
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Advanced Settings -->
+                <div class="settings-section" id="advanced-settings">
+                    <div class="settings-grid">
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>Sistem Performansı</h3>
+                                <p>Gelişmiş performans ve optimizasyon ayarları</p>
+                            </div>
+                            <div class="settings-card-body">
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="enableGzip" checked>
+                                        <span class="checkmark"></span>
+                                        Gzip Sıkıştırma
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="enableMinification" checked>
+                                        <span class="checkmark"></span>
+                                        CSS/JS Minification
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="enableLazyLoading" checked>
+                                        <span class="checkmark"></span>
+                                        Lazy Loading
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="maxMemoryUsage">Maksimum Bellek Kullanımı (MB)</label>
+                                    <input type="number" id="maxMemoryUsage" value="512" class="form-control" min="128" max="2048">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>Hata Ayıklama</h3>
+                                <p>Geliştirici araçları ve hata kayıtları</p>
+                            </div>
+                            <div class="settings-card-body">
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="debugMode">
+                                        <span class="checkmark"></span>
+                                        Debug Modu
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="logLevel">Log Seviyesi</label>
+                                    <select id="logLevel" class="form-control">
+                                        <option value="error" selected>Sadece Hatalar</option>
+                                        <option value="warning">Uyarılar ve Hatalar</option>
+                                        <option value="info">Bilgi, Uyarı, Hata</option>
+                                        <option value="debug">Tüm Loglar</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="logRetention">Log Saklama Süresi (gün)</label>
+                                    <input type="number" id="logRetention" value="7" class="form-control" min="1" max="90">
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button class="btn btn-info" id="downloadLogsBtn">
+                                        <i class="fas fa-download"></i>
+                                        Logları İndir
+                                    </button>
+                                    <button class="btn btn-warning" id="clearLogsBtn">
+                                        <i class="fas fa-trash"></i>
+                                        Logları Temizle
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>İçe/Dışa Aktarma</h3>
+                                <p>Sistem ayarlarını yedekleme ve geri yükleme</p>
+                            </div>
+                            <div class="settings-card-body">
+                                <div class="form-group">
+                                    <label>Ayarları Dışa Aktar</label>
+                                    <p class="form-text">Mevcut sistem ayarlarını JSON formatında indirin</p>
+                                    <button class="btn btn-info" id="exportSettingsBtn">
+                                        <i class="fas fa-file-export"></i>
+                                        Ayarları İndir
+                                    </button>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="importSettings">Ayarları İçe Aktar</label>
+                                    <input type="file" id="importSettings" class="form-control" accept=".json">
+                                    <p class="form-text">Önceden dışa aktarılmış ayar dosyasını seçin</p>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button class="btn btn-success" id="importSettingsBtn" disabled>
+                                        <i class="fas fa-file-import"></i>
+                                        Ayarları Yükle
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script src="js/admin.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+</html> 
