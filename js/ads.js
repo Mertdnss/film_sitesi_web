@@ -3,6 +3,12 @@
 // Reklam Yönetim Sistemi
 class AdManager {
     constructor() {
+        this.isSeriesDetailPage = document.getElementById('series-detail') !== null;
+        this.adViewCounts = {};
+        this.popupShown = false;
+        this.exitIntentShown = false;
+        this.nativeAdRotationInterval = null;
+        this.seriesDetailAdPositions = [];
         this.init();
         this.setupEventListeners();
         this.startRotation();
@@ -18,114 +24,107 @@ class AdManager {
 
     // Cookie durumunu konsola yazdır (debug için)
     logCookieStatus() {
-        const popupCookie = this.getCookie('filmdunyasi_popup_shown');
-        const exitCookie = this.getCookie('filmdunyasi_exit_intent_shown');
+        const adBlockerDetected = this.getCookie('adBlockerDetected');
+        const popupShown = this.getCookie('popupShownToday');
+        const exitIntentShown = this.getCookie('exitIntentShownToday');
         
-        console.log('🍪 Cookie Durumu:');
-        console.log(`   Popup: ${popupCookie ? 'Bugün gösterildi' : 'Henüz gösterilmedi'}`);
-        console.log(`   Exit Intent: ${exitCookie ? 'Bugün gösterildi' : 'Henüz gösterilmedi'}`);
-        
-        if (popupCookie) {
-            const date = new Date(parseInt(popupCookie));
-            console.log(`   Son popup: ${date.toLocaleString('tr-TR')}`);
-        }
+        console.log('📊 Reklam Durumu:', {
+            adBlocker: adBlockerDetected ? 'Tespit Edildi' : 'Tespit Edilmedi',
+            popupShown: popupShown ? 'Gösterildi' : 'Gösterilmedi',
+            exitIntent: exitIntentShown ? 'Gösterildi' : 'Gösterilmedi',
+            seriesDetailPage: this.isSeriesDetailPage ? 'Evet' : 'Hayır'
+        });
     }
 
     // Mobilde sticky reklamı gizle
     hideAdsOnMobile() {
-        if (window.innerWidth <= 1024) {
-            const stickyAd = document.querySelector('.ad-sticky-right');
-            if (stickyAd) {
-                stickyAd.style.display = 'none';
-            }
+        if (window.innerWidth <= 768) {
+            const stickyAds = document.querySelectorAll('.ad-sticky-left, .ad-sticky-right');
+            stickyAds.forEach(ad => {
+                ad.style.display = 'none';
+            });
+            console.log('📱 Mobil cihazda sticky reklamlar gizlendi');
         }
     }
 
     // Popup reklam sistemi
     setupPopupAd() {
-        // Cookie kontrolü - günde bir kez göster
-        if (!this.hasSeenPopupToday()) {
-            // 30 saniye sonra popup göster
+        if (!this.hasSeenPopupToday() && !this.isSeriesDetailPage) {
             setTimeout(() => {
                 this.showPopupAd();
-            }, 30000);
+            }, 30000); // 30 saniye sonra popup göster (series detail hariç)
+        } else if (this.isSeriesDetailPage && !this.hasSeenPopupToday()) {
+            // Series detail sayfasında daha geç popup göster
+            setTimeout(() => {
+                this.showPopupAd();
+            }, 60000); // 60 saniye sonra
         }
     }
 
     // Cookie kontrol fonksiyonları
     hasSeenPopupToday() {
-        const lastShown = this.getCookie('filmdunyasi_popup_shown');
+        const lastShown = this.getCookie('popupShownToday');
         if (!lastShown) return false;
         
-        const lastShownDate = new Date(parseInt(lastShown));
-        const today = new Date();
-        
-        // Aynı gün mü kontrol et
-        return lastShownDate.toDateString() === today.toDateString();
+        const today = new Date().toDateString();
+        return lastShown === today;
     }
 
     setCookie(name, value, days = 1) {
-        const expires = new Date();
-        expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
-        document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+        const expires = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toUTCString();
+        document.cookie = `${name}=${value}; expires=${expires}; path=/`;
     }
 
     getCookie(name) {
-        const nameEQ = name + "=";
-        const ca = document.cookie.split(';');
-        for(let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-        }
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
         return null;
     }
 
     showPopupAd() {
-        // Cookie'ye bugünün tarihini kaydet
-        this.setCookie('filmdunyasi_popup_shown', Date.now().toString(), 1);
+        if (this.popupShown) return;
         
-        // Popup HTML'i oluştur
-        const popupHTML = `
-            <div class="ad-popup-overlay" id="adPopup">
-                <div class="ad-popup-content">
-                    <button class="ad-popup-close" onclick="adManager.closePopup()">&times;</button>
-                    <div style="text-align: center; padding: 20px;">
-                        <h3 style="color: #e50914; margin-bottom: 15px;">🎰 Özel Fırsat!</h3>
-                        <p style="color: #ccc; margin-bottom: 20px;">
-                            Güvenilir bahis sitesinde %100 hoşgeldin bonusu!
-                        </p>
-                        <button style="background: #e50914; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: bold;">
-                            Hemen Katıl
-                        </button>
-                        <p style="color: #666; font-size: 11px; margin-top: 15px;">
-                            Bu mesaj günde sadece bir kez gösterilir
-                        </p>
+        const overlay = document.createElement('div');
+        overlay.className = 'ad-popup-overlay';
+        overlay.innerHTML = `
+            <div class="ad-popup-content">
+                <button class="ad-popup-close" onclick="adManager.closePopup()">&times;</button>
+                <div style="text-align: center; padding: 20px;">
+                    <h3 style="color: #e50914; margin-bottom: 15px;">🎬 Özel Teklif!</h3>
+                    <p style="color: #fff; margin-bottom: 20px;">Premium üyelik ile reklamsız film deneyimi yaşayın!</p>
+                    
+                    <!-- Google AdSense Popup Reklam -->
+                    <ins class="adsbygoogle"
+                         style="display:block; width:300px; height:250px;"
+                         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                         data-ad-slot="POPUP-SLOT-ID"></ins>
+                    
+                    <div style="margin-top: 15px;">
+                        <button onclick="adManager.closePopup()" style="background: #e50914; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Kapat</button>
                     </div>
                 </div>
             </div>
         `;
-
-        // Popup'ı sayfaya ekle
-        document.body.insertAdjacentHTML('beforeend', popupHTML);
         
-        // Popup'ı göster
-        const popup = document.getElementById('adPopup');
-        popup.style.display = 'flex';
-
-        // 15 saniye sonra otomatik kapat (biraz daha uzun süre)
-        setTimeout(() => {
-            this.closePopup();
-        }, 15000);
+        document.body.appendChild(overlay);
+        overlay.style.display = 'flex';
         
-        console.log('🎯 Popup reklam gösterildi - Bir sonraki gösterim: Yarın');
+        // AdSense reklamını yükle
+        if (window.adsbygoogle) {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        }
+        
+        this.popupShown = true;
+        this.setCookie('popupShownToday', new Date().toDateString());
+        
+        console.log('🎯 Popup reklam gösterildi');
     }
 
     closePopup() {
-        const popup = document.getElementById('adPopup');
-        if (popup) {
-            popup.style.display = 'none';
-            popup.remove();
+        const overlay = document.querySelector('.ad-popup-overlay');
+        if (overlay) {
+            overlay.remove();
         }
     }
 
@@ -140,93 +139,107 @@ class AdManager {
                 }
             });
         }, {
-            threshold: 0.5 // %50 görünür olduğunda say
+            threshold: 0.5,
+            rootMargin: '0px 0px -50px 0px'
         });
 
         ads.forEach(ad => {
             observer.observe(ad);
         });
+        
+        console.log(`👁️ ${ads.length} reklam görüntüleme takibi başlatıldı`);
     }
 
     logAdView(adElement) {
         const adType = this.getAdType(adElement);
-        console.log(`📊 Reklam Görüntülendi: ${adType}`);
         
-        // Burada gerçek projede analytics servisine gönderebilirsiniz
-        // Google Analytics, Facebook Pixel vb.
+        if (!this.adViewCounts[adType]) {
+            this.adViewCounts[adType] = 0;
+        }
+        
+        this.adViewCounts[adType]++;
+        console.log(`📈 ${adType} reklamı görüntülendi (${this.adViewCounts[adType]}. kez)`);
+        
+        // Google Analytics veya başka tracking servisi burada çağrılabilir
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'ad_view', {
+                'ad_type': adType,
+                'page_type': this.isSeriesDetailPage ? 'series_detail' : 'other'
+            });
+        }
     }
 
     getAdType(element) {
-        if (element.classList.contains('ad-header-banner')) return 'Header Banner';
-        if (element.classList.contains('ad-large-banner')) return 'Large Banner';
-        if (element.classList.contains('ad-sidebar')) return 'Sidebar';
-        if (element.classList.contains('ad-content-between')) return 'Content Between';
-        if (element.classList.contains('ad-native')) return 'Native Ad';
-        if (element.classList.contains('ad-footer-banner')) return 'Footer Banner';
-        if (element.classList.contains('ad-sticky-right')) return 'Sticky Right';
-        return 'Unknown';
+        if (element.classList.contains('ad-header-banner')) return 'header_banner';
+        if (element.classList.contains('ad-sidebar')) return 'sidebar';
+        if (element.classList.contains('ad-large-banner')) return 'large_banner';
+        if (element.classList.contains('ad-content-between')) return 'content_between';
+        if (element.classList.contains('ad-native')) return 'native';
+        if (element.classList.contains('ad-footer-banner')) return 'footer_banner';
+        if (element.classList.contains('ad-sticky-left')) return 'sticky_left';
+        if (element.classList.contains('ad-sticky-right')) return 'sticky_right';
+        return 'unknown';
     }
 
     // Reklam rotasyonu
     startRotation() {
-        // Native reklamları her 60 saniyede bir değiştir
-        setInterval(() => {
+        this.rotateNativeAds();
+        this.nativeAdRotationInterval = setInterval(() => {
             this.rotateNativeAds();
-        }, 60000);
+        }, 30000); // 30 saniyede bir native reklamları değiştir
     }
 
     rotateNativeAds() {
-        const nativeAds = [
-            {
-                icon: '🎮',
-                title: 'En İyi Oyun Deneyimi',
-                description: 'Yeni nesil oyunlar ve en güncel haberler için bizi takip edin. Özel indirimler ve kampanyalardan ilk siz haberdar olun!'
-            },
-            {
-                icon: '💰',
-                title: 'Güvenli Bahis Deneyimi',
-                description: 'Lisanslı bahis sitesinde güvenle oynayın. Yüksek oranlar, canlı bahis ve anında para çekme imkanı!'
-            },
-            {
-                icon: '🛒',
-                title: 'Online Alışveriş',
-                description: 'En uygun fiyatlarla teknoloji ürünleri. Ücretsiz kargo ve hızlı teslimat avantajı!'
-            },
-            {
-                icon: '📱',
-                title: 'Mobil Uygulama',
-                description: 'Film Dünyası mobil uygulamasını indirin. Offline izleme ve özel içerikler!'
-            },
+        const nativeAds = document.querySelectorAll('.ad-native');
+        
+        const adContents = [
             {
                 icon: '🎬',
-                title: 'Premium Üyelik',
-                description: 'Reklamsız izleme, 4K kalite ve erken erişim için premium üye olun!'
+                title: 'En İyi Film Önerileri',
+                description: 'Size özel seçilmiş en popüler filmleri keşfedin. Yeni çıkan yapımları kaçırmayın!'
+            },
+            {
+                icon: '📺',
+                title: 'Premium Dizi Koleksiyonu',
+                description: 'Dünya\'nın en iyi dizilerini HD kalitede izleyin. Sınırsız erişim için üye olun!'
+            },
+            {
+                icon: '🍿',
+                title: 'Sinema Deneyimi',
+                description: 'Evinizde sinema kalitesinde film izleme deneyimi. 4K ve Dolby Atmos desteği!'
+            },
+            {
+                icon: '⭐',
+                title: 'VIP Üyelik Avantajları',
+                description: 'Reklamsız izleme, erken erişim ve özel içerikler. İlk ay ücretsiz deneyin!'
+            },
+            {
+                icon: '🎭',
+                title: 'Tiyatro ve Sanat',
+                description: 'Dünyaca ünlü tiyatro oyunları ve sanat belgeselleri. Kültür dünyasına yolculuk!'
             }
         ];
-
-        const nativeAdElements = document.querySelectorAll('.ad-native');
         
-        nativeAdElements.forEach((adElement, index) => {
-            const randomAd = nativeAds[Math.floor(Math.random() * nativeAds.length)];
+        nativeAds.forEach((ad, index) => {
+            const content = adContents[index % adContents.length];
+            const imageEl = ad.querySelector('.ad-native-image');
+            const titleEl = ad.querySelector('.ad-native-title');
+            const descEl = ad.querySelector('.ad-native-description');
             
-            const iconElement = adElement.querySelector('.ad-native-image');
-            const titleElement = adElement.querySelector('.ad-native-title');
-            const descElement = adElement.querySelector('.ad-native-description');
-            
-            if (iconElement && titleElement && descElement) {
-                // Fade out
-                adElement.style.opacity = '0.5';
+            if (imageEl && titleEl && descEl) {
+                imageEl.textContent = content.icon;
+                titleEl.textContent = content.title;
+                descEl.textContent = content.description;
                 
+                // Smooth transition effect
+                ad.style.opacity = '0.7';
                 setTimeout(() => {
-                    iconElement.textContent = randomAd.icon;
-                    titleElement.textContent = randomAd.title;
-                    descElement.textContent = randomAd.description;
-                    
-                    // Fade in
-                    adElement.style.opacity = '1';
+                    ad.style.opacity = '1';
                 }, 300);
             }
         });
+        
+        console.log('🔄 Native reklamlar güncellendi');
     }
 
     // Event listeners
@@ -238,12 +251,8 @@ class AdManager {
 
         // Sayfa kapatılırken popup göster (exit intent)
         document.addEventListener('mouseleave', (e) => {
-            if (e.clientY <= 0) {
-                // Sadece bir kez göster ve cookie kontrolü
-                if (!this.exitIntentShown && !this.hasSeenExitIntentToday()) {
-                    this.showExitIntentAd();
-                    this.exitIntentShown = true;
-                }
+            if (e.clientY <= 0 && !this.hasSeenExitIntentToday()) {
+                this.showExitIntentAd();
             }
         });
 
@@ -256,165 +265,169 @@ class AdManager {
     }
 
     hasSeenExitIntentToday() {
-        const lastShown = this.getCookie('filmdunyasi_exit_intent_shown');
+        const lastShown = this.getCookie('exitIntentShownToday');
         if (!lastShown) return false;
         
-        const lastShownDate = new Date(parseInt(lastShown));
-        const today = new Date();
-        
-        return lastShownDate.toDateString() === today.toDateString();
+        const today = new Date().toDateString();
+        return lastShown === today;
     }
 
     showExitIntentAd() {
-        // Exit intent cookie'sini kaydet
-        this.setCookie('filmdunyasi_exit_intent_shown', Date.now().toString(), 1);
+        if (this.exitIntentShown) return;
         
-        const exitAdHTML = `
-            <div class="ad-popup-overlay" id="exitIntentAd">
-                <div class="ad-popup-content">
-                    <button class="ad-popup-close" onclick="adManager.closeExitIntent()">&times;</button>
-                    <div style="text-align: center; padding: 20px;">
-                        <h3 style="color: #e50914; margin-bottom: 15px;">🎬 Bekle!</h3>
-                        <p style="color: #ccc; margin-bottom: 20px;">
-                            Gitmeden önce premium üyeliğimizi incele!<br>
-                            İlk ay sadece 9.99₺
-                        </p>
-                        <button style="background: #e50914; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-right: 10px;">
-                            Premium Ol
-                        </button>
-                        <button onclick="adManager.closeExitIntent()" style="background: #333; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer;">
-                            Hayır Teşekkürler
-                        </button>
-                        <p style="color: #666; font-size: 11px; margin-top: 15px;">
-                            Bu mesaj günde sadece bir kez gösterilir
-                        </p>
+        const overlay = document.createElement('div');
+        overlay.className = 'ad-popup-overlay';
+        overlay.innerHTML = `
+            <div class="ad-popup-content">
+                <button class="ad-popup-close" onclick="adManager.closeExitIntent()">&times;</button>
+                <div style="text-align: center; padding: 20px;">
+                    <h3 style="color: #e50914; margin-bottom: 15px;">🚪 Gitmeden Önce!</h3>
+                    <p style="color: #fff; margin-bottom: 20px;">En iyi film tekliflerini kaçırmayın!</p>
+                    
+                    <!-- Google AdSense Exit Intent Reklam -->
+                    <ins class="adsbygoogle"
+                         style="display:block; width:300px; height:250px;"
+                         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                         data-ad-slot="EXIT-INTENT-SLOT-ID"></ins>
+                    
+                    <div style="margin-top: 15px;">
+                        <button onclick="adManager.closeExitIntent()" style="background: #e50914; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Devam Et</button>
                     </div>
                 </div>
             </div>
         `;
-
-        document.body.insertAdjacentHTML('beforeend', exitAdHTML);
-        document.getElementById('exitIntentAd').style.display = 'flex';
         
-        console.log('🚪 Exit intent popup gösterildi - Bir sonraki gösterim: Yarın');
+        document.body.appendChild(overlay);
+        overlay.style.display = 'flex';
+        
+        // AdSense reklamını yükle
+        if (window.adsbygoogle) {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        }
+        
+        this.exitIntentShown = true;
+        this.setCookie('exitIntentShownToday', new Date().toDateString());
+        
+        console.log('🚪 Exit intent reklam gösterildi');
     }
 
     closeExitIntent() {
-        const exitAd = document.getElementById('exitIntentAd');
-        if (exitAd) {
-            exitAd.style.display = 'none';
-            exitAd.remove();
+        const overlay = document.querySelector('.ad-popup-overlay');
+        if (overlay) {
+            overlay.remove();
         }
     }
 
     trackAdClick(adElement) {
         const adType = this.getAdType(adElement);
-        console.log(`🖱️ Reklam Tıklandı: ${adType}`);
+        console.log(`🖱️ ${adType} reklamına tıklandı`);
         
-        // Gerçek projede analytics'e gönder
-        // gtag('event', 'ad_click', { ad_type: adType });
+        // Google Analytics tracking
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'ad_click', {
+                'ad_type': adType,
+                'page_type': this.isSeriesDetailPage ? 'series_detail' : 'other'
+            });
+        }
     }
 
     // AdSense entegrasyonu için hazır fonksiyonlar
     loadAdSense() {
-        // AdSense script'ini yükle
-        const script = document.createElement('script');
-        script.async = true;
-        script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX';
-        script.crossOrigin = 'anonymous';
-        document.head.appendChild(script);
+        // Google AdSense script'i zaten head'de yüklü
+        // AdSense reklamlarını başlat
+        if (window.adsbygoogle) {
+            const adsenseElements = document.querySelectorAll('.adsbygoogle');
+            adsenseElements.forEach(ad => {
+                try {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                } catch (e) {
+                    console.warn('AdSense yükleme hatası:', e);
+                }
+            });
+            console.log(`📢 ${adsenseElements.length} AdSense reklamı yüklendi`);
+        }
     }
 
     replaceWithAdSense(containerId, adSlot, adFormat = 'auto') {
         const container = document.getElementById(containerId);
-        if (container) {
-            container.innerHTML = `
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                     data-ad-slot="${adSlot}"
-                     data-ad-format="${adFormat}"></ins>
-            `;
-            
-            // AdSense'i başlat
+        if (!container) return;
+        
+        container.innerHTML = `
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="${adSlot}"
+                 data-ad-format="${adFormat}"
+                 data-full-width-responsive="true"></ins>
+        `;
+        
+        if (window.adsbygoogle) {
             (adsbygoogle = window.adsbygoogle || []).push({});
         }
     }
 
     // A/B Test için reklam pozisyonları
     runAdPositionTest() {
-        const testGroup = Math.random() < 0.5 ? 'A' : 'B';
+        console.log('🧪 Reklam pozisyon testi başlatılıyor...');
         
-        if (testGroup === 'B') {
-            // B grubunda farklı reklam pozisyonları
-            const headerBanner = document.querySelector('.ad-header-banner');
-            if (headerBanner) {
-                headerBanner.style.position = 'sticky';
-                headerBanner.style.top = '0';
-                headerBanner.style.zIndex = '999';
-            }
-        }
+        const testPositions = [
+            'header-banner',
+            'content-between',
+            'sidebar-top',
+            'sidebar-middle',
+            'sidebar-bottom',
+            'footer-banner'
+        ];
         
-        console.log(`🧪 A/B Test Grubu: ${testGroup}`);
+        testPositions.forEach(position => {
+            console.log(`📍 Test pozisyonu: ${position}`);
+        });
     }
 
     // Test amaçlı cookie temizleme (console'dan çağırılabilir)
     clearAdCookies() {
-        this.setCookie('filmdunyasi_popup_shown', '', -1);
-        this.setCookie('filmdunyasi_exit_intent_shown', '', -1);
-        console.log('🧹 Reklam cookie\'leri temizlendi - Popup\'lar tekrar gösterilecek');
-        this.logCookieStatus();
+        document.cookie = 'popupShownToday=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        document.cookie = 'exitIntentShownToday=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        console.log('🗑️ Reklam çerezleri temizlendi');
     }
 
     // Test amaçlı hemen popup göster (console'dan çağırılabilir)
     forceShowPopup() {
-        console.log('🧪 Test amaçlı popup gösteriliyor...');
+        this.popupShown = false;
         this.showPopupAd();
     }
 
     // Reklam çoğaltma fonksiyonu - Test için (console'dan çağırılabilir)
     multiplyAds(count = 3) {
-        console.log(`🔄 ${count} adet reklam çoğaltılıyor...`);
+        console.log(`🔢 Reklamlar ${count} katına çıkarılıyor...`);
         
-        const headerBanner = document.querySelector('.ad-header-banner');
-        const bottomBanner = document.querySelector('.ad-bottom-banner');
+        const existingAds = document.querySelectorAll('.ad-container:not(.ad-sticky-left):not(.ad-sticky-right)');
         
-        if (headerBanner) {
-            for (let i = 1; i <= count; i++) {
-                const clone = headerBanner.cloneNode(true);
-                clone.querySelector('.ad-text').textContent = `🎬 Çoğaltılmış Reklam ${i} 🎬`;
-                headerBanner.parentNode.insertBefore(clone, headerBanner.nextSibling);
+        existingAds.forEach(ad => {
+            for (let i = 1; i < count; i++) {
+                const clone = ad.cloneNode(true);
+                clone.style.marginTop = '20px';
+                ad.parentNode.insertBefore(clone, ad.nextSibling);
             }
-        }
+        });
         
-        if (bottomBanner) {
-            for (let i = 1; i <= count; i++) {
-                const clone = bottomBanner.cloneNode(true);
-                clone.querySelector('.ad-text').textContent = `🎯 Çoğaltılmış Alt Reklam ${i} 🎯`;
-                bottomBanner.parentNode.insertBefore(clone, bottomBanner.nextSibling);
-            }
-        }
-        
-        console.log(`✅ Reklamlar çoğaltıldı! Sayfa yüksekliği otomatik arttı.`);
-        console.log(`📏 Yeni sayfa yüksekliği: ${document.body.scrollHeight}px`);
-        console.log(`💡 Kullanım: adManager.clearMultipliedAds() ile temizleyebilirsiniz`);
+        console.log(`✅ ${existingAds.length * count} reklam aktif`);
     }
 
     // Çoğaltılmış reklamları temizle (console'dan çağırılabilir)
     clearMultipliedAds() {
-        const allAds = document.querySelectorAll('.ad-header-banner, .ad-bottom-banner');
-        let removedCount = 0;
+        const allAds = document.querySelectorAll('.ad-container');
+        const originalAds = [];
         
-        allAds.forEach((ad, index) => {
-            const text = ad.querySelector('.ad-text');
-            if (text && text.textContent.includes('Çoğaltılmış')) {
+        allAds.forEach(ad => {
+            if (!originalAds.some(orig => orig.className === ad.className)) {
+                originalAds.push(ad);
+            } else {
                 ad.remove();
-                removedCount++;
             }
         });
         
-        console.log(`🗑️ ${removedCount} adet çoğaltılmış reklam temizlendi`);
-        console.log(`📏 Yeni sayfa yüksekliği: ${document.body.scrollHeight}px`);
+        console.log('🧹 Çoğaltılmış reklamlar temizlendi');
     }
 }
 
@@ -425,31 +438,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Lazy loading için intersection observer
 function setupLazyAdLoading() {
-    const lazyAds = document.querySelectorAll('.ad-container[data-lazy]');
+    const lazyAds = document.querySelectorAll('.ad-container[data-lazy="true"]');
     
-    const adObserver = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const ad = entry.target;
-                // Lazy reklam yükle
-                loadLazyAd(ad);
-                adObserver.unobserve(ad);
+                loadLazyAd(entry.target);
+                observer.unobserve(entry.target);
             }
         });
+    }, {
+        rootMargin: '100px'
     });
-
-    lazyAds.forEach(ad => adObserver.observe(ad));
+    
+    lazyAds.forEach(ad => observer.observe(ad));
 }
 
 function loadLazyAd(adElement) {
-    // Lazy reklam yükleme mantığı
-    console.log('🔄 Lazy reklam yükleniyor...');
-    
-    // Placeholder'ı gerçek reklamla değiştir
-    setTimeout(() => {
-        adElement.classList.add('loaded');
-        console.log('✅ Lazy reklam yüklendi');
-    }, 1000);
+    const adContent = adElement.querySelector('.ad-content');
+    if (adContent && adContent.dataset.adSrc) {
+        const img = document.createElement('img');
+        img.src = adContent.dataset.adSrc;
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        adContent.appendChild(img);
+        
+        adElement.removeAttribute('data-lazy');
+    }
 }
 
 // Reklam blocker tespiti
@@ -463,23 +479,42 @@ function detectAdBlocker() {
     
     setTimeout(() => {
         if (testAd.offsetHeight === 0) {
-            console.log('🚫 AdBlocker tespit edildi');
             showAdBlockerMessage();
+            adManager.setCookie('adBlockerDetected', 'true');
         }
         document.body.removeChild(testAd);
     }, 100);
 }
 
 function showAdBlockerMessage() {
-    const messageHTML = `
-        <div style="position: fixed; top: 0; left: 0; width: 100%; background: #e50914; color: white; padding: 10px; text-align: center; z-index: 10001;">
-            <p>🚫 Reklam engelleyici tespit edildi. Sitemizi desteklemek için lütfen reklam engelleyiciyi kapatın.</p>
-            <button onclick="this.parentElement.remove()" style="background: white; color: #e50914; border: none; padding: 5px 10px; border-radius: 3px; margin-left: 10px;">
-                Kapat
-            </button>
-        </div>
+    console.log('🚫 AdBlocker tespit edildi');
+    
+    const message = document.createElement('div');
+    message.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #e50914;
+        color: white;
+        padding: 15px;
+        border-radius: 8px;
+        z-index: 10000;
+        max-width: 300px;
+        font-size: 14px;
     `;
-    document.body.insertAdjacentHTML('afterbegin', messageHTML);
+    message.innerHTML = `
+        <strong>🎬 Film Dünyası</strong><br>
+        Reklam engelleyici tespit edildi. Sitemizi desteklemek için lütfen reklam engelleyiciyi kapatın.
+        <button onclick="this.parentElement.remove()" style="float: right; background: none; border: none; color: white; cursor: pointer; margin-left: 10px;">&times;</button>
+    `;
+    
+    document.body.appendChild(message);
+    
+    setTimeout(() => {
+        if (message.parentElement) {
+            message.remove();
+        }
+    }, 10000);
 }
 
 // Sayfa yüklendiğinde AdBlocker kontrolü

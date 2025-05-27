@@ -57,6 +57,37 @@
     transform: scale(1.02);
 }
 
+/* ===== SERIES DETAIL SAYFA ÖZEL STİLLERİ ===== */
+#series-detail .adsense-container {
+    margin: 25px 0;
+    padding: 0 15px;
+}
+
+#series-detail .ad-header-banner {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+#series-detail .ad-large-banner {
+    margin: 40px auto;
+    clear: both;
+}
+
+#series-detail .ad-content-between {
+    margin: 35px auto;
+    clear: both;
+}
+
+#series-detail .movie-sidebar .adsense-container {
+    margin: 25px 0;
+}
+
+#series-detail .movie-sidebar .ad-sidebar {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto 25px;
+}
+
 /* ===== HEADER BANNER (Leaderboard 600x70) ===== */
 .ad-header-banner {
     width: 100%;
@@ -414,6 +445,16 @@
         margin-top: 25px; /* Header'dan daha fazla uzaklık */
         z-index: 1; /* Header'ın altında kalması garantisi */
     }
+    
+    /* Series Detail Özel Kurallar */
+    #series-detail .ad-sticky-left,
+    #series-detail .ad-sticky-right {
+        display: block;
+    }
+    
+    #series-detail .movie-content-grid {
+        position: relative;
+    }
 }
 
 /* Tablet */
@@ -431,6 +472,15 @@
         width: 100%;
         max-width: 300px;
         margin: 15px auto;
+    }
+    
+    /* Series Detail Tablet Kuralları */
+    #series-detail .ad-large-banner {
+        margin: 30px auto;
+    }
+    
+    #series-detail .movie-sidebar .ad-sidebar {
+        max-width: 280px;
     }
 }
 
@@ -487,6 +537,38 @@
         padding: 15px;
         margin: 20px;
     }
+    
+    .ad-sticky-left,
+    .ad-sticky-right {
+        display: none;
+    }
+    
+    /* Series Detail Mobile Kuralları */
+    #series-detail .adsense-container {
+        margin: 20px 0;
+        padding: 0 10px;
+    }
+    
+    #series-detail .ad-header-banner {
+        margin-top: 15px;
+        margin-bottom: 20px;
+    }
+    
+    #series-detail .ad-large-banner {
+        margin: 25px auto;
+    }
+    
+    #series-detail .ad-content-between {
+        margin: 25px auto;
+    }
+    
+    #series-detail .movie-sidebar .adsense-container {
+        margin: 20px 0;
+    }
+    
+    #series-detail .movie-sidebar .ad-sidebar {
+        height: 180px;
+    }
 }
 
 /* Küçük Mobil */
@@ -509,6 +591,22 @@
     .ad-popup-content {
         width: 95%;
         padding: 12px;
+    }
+    
+    /* Series Detail Küçük Mobile Kuralları */
+    #series-detail .adsense-container {
+        padding: 0 5px;
+    }
+    
+    #series-detail .ad-header-banner,
+    #series-detail .ad-content-between,
+    #series-detail .ad-large-banner {
+        max-width: 300px;
+    }
+    
+    #series-detail .movie-sidebar .ad-sidebar {
+        height: 160px;
+        max-width: 280px;
     }
 }
 
@@ -550,6 +648,41 @@
 .adsbygoogle {
     display: block;
     margin: 0 auto;
+}
+
+/* ===== SERIES DETAIL ADSENSE ÖZEL STİLLERİ ===== */
+#series-detail .adsense-container {
+    background: rgba(26, 26, 26, 0.3);
+    border: 1px solid rgba(51, 51, 51, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+#series-detail .adsense-label {
+    color: #888;
+    font-size: 9px;
+    margin-bottom: 8px;
+}
+
+#series-detail .movie-sidebar .adsense-container {
+    background: rgba(26, 26, 26, 0.7);
+    border: 1px solid #333;
+    margin: 20px 0;
+}
+
+#series-detail .movie-sidebar .adsense-label {
+    color: #999;
+}
+
+/* Native reklam özel stilleri */
+#series-detail .ad-native {
+    background: rgba(26, 26, 26, 0.9);
+    border: 1px solid rgba(229, 9, 20, 0.3);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+#series-detail .ad-native:hover {
+    border-color: rgba(229, 9, 20, 0.6);
+    box-shadow: 0 4px 20px rgba(229, 9, 20, 0.2);
 }
 
 /* ===== DARK THEME UYUMU ===== */
