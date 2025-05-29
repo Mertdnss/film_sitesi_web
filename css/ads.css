@@ -205,8 +205,10 @@
     border-radius: 35px;
     overflow: hidden;
     border: 2px solid #333;
-    display: block; /* Block display ile yer kaplasın */
+    display: block;
+    position: static;
     box-sizing: border-box;
+    clear: both;
 }
 
 .ad-bottom-banner .ad-content {
@@ -244,31 +246,23 @@
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 728 90"><rect width="728" height="90" fill="%23000"/><text x="364" y="45" text-anchor="middle" fill="%23e50914" font-family="Arial" font-size="13" font-weight="bold">🎬 FOOTER REKLAM ALANI 728x90 🎬</text></svg>') center/cover;
 }
 
-/* ===== STICKY REKLAMLAR ===== */
-.ad-sticky-left,
-.ad-sticky-right {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 160px;
-    height: 600px;
-    z-index: 999; /* Header'ın altında kalması için z-index düşürüldü */
-    background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+/* ===== YAN REKLAMLAR (Eski Sticky Yerine İçerik Arası) ===== */
+.ad-side-content {
+    width: 100%;
+    max-width: 300px;
+    height: 250px;
+    margin: 25px auto;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
     border: 1px solid #333;
     border-radius: 8px;
+    display: block;
+    position: static;
+    box-sizing: border-box;
+    clear: both;
 }
 
-.ad-sticky-left {
-    left: 10px;
-}
-
-.ad-sticky-right {
-    right: 10px;
-}
-
-.ad-sticky-left .ad-content,
-.ad-sticky-right .ad-content {
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 600"><rect width="160" height="600" fill="%23111"/><text x="80" y="290" text-anchor="middle" fill="%23e50914" font-family="Arial" font-size="10" font-weight="bold" transform="rotate(-90 80 290)">🎭 STICKY REKLAM 160x600</text></svg>') center/cover;
+.ad-side-content .ad-content {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 250"><rect width="300" height="250" fill="%23111"/><circle cx="150" cy="125" r="40" fill="%23e50914" opacity="0.3"/><text x="150" y="115" text-anchor="middle" fill="%23e50914" font-family="Arial" font-size="11" font-weight="bold">🎭 YAN REKLAM</text><text x="150" y="135" text-anchor="middle" fill="%23fff" font-family="Arial" font-size="10">300x250</text></svg>') center/cover;
 }
 
 /* ===== NATIVE REKLAMLAR ===== */
@@ -323,46 +317,6 @@
     line-height: 1.4;
 }
 
-/* ===== POPUP REKLAM ===== */
-.ad-popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    z-index: 10000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-}
-
-.ad-popup-content {
-    background: #1a1a1a;
-    border: 2px solid #e50914;
-    border-radius: 12px;
-    padding: 20px;
-    max-width: 500px;
-    width: 90%;
-    position: relative;
-    animation: popupSlideIn 0.3s ease-out;
-}
-
-.ad-popup-close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: #e50914;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-}
-
 /* ===== ANİMASYONLAR ===== */
 @keyframes gradientShift {
     0% { background-position: 0% 50%; }
@@ -389,23 +343,6 @@
     33% { background-position: 100% 0%; }
     66% { background-position: 100% 100%; }
     100% { background-position: 0% 0%; }
-}
-
-@keyframes popupSlideIn {
-    from {
-        opacity: 0;
-        transform: scale(0.8) translateY(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-@keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0.4); }
-    70% { box-shadow: 0 0 0 10px rgba(229, 9, 20, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0); }
 }
 
 @keyframes colorfulText {
@@ -436,6 +373,12 @@
     }
 }
 
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(229, 9, 20, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0); }
+}
+
 /* ===== RESPONSİVE TASARIM ===== */
 
 /* Masaüstü için header banner özel kuralları */
@@ -446,79 +389,72 @@
         z-index: 1; /* Header'ın altında kalması garantisi */
     }
     
-    /* Series Detail Özel Kurallar */
-    #series-detail .ad-sticky-left,
-    #series-detail .ad-sticky-right {
-        display: block;
-    }
-    
+    /* Series Detail Masaüstü kuralları - sticky reklamlar kaldırıldı */
     #series-detail .movie-content-grid {
-        position: relative;
+        padding-left: 0; /* Sol padding kaldırıldı */
+        padding-right: 0; /* Sağ padding kaldırıldı */
     }
 }
 
-/* Tablet */
 @media (max-width: 1024px) {
-    .ad-sticky-right {
-        display: none;
-    }
-    
     .ad-large-banner {
         max-width: 728px;
-        height: 90px;
     }
     
-    .ad-sidebar {
-        width: 100%;
-        max-width: 300px;
-        margin: 15px auto;
+    .ad-sidebar,
+    .ad-side-content {
+        max-width: 280px;
+        height: 200px;
     }
     
-    /* Series Detail Tablet Kuralları */
+    /* Series Detail Tablet kuralları */
     #series-detail .ad-large-banner {
-        margin: 30px auto;
+        max-width: 728px;
     }
     
     #series-detail .movie-sidebar .ad-sidebar {
         max-width: 280px;
+        height: 200px;
     }
 }
 
-/* Mobil */
 @media (max-width: 768px) {
     .ad-header-banner,
-    .ad-bottom-banner {
-        max-width: 300px;
-        height: 50px;
-        border-radius: 25px; /* Mobilde daha küçük oval */
+    .ad-bottom-banner,
+    .ad-content-between,
+    .ad-footer-banner {
+        max-width: 100%;
+        margin-left: 10px;
+        margin-right: 10px;
     }
     
     .ad-header-banner .ad-text,
     .ad-bottom-banner .ad-text {
-        font-size: 12px;
+        font-size: 14px;
         letter-spacing: 1px;
     }
     
     .ad-content-between,
     .ad-footer-banner {
-        max-width: 320px;
-        height: 50px;
+        height: 70px;
     }
     
     .ad-large-banner {
-        max-width: 320px;
-        height: 100px;
+        max-width: 100%;
+        height: 180px;
+        margin: 20px 10px;
     }
     
-    .ad-sidebar {
-        width: 100%;
-        max-width: 300px;
-        height: 200px;
+    .ad-sidebar,
+    .ad-side-content {
+        max-width: 100%;
+        height: 150px;
+        margin: 15px 10px;
     }
     
     .ad-native {
+        margin: 15px 10px;
         padding: 12px;
-        margin: 15px 0;
     }
     
     .ad-native-content {
@@ -531,16 +467,6 @@
         width: 60px;
         height: 60px;
         font-size: 20px;
-    }
-    
-    .ad-popup-content {
-        padding: 15px;
-        margin: 20px;
-    }
-    
-    .ad-sticky-left,
-    .ad-sticky-right {
-        display: none;
     }
     
     /* Series Detail Mobile Kuralları */
@@ -586,11 +512,6 @@
     
     .ad-native-description {
         font-size: 12px;
-    }
-    
-    .ad-popup-content {
-        width: 95%;
-        padding: 12px;
     }
     
     /* Series Detail Küçük Mobile Kuralları */
@@ -716,8 +637,7 @@
 /* ===== PRINT MEDIA ===== */
 @media print {
     .ad-container,
-    .ad-sticky-right,
-    .ad-popup-overlay {
+    .adsense-container {
         display: none !important;
     }
 } 
