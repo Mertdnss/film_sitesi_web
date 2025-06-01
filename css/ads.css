@@ -423,9 +423,20 @@
     .ad-bottom-banner,
     .ad-content-between,
     .ad-footer-banner {
-        max-width: 100%;
-        margin-left: 10px;
-        margin-right: 10px;
+        max-width: 95%; /* %100'den %95'e düşürüldü */
+        margin: 15px auto; /* Merkezi hizalama için auto */
+        padding: 0; /* Padding kaldırıldı */
+        left: 0; /* Sol konum sıfırlandı */
+        right: 0; /* Sağ konum sıfırlandı */
+    }
+    
+    /* Adsense container'lar için özel kurallar */
+    .adsense-container {
+        margin: 20px auto; /* Ortalama */
+        padding: 0 15px; /* Daha fazla yan padding */
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center; /* İçeriği ortala */
     }
     
     .ad-header-banner .ad-text,
@@ -436,25 +447,28 @@
     
     .ad-content-between,
     .ad-footer-banner {
-        height: 70px;
+        height: 60px; /* 70px'den 60px'e düşürüldü */
     }
     
     .ad-large-banner {
-        max-width: 100%;
-        height: 180px;
-        margin: 20px 10px;
+        max-width: 95%; /* %100'den %95'e düşürüldü */
+        height: 160px; /* 180px'den 160px'e düşürüldü */
+        margin: 20px auto; /* Auto margin ile ortalama */
+        padding: 0;
     }
     
     .ad-sidebar,
     .ad-side-content {
-        max-width: 100%;
-        height: 150px;
-        margin: 15px 10px;
+        max-width: 90%; /* %100'den %90'a düşürüldü */
+        height: 140px; /* 150px'den 140px'a düşürüldü */
+        margin: 15px auto; /* Auto margin ile ortalama */
+        padding: 0;
     }
     
     .ad-native {
-        margin: 15px 10px;
+        margin: 15px auto; /* Auto margin ile ortalama */
         padding: 12px;
+        max-width: 95%; /* %100'den %95'e düşürüldü */
     }
     
     .ad-native-content {
@@ -464,36 +478,44 @@
     }
     
     .ad-native-image {
-        width: 60px;
-        height: 60px;
-        font-size: 20px;
+        width: 50px; /* 60px'den 50px'e düşürüldü */
+        height: 50px; /* 60px'den 50px'e düşürüldü */
+        font-size: 18px; /* 20px'den 18px'e düşürüldü */
+        margin: 0 auto; /* Ortalama */
     }
     
     /* Series Detail Mobile Kuralları */
     #series-detail .adsense-container {
-        margin: 20px 0;
-        padding: 0 10px;
+        margin: 20px auto;
+        padding: 0 15px; /* Daha fazla padding */
+        text-align: center;
     }
     
     #series-detail .ad-header-banner {
-        margin-top: 15px;
-        margin-bottom: 20px;
+        margin: 15px auto 20px auto;
+        max-width: 95%;
     }
     
     #series-detail .ad-large-banner {
         margin: 25px auto;
+        max-width: 95%;
     }
     
     #series-detail .ad-content-between {
         margin: 25px auto;
+        max-width: 95%;
     }
     
     #series-detail .movie-sidebar .adsense-container {
-        margin: 20px 0;
+        margin: 20px auto;
+        text-align: center;
+        padding: 0 15px;
     }
     
     #series-detail .movie-sidebar .ad-sidebar {
-        height: 180px;
+        height: 160px; /* 180px'den 160px'e düşürüldü */
+        margin: 0 auto;
+        max-width: 90%;
     }
 }
 
@@ -506,28 +528,86 @@
         right: 5px;
     }
     
+    /* Tüm reklamlar için merkezi hizalama */
+    .adsense-container {
+        margin: 15px auto;
+        padding: 0 20px; /* Daha fazla padding */
+        text-align: center;
+        width: 100%;
+    }
+    
+    .ad-container {
+        margin: 0 auto;
+        max-width: 90%; /* %100'den %90'a düşürüldü */
+    }
+    
+    .ad-header-banner,
+    .ad-bottom-banner {
+        height: 50px; /* Daha küçük yükseklik */
+        max-width: 90%;
+    }
+    
+    .ad-content-between,
+    .ad-footer-banner {
+        height: 50px; /* Daha küçük yükseklik */
+        max-width: 90%;
+    }
+    
+    .ad-large-banner {
+        height: 120px; /* Daha küçük yükseklik */
+        max-width: 90%;
+    }
+    
+    .ad-sidebar,
+    .ad-side-content {
+        height: 120px; /* Daha küçük yükseklik */
+        max-width: 85%;
+    }
+    
+    .ad-native {
+        max-width: 90%;
+        padding: 10px; /* Daha az padding */
+    }
+    
+    .ad-native-image {
+        width: 40px; /* Daha küçük */
+        height: 40px; /* Daha küçük */
+        font-size: 16px; /* Daha küçük font */
+    }
+    
     .ad-native-title {
-        font-size: 14px;
+        font-size: 13px; /* Daha küçük font */
     }
     
     .ad-native-description {
-        font-size: 12px;
+        font-size: 11px; /* Daha küçük font */
     }
     
     /* Series Detail Küçük Mobile Kuralları */
     #series-detail .adsense-container {
-        padding: 0 5px;
+        padding: 0 20px; /* Daha fazla padding */
+        margin: 15px auto;
+        text-align: center;
     }
     
     #series-detail .ad-header-banner,
     #series-detail .ad-content-between,
     #series-detail .ad-large-banner {
-        max-width: 300px;
+        max-width: 90%; /* Daha küçük */
+        margin: 0 auto;
     }
     
     #series-detail .movie-sidebar .ad-sidebar {
-        height: 160px;
-        max-width: 280px;
+        height: 120px; /* Daha küçük yükseklik */
+        max-width: 85%; /* Daha küçük genişlik */
+        margin: 0 auto;
+    }
+    
+    /* Mobile banner özel kuralları */
+    .ad-mobile-banner {
+        margin: 15px auto;
+        max-width: 90%; /* Daha küçük */
+        height: 40px; /* Daha küçük yükseklik */
     }
 }
 
