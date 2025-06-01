@@ -79,188 +79,262 @@ document.addEventListener('DOMContentLoaded', function() {
         startSlideshow();
     }
 
-    // Movie and Series Sliders
+    // Movie and Series Sliders - Mobile Optimized
     const initializeSlider = (sliderSelector) => {
         const slider = document.querySelector(sliderSelector);
         if (!slider) return;
 
         const sliderContent = slider.querySelector('.slider-content');
         const sliderControls = slider.querySelector('.slider-controls');
-        const prevButton = sliderControls.querySelector('.slider-prev');
-        const nextButton = sliderControls.querySelector('.slider-next');
+        const prevButton = sliderControls?.querySelector('.slider-prev');
+        const nextButton = sliderControls?.querySelector('.slider-next');
         
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-        let startY;
-        let lastScrollPosition = 0;
-        let isAnimating = false; // Animasyon durumunu takip etmek için
-        const sensitivity = 1.2; // Scroll sensitivity
-        const cardWidth = sliderContent.querySelector('.movie-card').offsetWidth + 20; // card width + gap
+        if (!sliderContent || !prevButton || !nextButton) return;
         
-        // Check if slider is at the end - Manual kontrol için
-        function isAtEnd() {
-            return sliderContent.scrollWidth - sliderContent.scrollLeft <= sliderContent.clientWidth + 50;
+        let isAnimating = false;
+        let startX = 0;
+        let scrollLeft = 0;
+        let isDragging = false;
+        let startY = 0;
+        let rafId = null;
+        
+        // Mobile detection
+        const isMobile = window.innerWidth <= 768;
+        const isTouch = 'ontouchstart' in window;
+        
+        // Get card width for scrolling
+        function getCardWidth() {
+            const card = sliderContent.querySelector('.movie-card');
+            if (!card) return 250;
+            return card.offsetWidth + parseInt(getComputedStyle(sliderContent).gap || '20');
         }
         
-        // Check if slider is at the beginning - Manual kontrol için
+        // Smooth scroll with better performance
+        function smoothScrollTo(targetPosition, duration = 300) {
+            if (isAnimating) return;
+            
+            isAnimating = true;
+            const startPosition = sliderContent.scrollLeft;
+            const distance = targetPosition - startPosition;
+            let startTime = null;
+            
+            function animation(currentTime) {
+                if (startTime === null) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                const progress = Math.min(timeElapsed / duration, 1);
+                
+                // Easing function (ease-out)
+                const ease = 1 - Math.pow(1 - progress, 3);
+                
+                sliderContent.scrollLeft = startPosition + (distance * ease);
+                
+                if (progress < 1) {
+                    rafId = requestAnimationFrame(animation);
+                } else {
+                    isAnimating = false;
+                    rafId = null;
+                }
+            }
+            
+            rafId = requestAnimationFrame(animation);
+        }
+        
+        // Check scroll positions
         function isAtStart() {
-            return sliderContent.scrollLeft <= 50;
+            return sliderContent.scrollLeft <= 5;
         }
         
-        // Başa git
-        function goToStart() {
-            if (isAnimating) return; // Animasyon devam ediyorsa işlem yapma
-            
-            isAnimating = true;
-            sliderContent.scrollTo({
-                left: 0,
-                behavior: 'smooth'
-            });
-            
-            // Animasyon bittikten sonra bayrağı sıfırla
-            setTimeout(() => {
-                isAnimating = false;
-            }, 500);
+        function isAtEnd() {
+            const maxScroll = sliderContent.scrollWidth - sliderContent.clientWidth;
+            return sliderContent.scrollLeft >= maxScroll - 5;
         }
         
-        // Sona git
-        function goToEnd() {
-            if (isAnimating) return; // Animasyon devam ediyorsa işlem yapma
-            
-            isAnimating = true;
-            sliderContent.scrollTo({
-                left: sliderContent.scrollWidth - sliderContent.clientWidth,
-                behavior: 'smooth'
-            });
-            
-            // Animasyon bittikten sonra bayrağı sıfırla
-            setTimeout(() => {
-                isAnimating = false;
-            }, 500);
-        }
-        
-        // Click events for buttons
-        nextButton.addEventListener('click', () => {
-            if (isAnimating) return; // Animasyon devam ediyorsa işlem yapma
-            
-            if (isAtEnd()) {
-                goToStart();
-            } else {
-                isAnimating = true;
-                sliderContent.scrollBy({
-                    left: cardWidth * 3,
-                    behavior: 'smooth'
-                });
-                
-                // Animasyon bittikten sonra bayrağı sıfırla
-                setTimeout(() => {
-                    isAnimating = false;
-                }, 500);
+        // Get cards to scroll count based on screen size
+        function getScrollAmount() {
+            if (isMobile) {
+                return window.innerWidth <= 480 ? 1 : 2; // Very small screens: 1, mobile: 2
             }
-        });
+            return 3; // Desktop: 3 cards
+        }
         
-        prevButton.addEventListener('click', () => {
-            if (isAnimating) return; // Animasyon devam ediyorsa işlem yapma
+        // Next button functionality
+        function handleNext() {
+            if (isAnimating) return;
             
-            if (isAtStart()) {
-                goToEnd();
+            const cardWidth = getCardWidth();
+            const scrollAmount = getScrollAmount();
+            const targetScroll = sliderContent.scrollLeft + (cardWidth * scrollAmount);
+            const maxScroll = sliderContent.scrollWidth - sliderContent.clientWidth;
+            
+            if (targetScroll >= maxScroll) {
+                // Go to start if at end
+                smoothScrollTo(0);
             } else {
-                isAnimating = true;
-                sliderContent.scrollBy({
-                    left: -cardWidth * 3,
-                    behavior: 'smooth'
-                });
-                
-                // Animasyon bittikten sonra bayrağı sıfırla
-                setTimeout(() => {
-                    isAnimating = false;
-                }, 500);
+                smoothScrollTo(targetScroll);
             }
-        });
+        }
         
-        // Mouse events for drag scrolling
-        sliderContent.addEventListener('mousedown', (e) => {
-            if (isAnimating) return; // Animasyon devam ediyorsa işlem yapma
+        // Previous button functionality
+        function handlePrev() {
+            if (isAnimating) return;
             
-            isDown = true;
-            sliderContent.classList.add('grabbing');
-            startX = e.pageX - slider.offsetLeft;
+            const cardWidth = getCardWidth();
+            const scrollAmount = getScrollAmount();
+            const targetScroll = sliderContent.scrollLeft - (cardWidth * scrollAmount);
+            
+            if (targetScroll <= 0) {
+                // Go to end if at start
+                const maxScroll = sliderContent.scrollWidth - sliderContent.clientWidth;
+                smoothScrollTo(maxScroll);
+            } else {
+                smoothScrollTo(targetScroll);
+            }
+        }
+        
+        // Button event listeners
+        nextButton.addEventListener('click', handleNext);
+        prevButton.addEventListener('click', handlePrev);
+        
+        // Touch/Mouse drag functionality
+        function handleStart(clientX, clientY) {
+            if (isAnimating) {
+                if (rafId) {
+                    cancelAnimationFrame(rafId);
+                    isAnimating = false;
+                }
+            }
+            
+            isDragging = true;
+            startX = clientX;
+            startY = clientY;
             scrollLeft = sliderContent.scrollLeft;
-            lastScrollPosition = scrollLeft;
-        });
+            sliderContent.style.scrollBehavior = 'auto';
+        }
         
-        sliderContent.addEventListener('mouseleave', () => {
-            isDown = false;
-            sliderContent.classList.remove('grabbing');
-        });
-        
-        sliderContent.addEventListener('mouseup', (e) => {
-            isDown = false;
-            sliderContent.classList.remove('grabbing');
+        function handleMove(clientX, clientY) {
+            if (!isDragging) return;
             
-            // Kaydırma sona yakınsa ve fare bırakıldıysa, başa dön
-            if (isAtEnd() && scrollLeft !== sliderContent.scrollLeft) {
-                goToStart();
-            }
-            // Kaydırma başa yakınsa ve fare bırakıldıysa, sona git
-            else if (isAtStart() && scrollLeft !== sliderContent.scrollLeft) {
-                goToEnd();
-            }
-        });
-        
-        sliderContent.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            if (isAnimating) return; // Animasyon devam ediyorsa işlem yapma
+            const diffX = Math.abs(clientX - startX);
+            const diffY = Math.abs(clientY - startY);
             
-            e.preventDefault();
-            const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX) * sensitivity;
-            sliderContent.scrollLeft = scrollLeft - walk;
-        });
+            // Only scroll horizontally if movement is more horizontal than vertical
+            if (diffX > diffY) {
+                const walkX = (startX - clientX) * 1.5; // Scroll sensitivity
+                const newScrollLeft = scrollLeft + walkX;
+                
+                // Limit scroll boundaries
+                const maxScroll = sliderContent.scrollWidth - sliderContent.clientWidth;
+                sliderContent.scrollLeft = Math.max(0, Math.min(newScrollLeft, maxScroll));
+                
+                return true; // Prevent default
+            }
+            return false;
+        }
         
-        // Mobil dokunmatik olayları
+        function handleEnd() {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            sliderContent.style.scrollBehavior = 'smooth';
+            
+            // Snap to card if moved significantly
+            const cardWidth = getCardWidth();
+            const currentScroll = sliderContent.scrollLeft;
+            const cardIndex = Math.round(currentScroll / cardWidth);
+            const targetScroll = cardIndex * cardWidth;
+            const maxScroll = sliderContent.scrollWidth - sliderContent.clientWidth;
+            
+            // Ensure target is within bounds
+            const finalTarget = Math.max(0, Math.min(targetScroll, maxScroll));
+            
+            if (Math.abs(currentScroll - finalTarget) > 5) {
+                smoothScrollTo(finalTarget, 200);
+            }
+        }
+        
+        // Mouse events (desktop)
+        if (!isTouch) {
+            sliderContent.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                handleStart(e.clientX, e.clientY);
+                sliderContent.style.cursor = 'grabbing';
+            });
+            
+            sliderContent.addEventListener('mousemove', (e) => {
+                if (handleMove(e.clientX, e.clientY)) {
+                    e.preventDefault();
+                }
+            });
+            
+            sliderContent.addEventListener('mouseup', () => {
+                handleEnd();
+                sliderContent.style.cursor = 'grab';
+            });
+            
+            sliderContent.addEventListener('mouseleave', () => {
+                handleEnd();
+                sliderContent.style.cursor = 'grab';
+            });
+        }
+        
+        // Touch events (mobile)
+        let touchStartTime = 0;
+        
         sliderContent.addEventListener('touchstart', (e) => {
-            if (isAnimating) return; // Animasyon devam ediyorsa işlem yapma
-            
-            isDown = true;
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-            scrollLeft = sliderContent.scrollLeft;
-            lastScrollPosition = scrollLeft;
+            touchStartTime = Date.now();
+            const touch = e.touches[0];
+            handleStart(touch.clientX, touch.clientY);
         }, { passive: true });
         
-        sliderContent.addEventListener('touchend', (e) => {
-            isDown = false;
-            
-            // Kaydırma sona yakınsa ve dokunma bitti, başa dön
-            if (isAtEnd() && scrollLeft !== sliderContent.scrollLeft) {
-                goToStart();
+        sliderContent.addEventListener('touchmove', (e) => {
+            const touch = e.touches[0];
+            if (handleMove(touch.clientX, touch.clientY)) {
+                e.preventDefault();
             }
-            // Kaydırma başa yakınsa ve dokunma bitti, sona git
-            else if (isAtStart() && scrollLeft !== sliderContent.scrollLeft) {
-                goToEnd();
+        }, { passive: false });
+        
+        sliderContent.addEventListener('touchend', (e) => {
+            const touchEndTime = Date.now();
+            const touchDuration = touchEndTime - touchStartTime;
+            
+            // Quick swipe detection
+            if (touchDuration < 300 && Math.abs(startX - e.changedTouches[0].clientX) > 50) {
+                const direction = startX > e.changedTouches[0].clientX ? 'next' : 'prev';
+                if (direction === 'next') {
+                    handleNext();
+                } else {
+                    handlePrev();
+                }
+            } else {
+                handleEnd();
             }
         });
         
-        sliderContent.addEventListener('touchmove', (e) => {
-            if (!isDown) return;
-            if (isAnimating) return; // Animasyon devam ediyorsa işlem yapma
-            
-            const x = e.touches[0].clientX;
-            const y = e.touches[0].clientY;
-            
-            // Dikey kaydırmadan daha çok yatay kaydırma varsa sayfanın kaymasını engelle
-            const xDiff = Math.abs(x - startX);
-            const yDiff = Math.abs(y - startY);
-            
-            if (xDiff > yDiff) {
-                e.preventDefault();
+        // Resize handler
+        function handleResize() {
+            // Update mobile detection
+            const newIsMobile = window.innerWidth <= 768;
+            if (newIsMobile !== isMobile) {
+                // Re-initialize if screen size category changed
+                location.reload(); // Simple approach for this case
             }
-            
-            const walk = (startX - x) * sensitivity;
-            sliderContent.scrollLeft = scrollLeft + walk;
-        }, { passive: false });
+        }
+        
+        // Throttled resize listener
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(handleResize, 250);
+        });
+        
+        // Cleanup function
+        return () => {
+            if (rafId) {
+                cancelAnimationFrame(rafId);
+            }
+            nextButton.removeEventListener('click', handleNext);
+            prevButton.removeEventListener('click', handlePrev);
+        };
     };
     
     // Initialize both sliders
