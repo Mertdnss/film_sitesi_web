@@ -720,4 +720,72 @@
     .adsense-container {
         display: none !important;
     }
+}
+
+/* ===== GİF REKLAM STİLLERİ ===== */
+.ad-gif-container {
+    width: 100%;
+    height: auto;
+    margin: 10px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    transition: all 0.3s ease;
+}
+
+.ad-gif-container:hover {
+    border-color: #e50914;
+    box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3);
+    transform: translateY(-2px);
+}
+
+.ad-gif {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    border-radius: 6px;
+}
+
+.ad-gif-container:hover .ad-gif {
+    transform: scale(1.02);
+}
+
+/* Header Banner içindeki gif reklam düzenlemeleri */
+.ad-header-banner .ad-gif-container {
+    margin: 5px 0;
+    border-radius: 6px;
+    background: transparent;
+    border: none;
+}
+
+.ad-header-banner .ad-gif {
+    max-height: 60px;
+    border-radius: 4px;
+}
+
+/* Responsive gif düzenlemeleri */
+@media (max-width: 768px) {
+    .ad-gif-container {
+        margin: 8px 0;
+    }
+    
+    .ad-header-banner .ad-gif {
+        max-height: 45px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ad-gif-container {
+        margin: 5px 0;
+        border-radius: 4px;
+    }
+    
+    .ad-header-banner .ad-gif {
+        max-height: 35px;
+        border-radius: 3px;
+    }
 } 
