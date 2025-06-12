@@ -1,23 +1,55 @@
 /* ===== FILM DÜNYASı REKLAM SİSTEMİ ===== */
 
+/* ===== ÇOĞALTILAN HEADER REKLAM YAPISI ===== */
+.header-ads-section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 0;
+    display: block;
+    position: relative;
+    clear: both;
+    box-sizing: border-box;
+}
+
+.header-ads-section .adsense-container {
+    margin: 8px auto; /* Çoğaltma için daha küçük marjin */
+    padding: 6px;
+    display: block;
+    clear: both;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.header-ads-section .ad-container {
+    margin: 8px auto; /* Çoğaltma için daha küçük marjin */
+    display: block;
+    clear: both;
+    position: relative;
+    float: none;
+    box-sizing: border-box;
+}
+
 /* Genel Reklam Container Stilleri */
 .ad-container {
-    display: block; /* flex yerine block yapıldı */
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    border: 1px solid #333;
-    border-radius: 8px;
+    display: block; /* Block display - dikeyde sıralanır */
+    background: transparent;
+    border: none;
+    border-radius: 0;
     overflow: hidden;
     position: relative;
     transition: all 0.3s ease;
-    margin: 15px auto; /* Ortalama için auto eklendi */
+    margin: 10px auto; /* Marjin küçültüldü çoğaltma için */
     z-index: 1;
     width: 100%; /* Genişlik belirtildi */
     box-sizing: border-box; /* Padding ve border dahil */
+    clear: both; /* Önceki elementlerden etkilenmesin */
+    float: none; /* Normal akışta yer kaplasın */
 }
 
 .ad-container:hover {
-    border-color: #e50914;
-    box-shadow: 0 4px 15px rgba(229, 9, 20, 0.2);
+    /* Hover efektleri kaldırıldı */
 }
 
 .ad-container::before {
@@ -93,17 +125,17 @@
     width: 100%;
     max-width: 600px;
     height: 70px;
-    margin: 20px auto 20px;
-    background: linear-gradient(45deg, #1a1a1a, #2d2d2d, #1a1a1a);
-    background-size: 200% 200%;
-    animation: gradientShift 4s ease infinite;
-    position: static; /* relative yerine static - fiziksel yer kaplasın */
+    margin: 15px auto 15px; /* Marjinleri küçültüldi çoğaltma için */
+    background: transparent;
+    position: static; /* fiziksel yer kaplasın */
     z-index: 1;
-    border-radius: 35px;
+    border-radius: 0;
     overflow: hidden;
-    border: 2px solid #333;
+    border: none;
     display: block; /* Block display ile yer kaplasın */
     box-sizing: border-box;
+    clear: both; /* Önceki float elementlerden etkilenmesin */
+    float: none; /* Float yok, normal akışta yer kaplasın */
 }
 
 .ad-header-banner .ad-content {
@@ -129,7 +161,7 @@
     width: 300px;
     height: 250px;
     margin-bottom: 20px;
-    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 50%, #2d2d2d 100%);
+    background: transparent;
 }
 
 .ad-sidebar .ad-content {
@@ -142,7 +174,7 @@
     max-width: 320px;
     height: 50px;
     margin: 15px auto;
-    background: linear-gradient(90deg, #1a1a1a, #e50914, #1a1a1a);
+    background: transparent;
     background-size: 200% 100%;
     animation: slideGradient 3s ease infinite;
 }
@@ -157,7 +189,7 @@
     max-width: 970px;
     height: 250px;
     margin: 25px auto;
-    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #0f0f0f 100%);
+    background: transparent;
     background-size: 400% 400%;
     animation: megaGradient 6s ease infinite;
     display: block;
@@ -176,7 +208,7 @@
     max-width: 728px;
     height: 90px;
     margin: 30px auto;
-    background: linear-gradient(45deg, #1a1a1a, #e50914, #1a1a1a);
+    background: transparent;
     background-size: 300% 300%;
     animation: contentAdShift 5s ease infinite;
     border: 2px solid transparent;
@@ -197,7 +229,7 @@
     max-width: 600px;
     height: 70px;
     margin: 30px auto 20px;
-    background: linear-gradient(45deg, #1a1a1a, #2d2d2d, #1a1a1a);
+    background: transparent;
     background-size: 200% 200%;
     animation: gradientShift 4s ease infinite;
     position: static; /* relative yerine static - fiziksel yer kaplasın */
@@ -235,7 +267,7 @@
     max-width: 728px;
     height: 90px;
     margin: 20px auto 0;
-    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 50%, #2d2d2d 100%);
+    background: transparent;
     display: block;
     position: static;
     box-sizing: border-box;
@@ -252,9 +284,9 @@
     max-width: 300px;
     height: 250px;
     margin: 25px auto;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
-    border: 1px solid #333;
-    border-radius: 8px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
     display: block;
     position: static;
     box-sizing: border-box;
@@ -267,9 +299,9 @@
 
 /* ===== NATIVE REKLAMLAR ===== */
 .ad-native {
-    background: rgba(26, 26, 26, 0.95);
-    border: 1px solid #333;
-    border-radius: 12px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
     padding: 15px;
     margin: 20px auto;
     backdrop-filter: blur(10px);
@@ -432,11 +464,14 @@
     
     /* Adsense container'lar için özel kurallar */
     .adsense-container {
-        margin: 20px auto; /* Ortalama */
+        margin: 12px auto; /* Marjin küçültüldü çoğaltma için */
         padding: 0 15px; /* Daha fazla yan padding */
         width: 100%;
         box-sizing: border-box;
         text-align: center; /* İçeriği ortala */
+        display: block; /* Block display - dikeyde sıralanır */
+        clear: both; /* Üst üste binme önlendi */
+        position: relative;
     }
     
     .ad-header-banner .ad-text,
@@ -530,10 +565,14 @@
     
     /* Tüm reklamlar için merkezi hizalama */
     .adsense-container {
-        margin: 15px auto;
+        margin: 10px auto; /* Marjin küçültüldü çoğaltma için */
         padding: 0 20px; /* Daha fazla padding */
         text-align: center;
         width: 100%;
+        display: block; /* Block display - dikeyde sıralanır */
+        clear: both; /* Üst üste binme önlendi */
+        position: relative;
+        box-sizing: border-box;
     }
     
     .ad-container {
@@ -630,11 +669,16 @@
 /* ===== ADSENSE UYUMLU SINIFLAR ===== */
 .adsense-container {
     text-align: center;
-    margin: 20px 0;
-    padding: 10px;
+    margin: 12px 0; /* Marjin küçültüldü çoğaltma için */
+    padding: 8px; /* Padding küçültüldü */
     background: rgba(26, 26, 26, 0.5);
     border-radius: 8px;
     border: 1px solid #333;
+    display: block; /* Block display - dikeyde sıralanır */
+    clear: both; /* Önceki elementlerden etkilenmesin */
+    position: relative; /* Normal akışta kalır */
+    box-sizing: border-box;
+    width: 100%; /* Tam genişlik */
 }
 
 .adsense-label {
@@ -689,13 +733,13 @@
 /* ===== DARK THEME UYUMU ===== */
 @media (prefers-color-scheme: dark) {
     .ad-container {
-        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-        border-color: #444;
+        background: transparent;
+        border-color: transparent;
     }
     
     .ad-native {
-        background: rgba(10, 10, 10, 0.95);
-        border-color: #444;
+        background: transparent;
+        border-color: transparent;
     }
 }
 
@@ -730,8 +774,8 @@
     border-radius: 8px;
     overflow: hidden;
     position: relative;
-    background: #1a1a1a;
-    border: 1px solid #333;
+    background: transparent;
+    border: none;
     transition: all 0.3s ease;
 }
 
@@ -788,4 +832,49 @@
         max-height: 35px;
         border-radius: 3px;
     }
+    
+    /* Header ads section responsive kuralları */
+    .header-ads-section {
+        padding: 8px 0;
+    }
+    
+    .header-ads-section .adsense-container {
+        margin: 5px auto;
+        padding: 3px;
+    }
+    
+    .header-ads-section .ad-container {
+        margin: 5px auto;
+    }
 } 
+
+/* ===== HEADER ADS SECTION İÇİN EK RESPONSIVE KURALLAR ===== */
+@media (max-width: 768px) {
+    .header-ads-section {
+        padding: 12px 0;
+    }
+    
+    .header-ads-section .adsense-container {
+        margin: 6px auto;
+        padding: 4px;
+    }
+    
+    .header-ads-section .ad-container {
+        margin: 6px auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-ads-section {
+        padding: 10px 0;
+    }
+    
+    .header-ads-section .adsense-container {
+        margin: 4px auto;
+        padding: 2px;
+    }
+    
+    .header-ads-section .ad-container {
+        margin: 4px auto;
+    }
+}
